@@ -18,3 +18,10 @@ $messages['en'] = array(
 $messages['qqq'] = array(
 	'textextracts-desc' => '{{desc}}',
 );
+
+/** German (Deutsch)
+ * @author Metalhead64
+ */
+$messages['de'] = array(
+	'textextracts-desc' => 'Stellt Auszüge aus Seiten in Klartext oder beschränktem HTML zur Verfügung',
+);

@@ -33,6 +33,13 @@ $messages['dsb'] = array(
 	'textextracts-desc' => 'Staja wupise wopsimjeśa boka w lutnem teksće abo wobgranicowanem HTML k dispoziciji',
 );
 
+/** French (français)
+ * @author Gomoko
+ */
+$messages['fr'] = array(
+	'textextracts-desc' => 'Fournit des extraits en texte brut ou en HTML limité du contenu de la page',
+);
+
 /** Upper Sorbian (hornjoserbsce)
  * @author Michawiki
  */
@@ -45,6 +52,13 @@ $messages['hsb'] = array(
  */
 $messages['ja'] = array(
 	'textextracts-desc' => 'ページ本文を抽出したプレーンテキストまたは制限付き HTML を提供する',
+);
+
+/** Macedonian (македонски)
+ * @author Bjankuloski06
+ */
+$messages['mk'] = array(
+	'textextracts-desc' => 'Дава извадоци од содржината на страницата во прост текст или ограничен HTML',
 );
 
 /** Ukrainian (українська)

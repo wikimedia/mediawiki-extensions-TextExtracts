@@ -67,3 +67,10 @@ $messages['mk'] = array(
 $messages['uk'] = array(
 	'textextracts-desc' => 'Забезпечує видобування звичайного текст або обмеженого HTML із вмісту сторінки',
 );
+
+/** Simplified Chinese (中文（简体）‎)
+ * @author Yfdyh000
+ */
+$messages['zh-hans'] = array(
+	'textextracts-desc' => '提供纯文本或有限的HTML页面内容提取',
+);

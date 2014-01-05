@@ -33,6 +33,13 @@ $messages['dsb'] = array(
 	'textextracts-desc' => 'Staja wupise wopsimjeśa boka w lutnem teksće abo wobgranicowanem HTML k dispoziciji',
 );
 
+/** Spanish (español)
+ * @author Fitoschido
+ */
+$messages['es'] = array(
+	'textextracts-desc' => 'Proporciona extractos del contenido de una página en texto sencillo o HTML limitado',
+);
+
 /** French (français)
  * @author Gomoko
  */

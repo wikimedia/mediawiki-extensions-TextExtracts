@@ -19,6 +19,13 @@ $messages['qqq'] = array(
 	'textextracts-desc' => '{{desc}}',
 );
 
+/** Asturian (asturianu)
+ * @author Xuacu
+ */
+$messages['ast'] = array(
+	'textextracts-desc' => 'Ufre estractos del conteníu de la páxina en testu simple o HTML llimitáu',
+);
+
 /** German (Deutsch)
  * @author Metalhead64
  */
@@ -59,6 +66,13 @@ $messages['hsb'] = array(
  */
 $messages['ja'] = array(
 	'textextracts-desc' => 'ページ本文を抽出したプレーンテキストまたは制限付き HTML を提供する',
+);
+
+/** Colognian (Ripoarisch)
+ * @author Purodha
+ */
+$messages['ksh'] = array(
+	'textextracts-desc' => 'Määt bejränz Ußzööje vun Sigge em HTML udder als Täx möjjelesch.',
 );
 
 /** Macedonian (македонски)

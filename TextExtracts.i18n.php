@@ -61,6 +61,13 @@ $messages['hsb'] = array(
 	'textextracts-desc' => 'Staja wupisy wobsaha strony w lutym teksće abo wobmjezowanym HTML k dispoziciji',
 );
 
+/** Italian (italiano)
+ * @author Beta16
+ */
+$messages['it'] = array(
+	'textextracts-desc' => 'Fornisce estratti in testo semplice o HTML dal contenuto della pagina',
+);
+
 /** Japanese (日本語)
  * @author Shirayuki
  */

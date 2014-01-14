@@ -401,6 +401,6 @@ class ApiQueryExtracts extends ApiQueryBase {
 
 
 	public function getHelpUrls() {
-		return 'https://www.mediawiki.org/wiki/Extension:MobileFrontend#prop.3Dextracts';
+		return 'https://www.mediawiki.org/wiki/Extension:TextExtracts#API';
 	}
 }

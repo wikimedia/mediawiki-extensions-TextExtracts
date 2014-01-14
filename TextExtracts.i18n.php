@@ -89,6 +89,13 @@ $messages['mk'] = array(
 	'textextracts-desc' => 'Дава извадоци од содржината на страницата во прост текст или ограничен HTML',
 );
 
+/** Russian (русский)
+ * @author Okras
+ */
+$messages['ru'] = array(
+	'textextracts-desc' => 'Предоставляет выдержки содержимого страниц в текстовом или ограниченном HTML-формате',
+);
+
 /** Ukrainian (українська)
  * @author Andriykopanytsia
  */

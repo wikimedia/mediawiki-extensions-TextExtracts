@@ -75,6 +75,13 @@ $messages['ja'] = array(
 	'textextracts-desc' => 'ページ本文を抽出したプレーンテキストまたは制限付き HTML を提供する',
 );
 
+/** Korean (한국어)
+ * @author Priviet
+ */
+$messages['ko'] = array(
+	'textextracts-desc' => '문서 내용을 추출한 일반 텍스트나 제한된 HTML을 제공',
+);
+
 /** Colognian (Ripoarisch)
  * @author Purodha
  */

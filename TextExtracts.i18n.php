@@ -54,6 +54,13 @@ $messages['fr'] = array(
 	'textextracts-desc' => 'Fournit des extraits en texte brut ou en HTML limité du contenu de la page',
 );
 
+/** Hebrew (עברית)
+ * @author Amire80
+ */
+$messages['he'] = array(
+	'textextracts-desc' => 'יצירת קטעים של תוכן הדפים בטקסט בפשוט או ב־HTML מוגבל',
+);
+
 /** Upper Sorbian (hornjoserbsce)
  * @author Michawiki
  */
@@ -108,6 +115,13 @@ $messages['ru'] = array(
  */
 $messages['uk'] = array(
 	'textextracts-desc' => 'Забезпечує видобування звичайного текст або обмеженого HTML із вмісту сторінки',
+);
+
+/** Vietnamese (Tiếng Việt)
+ * @author Minh Nguyen
+ */
+$messages['vi'] = array(
+	'textextracts-desc' => 'Tóm lược nội dung trang dưới dạng văn bản thuần hoặc HTML đơn giản',
 );
 
 /** Simplified Chinese (中文（简体）‎)

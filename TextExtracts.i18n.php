@@ -54,6 +54,13 @@ $messages['fr'] = array(
 	'textextracts-desc' => 'Fournit des extraits en texte brut ou en HTML limité du contenu de la page',
 );
 
+/** Galician (galego)
+ * @author Toliño
+ */
+$messages['gl'] = array(
+	'textextracts-desc' => 'Proporciona extractos de texto do contido da páxina sen formato ou con HTML limitado',
+);
+
 /** Hebrew (עברית)
  * @author Amire80
  */

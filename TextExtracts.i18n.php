@@ -26,6 +26,13 @@ $messages['ast'] = array(
 	'textextracts-desc' => 'Ufre estractos del conteníu de la páxina en testu simple o HTML llimitáu',
 );
 
+/** Chechen (нохчийн)
+ * @author Умар
+ */
+$messages['ce'] = array(
+	'textextracts-desc' => 'АгӀонийн чулацаман дешнаш лата до йозан я HTML-форматехь',
+);
+
 /** German (Deutsch)
  * @author Metalhead64
  */

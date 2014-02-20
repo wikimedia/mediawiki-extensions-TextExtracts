@@ -117,6 +117,13 @@ $messages['mk'] = array(
 	'textextracts-desc' => 'Дава извадоци од содржината на страницата во прост текст или ограничен HTML',
 );
 
+/** Malayalam (മലയാളം)
+ * @author Praveenp
+ */
+$messages['ml'] = array(
+	'textextracts-desc' => 'താളിന്റെ ഉള്ളടക്കം വെറും-എഴുത്തായോ, ഭാഗികമായി എച്ച്.റ്റി.എം.എൽ. ആയോ എടുക്കൽ അനുവദിക്കുന്നു',
+);
+
 /** Russian (русский)
  * @author Okras
  */

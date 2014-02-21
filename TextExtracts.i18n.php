@@ -124,6 +124,13 @@ $messages['ml'] = array(
 	'textextracts-desc' => 'താളിന്റെ ഉള്ളടക്കം വെറും-എഴുത്തായോ, ഭാഗികമായി എച്ച്.റ്റി.എം.എൽ. ആയോ എടുക്കൽ അനുവദിക്കുന്നു',
 );
 
+/** Dutch (Nederlands)
+ * @author Arent
+ */
+$messages['nl'] = array(
+	'textextracts-desc' => 'Biedt platte-tekst of beperkte HTML weergave van pagina-inhoud',
+);
+
 /** Russian (русский)
  * @author Okras
  */

@@ -54,6 +54,13 @@ $messages['es'] = array(
 	'textextracts-desc' => 'Proporciona extractos del contenido de una página en texto sencillo o HTML limitado',
 );
 
+/** Persian (فارسی)
+ * @author Armin1392
+ */
+$messages['fa'] = array(
+	'textextracts-desc' => 'ارائه متن ساده یا اچ‌تی‌ام‌ال محدود شده، محتوای صفحه را بیرون می‌کشد',
+);
+
 /** French (français)
  * @author Gomoko
  */
@@ -136,6 +143,13 @@ $messages['nl'] = array(
  */
 $messages['ru'] = array(
 	'textextracts-desc' => 'Предоставляет выдержки содержимого страниц в текстовом или ограниченном HTML-формате',
+);
+
+/** Swedish (svenska)
+ * @author Lokal Profil
+ */
+$messages['sv'] = array(
+	'textextracts-desc' => 'Erbjuder extrakt, i oformaterad text eller begränsad HTML, av sidinnehåll',
 );
 
 /** Ukrainian (українська)

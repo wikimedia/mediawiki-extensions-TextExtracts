@@ -138,6 +138,13 @@ $messages['nl'] = array(
 	'textextracts-desc' => 'Biedt platte-tekst of beperkte HTML weergave van pagina-inhoud',
 );
 
+/** Occitan (occitan)
+ * @author Cedric31
+ */
+$messages['oc'] = array(
+	'textextracts-desc' => "Provesís d'extraches en tèxte brut o en HTML limitat del contengut de la pagina",
+);
+
 /** Russian (русский)
  * @author Okras
  */

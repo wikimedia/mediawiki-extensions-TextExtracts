@@ -78,6 +78,10 @@ class ApiQueryExtracts extends ApiQueryBase {
 		wfProfileOut( __METHOD__ );
 	}
 
+	public function getCacheMode( $params ) {
+		return 'public';
+	}
+
 	/**
 	 * OpenSearchXml hook handler
 	 * @param array $results

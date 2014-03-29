@@ -29,6 +29,7 @@ $wgExtensionCredits['other'][] = array(
 define( 'TEXT_EXTRACTS_INSTALLED', true );
 
 $dir = __DIR__;
+$wgMessagesDirs['TextExtracts'] = __DIR__ . '/i18n';
 $wgExtensionMessagesFiles['TextExtracts'] = "$dir/TextExtracts.i18n.php";
 
 

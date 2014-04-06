@@ -381,7 +381,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 				'How to format sections in plaintext mode:',
 				' plain - No formatting',
 				' wiki - Wikitext-style formatting == like this ==',
-				" raw - This module's internal representation (secton titles prefixed with <ASCII 1><ASCII 2><section level><ASCII 2><ASCII 1>",
+				" raw - This module's internal representation (section titles prefixed with <ASCII 1><ASCII 2><section level><ASCII 2><ASCII 1>",
 			),
 			'continue' => 'When more results are available, use this to continue',
 		);

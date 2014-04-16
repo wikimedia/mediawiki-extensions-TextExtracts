@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Lokal Profil"
-        ]
-    },
-    "textextracts-desc": "Erbjuder extrakt, i oformaterad text eller begränsad HTML, av sidinnehåll"
+	"@metadata": {
+		"authors": [
+			"Lokal Profil"
+		]
+	},
+	"textextracts-desc": "Erbjuder extrakt, i oformaterad text eller begränsad HTML, av sidinnehåll"
 }

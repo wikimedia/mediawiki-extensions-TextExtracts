@@ -1,6 +1,4 @@
 {
-    "@metadata": {
-        "authors": []
-    },
-    "textextracts-desc": "{{desc}}"
+	"@metadata": [],
+	"textextracts-desc": "{{desc}}"
 }

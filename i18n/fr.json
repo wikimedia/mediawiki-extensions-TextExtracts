@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Gomoko"
-        ]
-    },
-    "textextracts-desc": "Fournit des extraits en texte brut ou en HTML limité du contenu de la page"
+	"@metadata": {
+		"authors": [
+			"Gomoko"
+		]
+	},
+	"textextracts-desc": "Fournit des extraits en texte brut ou en HTML limité du contenu de la page"
 }

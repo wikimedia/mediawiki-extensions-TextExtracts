@@ -49,8 +49,18 @@ $wgHooks['UnitTestsList'][] = function( &$files ) {
  * Selectors of content to be removed from HTML
  */
 $wgExtractsRemoveClasses = array(
-	'.toc', 'table', 'div', '.mw-editsection', 'sup.reference', 'span.coordinates',
-	'span.geo-multi-punct', 'span.geo-nondefault', '.noexcerpt', '.error', '.nomobile',
+	// These usually represent content that is not part of usual text flow
+	'table', 'div',
+	// Section edit links
+	'.mw-editsection',
+	// Extension:Cite references
+	'sup.reference',
+	// Used by parser for various wikitext errors, no point having them in extracts
+	'.error',
+	// Ignored in MobileFrontend. @todo: decide if it's really needed
+	'.nomobile',
+	// Class specifically for this extension
+	'.noexcerpt',
 );
 
 /**

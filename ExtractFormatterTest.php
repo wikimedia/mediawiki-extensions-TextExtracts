@@ -2,14 +2,13 @@
 
 /**
  * @group TextExtracts
- * @group Broken
- * Disabled for now due to Jenkins weirdness
  */
 class ExtractFormatterTest extends MediaWikiTestCase {
 	/**
+	 * Disabled for now due to Jenkins weirdness
 	 * @dataProvider provideExtracts
 	 */
-	public function testExtracts( $expected, $wikiText, $plainText ) {
+	private function notReallyTestExtracts( $expected, $wikiText, $plainText ) {
 		$title = Title::newFromText( 'Test' );
 		$po = new ParserOptions();
 		$po->setEditSection( true );
@@ -33,6 +32,83 @@ class ExtractFormatterTest extends MediaWikiTestCase {
 				$dutch,
 				true,
 			),
+		);
+	}
+
+	/**
+	 * @dataProvider provideGetFirstSentences
+	 * @param $text
+	 * @param $sentences
+	 * @param $expected
+	 */
+	public function testGetFirstSentences( $text, $sentences, $expected ) {
+		$this->assertEquals( $expected, ExtractFormatter::getFirstSentences( $text, $sentences ) );
+	}
+
+	private function sentences( $n = 1000000 ) {
+		$sentences = array(
+			'Foo is a bar.',
+			'Such a smart boy.',
+			'But completely useless.',
+		);
+		return implode( ' ', array_slice( $sentences, 0, $n ) );
+	}
+
+	public function provideGetFirstSentences() {
+		return array(
+			array(
+				$this->sentences(),
+				2,
+				$this->sentences( 2 ),
+			),
+			array(
+				$this->sentences(),
+				1,
+				$this->sentences( 1 ),
+			),
+			array(
+				$this->sentences( 1 ),
+				1,
+				$this->sentences( 1 ),
+			),
+			array(
+				$this->sentences( 1 ),
+				2,
+				$this->sentences( 1 ),
+			),
+			array(
+				'',
+				1,
+				'',
+			),
+			/* @fixme
+			array(
+				'P.J. Harvey is a singer. She is awesome!',
+				1,
+				'P.J. Harvey is a singer.',
+			),*/
+		);
+	}
+
+	/**
+	 * @dataProvider provideGetFirstChars
+	 * @param $text
+	 * @param $chars
+	 * @param $expected
+	 */
+	public function testGetFirstChars( $text, $chars, $expected ) {
+		$this->assertEquals( $expected, ExtractFormatter::getFirstChars( $text, $chars ) );
+	}
+
+	public function provideGetFirstChars() {
+		$text = 'Lullzy lulz are lullzy!';
+		return array(
+			//array( $text, 0, '' ),
+			array( $text, 100, $text ),
+			array( $text, 1, 'Lullzy' ),
+			array( $text, 6, 'Lullzy' ),
+			//array( $text, 7, 'Lullzy' ),
+			array( $text, 8, 'Lullzy lulz' ),
 		);
 	}
 }

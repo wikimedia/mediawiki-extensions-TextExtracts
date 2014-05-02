@@ -71,4 +71,61 @@ class ExtractFormatter extends HtmlFormatter {
 		wfProfileOut( __METHOD__ );
 		return $html;
 	}
+
+	/**
+	 * Returns no more than the given number of sentences
+	 *
+	 * @param string $text
+	 * @param int $requestedSentenceCount
+	 * @return string
+	 */
+	public static function getFirstSentences( $text, $requestedSentenceCount ) {
+		wfProfileIn( __METHOD__ );
+		// Based on code from OpenSearchXml by Brion Vibber
+		$endchars = array(
+			'([^\d])\.\s', '\!\s', '\?\s', // regular ASCII
+			'。', // full-width ideographic full-stop
+			'．', '！', '？', // double-width roman forms
+			'｡', // half-width ideographic full stop
+			);
+
+		$endgroup = implode( '|', $endchars );
+		$end = "(?:$endgroup)";
+		$sentence = ".+?$end+";
+		$regexp = "/^($sentence){1,{$requestedSentenceCount}}/u";
+		$matches = array();
+		$res = preg_match( $regexp, $text, $matches );
+		if( $res ) {
+			$text = trim( $matches[0] );
+		} else {
+			if ( $res === false ) {
+				throw new MWException( __METHOD__ . "() error compiling regular expression $regexp" );
+			}
+			// Just return the first line
+			$lines = explode( "\n", $text );
+			$text = trim( $lines[0] );
+		}
+		wfProfileOut( __METHOD__ );
+		return $text;
+	}
+
+	/**
+	 * Returns no more than a requested number of characters, preserving words
+	 *
+	 * @param string $text
+	 * @param int $requestedLength
+	 * @return string
+	 */
+	public static function getFirstChars( $text, $requestedLength ) {
+		wfProfileIn( __METHOD__ );
+		$length = mb_strlen( $text );
+		if ( $length <= $requestedLength ) {
+			wfProfileOut( __METHOD__ );
+			return $text;
+		}
+		$pattern = "#^.{{$requestedLength}}[\\w/]*>?#su";
+		preg_match( $pattern, $text, $m );
+		wfProfileOut( __METHOD__ );
+		return $m[0];
+	}
 }

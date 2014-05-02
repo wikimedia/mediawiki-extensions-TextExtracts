@@ -59,8 +59,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 				break;
 			}
 			$text = $this->getExtract( $t );
-			$pageName = $t->getText();
-			$text = $this->truncate( $text, $pageName );
+			$text = $this->truncate( $text );
 			if ( $this->params['plaintext'] ) {
 				$text = $this->doSections( $text );
 			}
@@ -227,14 +226,13 @@ class ApiQueryExtracts extends ApiQueryBase {
 	/**
 	 * Truncate the given text to a certain number of characters or sentences
 	 * @param string $text The text to truncate
-	 * @param string $pageName Title of the page (for debugging)
 	 * @return string
 	 */
-	private function truncate( $text, $pageName ) {
+	private function truncate( $text ) {
 		if ( $this->params['chars'] ) {
 			return $this->getFirstChars( $text, $this->params['chars'] );
 		} elseif ( $this->params['sentences'] ) {
-			return $this->getFirstSentences( $text, $this->params['sentences'], $pageName );
+			return $this->getFirstSentences( $text, $this->params['sentences'] );
 		}
 		return $text;
 	}
@@ -247,14 +245,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 */
 	private function getFirstChars( $text, $requestedLength ) {
 		wfProfileIn( __METHOD__ );
-		$length = mb_strlen( $text );
-		if ( $length <= $requestedLength ) {
-			wfProfileOut( __METHOD__ );
-			return $text;
-		}
-		$pattern = "#^.{{$requestedLength}}[\\w/]*>?#su";
-		preg_match( $pattern, $text, $m );
-		$text = $m[0];
+		$text = ExtractFormatter::getFirstChars( $text, $requestedLength );
 		// Fix possibly unclosed tags
 		$text = $this->tidy( $text );
 		$text .= wfMessage( 'ellipsis' )->inContentLanguage()->text();
@@ -265,35 +256,12 @@ class ApiQueryExtracts extends ApiQueryBase {
 	/**
 	 * @param string $text
 	 * @param int $requestedSentenceCount
-	 * @param string $pageName Title of the page (for debugging)
 	 * @return string
 	 */
-	private function getFirstSentences( $text, $requestedSentenceCount, $pageName ) {
+	private function getFirstSentences( $text, $requestedSentenceCount ) {
 		wfProfileIn( __METHOD__ );
-		// Based on code from OpenSearchXml by Brion Vibber
-		$endchars = array(
-			'([^\d])\.\s', '\!\s', '\?\s', // regular ASCII
-			'。', // full-width ideographic full-stop
-			'．', '！', '？', // double-width roman forms
-			'｡', // half-width ideographic full stop
-			);
 
-		$endgroup = implode( '|', $endchars );
-		$end = "(?:$endgroup)";
-		$sentence = ".+?$end+";
-		$regexp = "/^($sentence){1,{$requestedSentenceCount}}/u";
-		$matches = array();
-		$res = preg_match( $regexp, $text, $matches );
-		if( $res ) {
-			$text = $matches[0];
-		} else {
-			if ( $res === false ) {
-				wfLogWarning( "Regular expresssion compilation failure. Page: $pageName; RegEx: $regexp" );
-			}
-			// Just return the first line
-			$lines = explode( "\n", $text );
-			$text = trim( $lines[0] );
-		}
+		$text = ExtractFormatter::getFirstSentences( $text, $requestedSentenceCount );
 		$text = $this->tidy( $text );
 		wfProfileOut( __METHOD__ );
 		return $text;

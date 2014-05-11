@@ -50,7 +50,7 @@ $wgHooks['UnitTestsList'][] = function( &$files ) {
  */
 $wgExtractsRemoveClasses = array(
 	// These usually represent content that is not part of usual text flow
-	'table', 'div',
+	'table', 'div', 'ul.gallery',
 	// Section edit links
 	'.mw-editsection',
 	// Extension:Cite references
@@ -59,6 +59,8 @@ $wgExtractsRemoveClasses = array(
 	'.error',
 	// Ignored in MobileFrontend. @todo: decide if it's really needed
 	'.nomobile',
+	// Elements marked not to show up in the print version
+	'.noprint',
 	// Class specifically for this extension
 	'.noexcerpt',
 );

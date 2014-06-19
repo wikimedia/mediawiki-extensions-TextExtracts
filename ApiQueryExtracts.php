@@ -141,7 +141,10 @@ class ApiQueryExtracts extends ApiQueryBase {
 	}
 
 	private function cacheKey( WikiPage $page, $introOnly ) {
-		return wfMemcKey( 'mf', 'extract', $page->getLatest(), $this->params['plaintext'], $introOnly );
+		return wfMemcKey( 'mf', 'extract', $page->getLatest(),
+			$page->getTitle()->getPageLanguage()->getPreferredVariant(),
+			$this->params['plaintext'], $introOnly
+		);
 	}
 
 	private function getFromCache( WikiPage $page, $introOnly ) {
@@ -336,6 +339,11 @@ class ApiQueryExtracts extends ApiQueryBase {
 			'continue' => array(
 				ApiBase::PARAM_TYPE => 'integer',
 			),
+			// Used implicitly by LanguageConverter
+			'variant' => array(
+				ApiBase::PARAM_TYPE => 'string',
+				ApiBase::PARAM_DFLT => false,
+			),
 		);
 	}
 
@@ -353,6 +361,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 				" raw - This module's internal representation (section titles prefixed with <ASCII 1><ASCII 2><section level><ASCII 2><ASCII 1>",
 			),
 			'continue' => 'When more results are available, use this to continue',
+			'variant' => 'Convert content into this language variant`',
 		);
 	}
 

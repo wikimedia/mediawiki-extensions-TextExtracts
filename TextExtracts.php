@@ -33,9 +33,24 @@ $wgMessagesDirs['TextExtracts'] = __DIR__ . '/i18n';
 $wgExtensionMessagesFiles['TextExtracts'] = "$dir/TextExtracts.i18n.php";
 
 
+$wgConfigRegistry['textextracts'] = 'GlobalVarConfig::newInstance';
 $wgAutoloadClasses['ExtractFormatter'] = "$dir/ExtractFormatter.php";
 $wgAutoloadClasses['ApiQueryExtracts'] = "$dir/ApiQueryExtracts.php";
-$wgAPIPropModules['extracts'] = 'ApiQueryExtracts';
+$wgAPIPropModules['extracts'] = array(
+	'class' => 'ApiQueryExtracts',
+	'factory' => 'wfNewApiQueryExtracts'
+);
+
+/**
+ * @param ApiQuery $query
+ * @param string $action
+ * @return ApiQueryExtracts
+ */
+function wfNewApiQueryExtracts( $query, $action ) {
+	$config = ConfigFactory::getDefaultInstance()->makeConfig( 'textextracts' );
+	return new ApiQueryExtracts( $query, $action, $config );
+}
+
 $wgHooks['OpenSearchXml'][] = 'ApiQueryExtracts::onOpenSearchXml';
 $wgHooks['UnitTestsList'][] = function( &$files ) {
 	$files[] = __DIR__ . '/ExtractFormatterTest.php';

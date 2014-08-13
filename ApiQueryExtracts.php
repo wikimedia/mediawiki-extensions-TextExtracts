@@ -22,9 +22,14 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 */
 	private $parserOptions;
 	private $params;
+	/**
+	 * @var Config
+	 */
+	private $config;
 
-	public function __construct( $query, $moduleName ) {
+	public function __construct( $query, $moduleName, Config $conf ) {
 		parent::__construct( $query, $moduleName, 'ex' );
+		$this->config = $conf;
 	}
 
 	public function execute() {
@@ -87,8 +92,8 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @return bool
 	 */
 	public static function onOpenSearchXml( &$results ) {
-		global $wgExtractsExtendOpenSearchXml;
-		if ( !$wgExtractsExtendOpenSearchXml || !count( $results ) ) {
+		$config = ConfigFactory::getDefaultInstance()->makeConfig( 'textextracts' );
+		if ( !$config->get( 'ExtractsExtendOpenSearchXml' ) || !count( $results ) ) {
 			return true;
 		}
 		$pageIds = array_keys( $results );
@@ -219,7 +224,11 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 */
 	private function convertText( $text ) {
 		wfProfileIn( __METHOD__ );
-		$fmt = new ExtractFormatter( $text, $this->params['plaintext'], $this->params['sectionformat'] );
+		$fmt = new ExtractFormatter(
+			$text,
+			$this->params['plaintext'],
+			$this->config
+		);
 		$text = $fmt->getText();
 
 		wfProfileOut( __METHOD__ );
@@ -276,10 +285,8 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @return string
 	 */
 	private function tidy( $text ) {
-		global $wgUseTidy;
-
 		wfProfileIn( __METHOD__ );
-		if ( $wgUseTidy && !$this->params['plaintext'] ) {
+		if ( $this->getConfig()->get( 'UseTidy' ) && !$this->params['plaintext'] ) {
 			$text = trim ( MWTidy::tidy( $text ) );
 		}
 		wfProfileOut( __METHOD__ );

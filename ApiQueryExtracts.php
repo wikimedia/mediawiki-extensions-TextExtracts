@@ -369,12 +369,6 @@ class ApiQueryExtracts extends ApiQueryBase {
 		return 'Returns plain-text or limited HTML extracts of the given page(s)';
 	}
 
-	public function getPossibleErrors() {
-		return array_merge( parent::getPossibleErrors(), array(
-			array( 'code' => '_badcontinue', 'info' => 'Invalid continue param. You should pass the original value returned by the previous query' ),
-		) );
-	}
-
 	public function getExamples() {
 		return array(
 			'api.php?action=query&prop=extracts&exchars=175&titles=Therion' => 'Get a 175-character extract',

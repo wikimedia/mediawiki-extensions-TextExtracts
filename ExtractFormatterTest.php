@@ -14,7 +14,8 @@ class ExtractFormatterTest extends MediaWikiTestCase {
 		$po->setEditSection( true );
 		$parser = new Parser();
 		$text = $parser->parse( $wikiText, $title, $po )->getText();
-		$fmt = new ExtractFormatter( $text, $plainText );
+		$config = ConfigFactory::getDefaultInstance()->makeConfig( 'textextracts' );
+		$fmt = new ExtractFormatter( $text, $plainText, $config );
 		$fmt->remove( '.metadata' ); // Will be added via $wgExtractsRemoveClasses on WMF
 		$text = trim( $fmt->getText() );
 		$this->assertEquals( $expected, $text );

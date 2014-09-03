@@ -27,16 +27,15 @@ class ExtractFormatter extends HtmlFormatter {
 	/**
 	 * @param string $text: Text to convert
 	 * @param bool $plainText: Whether extract should be plaintext
+	 * @param Config $config
 	 */
-	public function __construct( $text, $plainText ) {
-		global $wgExtractsRemoveClasses;
-
+	public function __construct( $text, $plainText, Config $config ) {
 		wfProfileIn( __METHOD__ );
 		parent::__construct( HtmlFormatter::wrapHTML( $text ) );
 		$this->plainText = $plainText;
 
 		$this->setRemoveMedia( true );
-		$this->remove( $wgExtractsRemoveClasses );
+		$this->remove( $config->get( 'ExtractsRemoveClasses' ) );
 
 		if ( $plainText ) {
 			$this->flattenAllTags();

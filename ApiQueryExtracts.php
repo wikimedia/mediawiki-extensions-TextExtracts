@@ -345,6 +345,8 @@ class ApiQueryExtracts extends ApiQueryBase {
 			),
 			'continue' => array(
 				ApiBase::PARAM_TYPE => 'integer',
+				/** @todo Once support for MediaWiki < 1.25 is dropped, just use ApiBase::PARAM_HELP_MSG directly */
+				constant( 'ApiBase::PARAM_HELP_MSG' ) ?: '' => 'api-help-param-continue',
 			),
 			// Used implicitly by LanguageConverter
 			'variant' => array(
@@ -354,6 +356,9 @@ class ApiQueryExtracts extends ApiQueryBase {
 		);
 	}
 
+	/**
+	 * @deprecated since MediaWiki core 1.25
+	 */
 	public function getParamDescription() {
 		return array(
 			'chars' => 'How many characters to return, actual text returned might be slightly longer.',
@@ -372,16 +377,31 @@ class ApiQueryExtracts extends ApiQueryBase {
 		);
 	}
 
+	/**
+	 * @deprecated since MediaWiki core 1.25
+	 */
 	public function getDescription() {
 		return 'Returns plain-text or limited HTML extracts of the given page(s)';
 	}
 
+	/**
+	 * @deprecated since MediaWiki core 1.25
+	 */
 	public function getExamples() {
 		return array(
 			'api.php?action=query&prop=extracts&exchars=175&titles=Therion' => 'Get a 175-character extract',
 		);
 	}
 
+	/**
+	 * @see ApiBase::getExamplesMessages()
+	 */
+	protected function getExamplesMessages() {
+		return array(
+			'action=query&prop=extracts&exchars=175&titles=Therion'
+				=> 'apihelp-query+extracts-example-1',
+		);
+	}
 
 	public function getHelpUrls() {
 		return 'https://www.mediawiki.org/wiki/Extension:TextExtracts#API';

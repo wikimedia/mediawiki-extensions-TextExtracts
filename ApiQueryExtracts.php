@@ -87,11 +87,11 @@ class ApiQueryExtracts extends ApiQueryBase {
 	}
 
 	/**
-	 * OpenSearchXml hook handler
+	 * ApiOpenSearchSuggest hook handler
 	 * @param array $results
 	 * @return bool
 	 */
-	public static function onOpenSearchXml( &$results ) {
+	public static function onApiOpenSearchSuggest( &$results ) {
 		$config = ConfigFactory::getDefaultInstance()->makeConfig( 'textextracts' );
 		if ( !$config->get( 'ExtractsExtendOpenSearchXml' ) || !count( $results ) ) {
 			return true;

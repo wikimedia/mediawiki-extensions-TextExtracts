@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Yfdyh000"
+			"Yfdyh000",
+			"Liuxinyu970226"
 		]
 	},
-	"textextracts-desc": "提供纯文本或有限的HTML页面内容提取"
+	"textextracts-desc": "提供纯文本或有限的HTML页面内容提取",
+	"apihelp-query+extracts-example-1": "获得175个字符的内容"
 }

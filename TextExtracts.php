@@ -51,7 +51,8 @@ function wfNewApiQueryExtracts( $query, $action ) {
 	return new ApiQueryExtracts( $query, $action, $config );
 }
 
-$wgHooks['OpenSearchXml'][] = 'ApiQueryExtracts::onOpenSearchXml';
+$wgHooks['OpenSearchXml'][] = 'ApiQueryExtracts::onApiOpenSearchSuggest';
+$wgHooks['ApiOpenSearchSuggest'][] = 'ApiQueryExtracts::onApiOpenSearchSuggest';
 $wgHooks['UnitTestsList'][] = function( &$files ) {
 	$files[] = __DIR__ . '/ExtractFormatterTest.php';
 	return true;
@@ -81,6 +82,6 @@ $wgExtractsRemoveClasses = array(
 );
 
 /**
- * Whether this extension should provide its extracts for Extension:OpenSearchXml
+ * Whether this extension should provide its extracts for OpenSearch
  */
 $wgExtractsExtendOpenSearchXml = false;

@@ -211,8 +211,23 @@ class ApiQueryExtracts extends ApiQueryBase {
 		}
 		// in case of cache miss, render just the needed section
 		$api = new ApiMain( new FauxRequest( $request )	);
-		$api->execute();
-		$data = $api->getResultData();
+		try {
+			$api->execute();
+			$data = $api->getResultData();
+		} catch ( UsageException $e ) {
+			if ( $e->getCodeString() === 'nosuchsection' ) {
+				// Looks like we tried to get the intro to a page without
+				// sections!  Lets just grab what we can get.
+				unset( $request['section'] );
+				$api = new ApiMain( new FauxRequest( $request )	);
+				$api->execute();
+				$data = $api->getResultData();
+			} else {
+				// Some other unexpected error - lets just report it to the user
+				// on the off chance that is the right thing.
+				throw $e;
+			}
+		}
 		wfProfileOut( __METHOD__ );
 		return $data['parse']['text']['*'];
 	}

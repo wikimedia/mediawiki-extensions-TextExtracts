@@ -361,7 +361,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 			'continue' => array(
 				ApiBase::PARAM_TYPE => 'integer',
 				/** @todo Once support for MediaWiki < 1.25 is dropped, just use ApiBase::PARAM_HELP_MSG directly */
-				constant( 'ApiBase::PARAM_HELP_MSG' ) ?: '' => 'api-help-param-continue',
+				defined( 'ApiBase::PARAM_HELP_MSG' ) ? ApiBase::PARAM_HELP_MSG : '' => 'api-help-param-continue',
 			),
 			// Used implicitly by LanguageConverter
 			'variant' => array(

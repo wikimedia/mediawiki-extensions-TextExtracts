@@ -19,6 +19,7 @@
 namespace TextExtracts;
 
 use ApiBase;
+use ApiResult;
 use ApiMain;
 use ApiQueryBase;
 use Config;
@@ -189,7 +190,12 @@ class ApiQueryExtracts extends ApiQueryBase {
 		$api = new ApiMain( new FauxRequest( $request )	);
 		try {
 			$api->execute();
-			$data = $api->getResultData();
+			if ( defined( 'ApiResult::META_CONTENT' ) ) {
+				$data = $api->getResult()->getResultData();
+				$data = ApiResult::transformForBC( $data );
+			} else {
+				$data = $api->getResultData();
+			}
 		} catch ( UsageException $e ) {
 			if ( $e->getCodeString() === 'nosuchsection' ) {
 				// Looks like we tried to get the intro to a page without
@@ -197,7 +203,12 @@ class ApiQueryExtracts extends ApiQueryBase {
 				unset( $request['section'] );
 				$api = new ApiMain( new FauxRequest( $request )	);
 				$api->execute();
-				$data = $api->getResultData();
+				if ( defined( 'ApiResult::META_CONTENT' ) ) {
+					$data = $api->getResult()->getResultData();
+					$data = ApiResult::transformForBC( $data );
+				} else {
+					$data = $api->getResultData();
+				}
 			} else {
 				// Some other unexpected error - lets just report it to the user
 				// on the off chance that is the right thing.

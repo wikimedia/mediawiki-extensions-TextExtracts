@@ -16,6 +16,21 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
+namespace TextExtracts;
+
+use ApiBase;
+use ApiMain;
+use ApiQueryBase;
+use Config;
+use FauxRequest;
+use MWTidy;
+use ParserCache;
+use ParserOptions;
+use Title;
+use UsageException;
+use User;
+use WikiPage;
+
 class ApiQueryExtracts extends ApiQueryBase {
 	/**
 	 * @var ParserOptions
@@ -84,38 +99,6 @@ class ApiQueryExtracts extends ApiQueryBase {
 
 	public function getCacheMode( $params ) {
 		return 'public';
-	}
-
-	/**
-	 * ApiOpenSearchSuggest hook handler
-	 * @param array $results
-	 * @return bool
-	 */
-	public static function onApiOpenSearchSuggest( &$results ) {
-		$config = ConfigFactory::getDefaultInstance()->makeConfig( 'textextracts' );
-		if ( !$config->get( 'ExtractsExtendOpenSearchXml' ) || !count( $results ) ) {
-			return true;
-		}
-		$pageIds = array_keys( $results );
-		$api = new ApiMain( new FauxRequest(
-			array(
-				'action' => 'query',
-				'prop' => 'extracts',
-				'explaintext' => true,
-				'exintro' => true,
-				'exlimit' => count( $results ),
-				'pageids' => implode( '|', $pageIds ),
-			) )
-		);
-		$api->execute();
-		$data = $api->getResultData();
-		foreach ( $pageIds as $id ) {
-			if ( isset( $data['query']['pages'][$id]['extract']['*'] ) ) {
-				$results[$id]['extract'] = $data['query']['pages'][$id]['extract']['*'];
-				$results[$id]['extract trimmed'] = false;
-			}
-		}
-		return true;
 	}
 
 	/**

@@ -1,4 +1,5 @@
 <?php
+use TextExtracts\ExtractFormatter;
 
 /**
  * @group TextExtracts

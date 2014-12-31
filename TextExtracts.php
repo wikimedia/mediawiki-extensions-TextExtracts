@@ -34,27 +34,28 @@ $wgExtensionMessagesFiles['TextExtracts'] = "$dir/TextExtracts.i18n.php";
 
 
 $wgConfigRegistry['textextracts'] = 'GlobalVarConfig::newInstance';
-$wgAutoloadClasses['ExtractFormatter'] = "$dir/ExtractFormatter.php";
-$wgAutoloadClasses['ApiQueryExtracts'] = "$dir/ApiQueryExtracts.php";
+$wgAutoloadClasses['TextExtracts\ApiQueryExtracts'] = "$dir/includes/ApiQueryExtracts.php";
+$wgAutoloadClasses['TextExtracts\ExtractFormatter'] = "$dir/includes/ExtractFormatter.php";
+$wgAutoloadClasses['TextExtracts\Hooks'] = "$dir/includes/Hooks.php";
 $wgAPIPropModules['extracts'] = array(
-	'class' => 'ApiQueryExtracts',
+	'class' => 'TextExtracts\ApiQueryExtracts',
 	'factory' => 'wfNewApiQueryExtracts'
 );
 
 /**
  * @param ApiQuery $query
  * @param string $action
- * @return ApiQueryExtracts
+ * @return TextExtracts\ApiQueryExtracts
  */
 function wfNewApiQueryExtracts( $query, $action ) {
 	$config = ConfigFactory::getDefaultInstance()->makeConfig( 'textextracts' );
-	return new ApiQueryExtracts( $query, $action, $config );
+	return new TextExtracts\ApiQueryExtracts( $query, $action, $config );
 }
 
-$wgHooks['OpenSearchXml'][] = 'ApiQueryExtracts::onApiOpenSearchSuggest';
-$wgHooks['ApiOpenSearchSuggest'][] = 'ApiQueryExtracts::onApiOpenSearchSuggest';
+$wgHooks['OpenSearchXml'][] = 'TextExtracts\Hooks::onApiOpenSearchSuggest';
+$wgHooks['ApiOpenSearchSuggest'][] = 'TextExtracts\Hooks::onApiOpenSearchSuggest';
 $wgHooks['UnitTestsList'][] = function( &$files ) {
-	$files[] = __DIR__ . '/ExtractFormatterTest.php';
+	$files[] = __DIR__ . '/tests/ExtractFormatterTest.php';
 	return true;
 };
 

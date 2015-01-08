@@ -45,7 +45,7 @@ class ExtractFormatter extends HtmlFormatter {
 		if ( $plainText ) {
 			$this->flattenAllTags();
 		} else {
-			$this->flatten( array( 'span', 'a' ) );
+			$this->flatten( array( 'a' ) );
 		}
 		wfProfileOut( __METHOD__ );
 	}
@@ -131,5 +131,25 @@ class ExtractFormatter extends HtmlFormatter {
 		preg_match( $pattern, $text, $m );
 		wfProfileOut( __METHOD__ );
 		return $m[0];
+	}
+
+	/**
+	 * Removes content we've chosen to remove then removes class and style
+	 * attributes from the remaining span elements.
+	 *
+	 * @return array Array of removed DOMElements
+	 */
+	public function filterContent() {
+		$removed = parent::filterContent();
+
+		$doc = $this->getDoc();
+		$spans = $doc->getElementsByTagName( 'span' );
+
+		foreach ( $spans as $span ) {
+			$span->removeAttribute( 'class' );
+			$span->removeAttribute( 'style' );
+		}
+
+		return $removed;
 	}
 }

@@ -28,11 +28,28 @@ class ExtractFormatterTest extends MediaWikiTestCase {
 			. "</span>&nbsp;<small class=\"metadata audiolinkinfo\" style=\"cursor:help;\">([[Wikipedia:Media help|<span style=\"cursor:help;\">"
 			. "help</span>]]·[[:File:nl-Nederlands.ogg|<span style=\"cursor:help;\">info</span>]])</small></span>) is a"
 			. " [[West Germanic languages|West Germanic language]] and the native language of most of the population of the [[Netherlands]]";
+
 		return array(
 			array(
 				"Dutch ( Nederlands ) is a West Germanic language and the native language of most of the population of the Netherlands",
 				$dutch,
 				true,
+			),
+
+			array(
+				"<p><span><span lang=\"baz\">qux</span></span>\n</p>",
+				'<span class="foo"><span lang="baz">qux</span></span>',
+				false,
+			),
+			array(
+				"<p><span><span lang=\"baz\">qux</span></span>\n</p>",
+				'<span style="foo: bar;"><span lang="baz">qux</span></span>',
+				false,
+			),
+			array(
+				"<p><span><span lang=\"qux\">quux</span></span>\n</p>",
+				'<span class="foo"><span style="bar: baz;" lang="qux">quux</span></span>',
+				false,
 			),
 		);
 	}

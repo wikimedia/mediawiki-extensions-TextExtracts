@@ -3,7 +3,7 @@
 namespace TextExtracts;
 use Config;
 use HtmlFormatter;
-use MWException;
+use Exception;
 
 /**
  * Provides text-only or limited-HTML extracts of page HTML
@@ -103,7 +103,7 @@ class ExtractFormatter extends HtmlFormatter {
 			$text = trim( $matches[0] );
 		} else {
 			if ( $res === false ) {
-				throw new MWException( __METHOD__ . "() error compiling regular expression $regexp" );
+				throw new Exception( __METHOD__ . "() error compiling regular expression $regexp" );
 			}
 			// Just return the first line
 			$lines = explode( "\n", $text );

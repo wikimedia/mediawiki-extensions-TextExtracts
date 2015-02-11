@@ -48,10 +48,8 @@ class ApiQueryExtracts extends ApiQueryBase {
 	}
 
 	public function execute() {
-		wfProfileIn( __METHOD__ );
 		$titles = $this->getPageSet()->getGoodTitles();
 		if ( count( $titles ) == 0 ) {
-			wfProfileOut( __METHOD__ );
 			return;
 		}
 		$isXml = $this->getMain()->isInternalMode() || $this->getMain()->getPrinter()->getFormat() == 'XML';
@@ -94,7 +92,6 @@ class ApiQueryExtracts extends ApiQueryBase {
 				break;
 			}
 		}
-		wfProfileOut( __METHOD__ );
 	}
 
 	public function getCacheMode( $params ) {
@@ -107,7 +104,6 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @return string
 	 */
 	private function getExtract( Title $title ) {
-		wfProfileIn( __METHOD__ );
 		$page = WikiPage::factory( $title );
 
 		$introOnly = $this->params['intro'];
@@ -124,7 +120,6 @@ class ApiQueryExtracts extends ApiQueryBase {
 			$text = $this->convertText( $text, $title, $this->params['plaintext'] );
 			$this->setCache( $page, $text );
 		}
-		wfProfileOut( __METHOD__ );
 		return $text;
 	}
 
@@ -167,7 +162,6 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @return string
 	 */
 	private function parse( WikiPage $page ) {
-		wfProfileIn( __METHOD__ );
 		if ( !$this->parserOptions ) {
 			$this->parserOptions = new ParserOptions( new User( '127.0.0.1' ) );
 		}
@@ -180,7 +174,6 @@ class ApiQueryExtracts extends ApiQueryBase {
 				if ( $this->params['intro'] ) {
 					$text = $this->getFirstSection( $text, false );
 				}
-				wfProfileOut( __METHOD__ );
 				return $text;
 			}
 		}
@@ -211,7 +204,6 @@ class ApiQueryExtracts extends ApiQueryBase {
 				throw $e;
 			}
 		}
-		wfProfileOut( __METHOD__ );
 		return $data['parse']['text']['*'];
 	}
 
@@ -221,7 +213,6 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @return string
 	 */
 	private function convertText( $text ) {
-		wfProfileIn( __METHOD__ );
 		$fmt = new ExtractFormatter(
 			$text,
 			$this->params['plaintext'],
@@ -229,7 +220,6 @@ class ApiQueryExtracts extends ApiQueryBase {
 		);
 		$text = $fmt->getText();
 
-		wfProfileOut( __METHOD__ );
 		return trim( $text );
 	}
 
@@ -254,12 +244,10 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @return string
 	 */
 	private function getFirstChars( $text, $requestedLength ) {
-		wfProfileIn( __METHOD__ );
 		$text = ExtractFormatter::getFirstChars( $text, $requestedLength );
 		// Fix possibly unclosed tags
 		$text = $this->tidy( $text );
 		$text .= wfMessage( 'ellipsis' )->inContentLanguage()->text();
-		wfProfileOut( __METHOD__ );
 		return $text;
 	}
 
@@ -269,11 +257,8 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @return string
 	 */
 	private function getFirstSentences( $text, $requestedSentenceCount ) {
-		wfProfileIn( __METHOD__ );
-
 		$text = ExtractFormatter::getFirstSentences( $text, $requestedSentenceCount );
 		$text = $this->tidy( $text );
-		wfProfileOut( __METHOD__ );
 		return $text;
 	}
 
@@ -283,11 +268,9 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @return string
 	 */
 	private function tidy( $text ) {
-		wfProfileIn( __METHOD__ );
 		if ( $this->getConfig()->get( 'UseTidy' ) && !$this->params['plaintext'] ) {
 			$text = trim ( MWTidy::tidy( $text ) );
 		}
-		wfProfileOut( __METHOD__ );
 		return $text;
 	}
 

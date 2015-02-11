@@ -35,7 +35,6 @@ class ExtractFormatter extends HtmlFormatter {
 	 * @param Config $config
 	 */
 	public function __construct( $text, $plainText, Config $config ) {
-		wfProfileIn( __METHOD__ );
 		parent::__construct( HtmlFormatter::wrapHTML( $text ) );
 		$this->plainText = $plainText;
 
@@ -47,11 +46,9 @@ class ExtractFormatter extends HtmlFormatter {
 		} else {
 			$this->flatten( array( 'a' ) );
 		}
-		wfProfileOut( __METHOD__ );
 	}
 
 	public function getText( $dummy = null ) {
-		wfProfileIn( __METHOD__ );
 		$this->filterContent();
 		$text = parent::getText();
 		if ( $this->plainText ) {
@@ -60,19 +57,16 @@ class ExtractFormatter extends HtmlFormatter {
 			$text = str_replace( "\r", "\n", $text ); // for Windows
 			$text = preg_replace( "/\n{3,}/", "\n\n", $text ); // normalise newlines
 		}
-		wfProfileOut( __METHOD__ );
 		return $text;
 	}
 
 	public function onHtmlReady( $html ) {
-		wfProfileIn( __METHOD__ );
 		if ( $this->plainText ) {
 			$html = preg_replace( '/\s*(<h([1-6])\b)/i',
 				"\n\n" . self::SECTION_MARKER_START . '$2' . self::SECTION_MARKER_END . '$1' ,
 				$html
 			);
 		}
-		wfProfileOut( __METHOD__ );
 		return $html;
 	}
 
@@ -84,7 +78,6 @@ class ExtractFormatter extends HtmlFormatter {
 	 * @return string
 	 */
 	public static function getFirstSentences( $text, $requestedSentenceCount ) {
-		wfProfileIn( __METHOD__ );
 		// Based on code from OpenSearchXml by Brion Vibber
 		$endchars = array(
 			'([^\d])\.\s', '\!\s', '\?\s', // regular ASCII
@@ -109,7 +102,6 @@ class ExtractFormatter extends HtmlFormatter {
 			$lines = explode( "\n", $text );
 			$text = trim( $lines[0] );
 		}
-		wfProfileOut( __METHOD__ );
 		return $text;
 	}
 
@@ -121,15 +113,12 @@ class ExtractFormatter extends HtmlFormatter {
 	 * @return string
 	 */
 	public static function getFirstChars( $text, $requestedLength ) {
-		wfProfileIn( __METHOD__ );
 		$length = mb_strlen( $text );
 		if ( $length <= $requestedLength ) {
-			wfProfileOut( __METHOD__ );
 			return $text;
 		}
 		$pattern = "#^.{{$requestedLength}}[\\w/]*>?#su";
 		preg_match( $pattern, $text, $m );
-		wfProfileOut( __METHOD__ );
 		return $m[0];
 	}
 

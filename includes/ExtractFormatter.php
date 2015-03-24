@@ -89,6 +89,7 @@ class ExtractFormatter extends HtmlFormatter {
 		$endgroup = implode( '|', $endchars );
 		$end = "(?:$endgroup)";
 		$sentence = ".+?$end+";
+		$requestedSentenceCount = intval( $requestedSentenceCount );
 		$regexp = "/^($sentence){1,{$requestedSentenceCount}}/u";
 		$matches = array();
 		$res = preg_match( $regexp, $text, $matches );

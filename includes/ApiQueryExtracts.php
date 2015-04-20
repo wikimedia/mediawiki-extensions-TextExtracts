@@ -191,8 +191,10 @@ class ApiQueryExtracts extends ApiQueryBase {
 		try {
 			$api->execute();
 			if ( defined( 'ApiResult::META_CONTENT' ) ) {
-				$data = $api->getResult()->getResultData();
-				$data = ApiResult::transformForBC( $data );
+				$data = $api->getResult()->getResultData( null, array(
+					'BC' => array(),
+					'Types' => array(),
+				) );
 			} else {
 				$data = $api->getResultData();
 			}
@@ -204,8 +206,10 @@ class ApiQueryExtracts extends ApiQueryBase {
 				$api = new ApiMain( new FauxRequest( $request )	);
 				$api->execute();
 				if ( defined( 'ApiResult::META_CONTENT' ) ) {
-					$data = $api->getResult()->getResultData();
-					$data = ApiResult::transformForBC( $data );
+					$data = $api->getResult()->getResultData( null, array(
+						'BC' => array(),
+						'Types' => array(),
+					) );
 				} else {
 					$data = $api->getResultData();
 				}

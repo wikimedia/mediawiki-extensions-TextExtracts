@@ -6,5 +6,6 @@
 	},
 	"textextracts-desc": "Stellt Auszüge aus Seiten in Klartext oder beschränktem HTML zur Verfügung",
 	"apihelp-query+extracts-param-sentences": "Wie viele Sätze zurückgegeben werden sollen.",
-	"apihelp-query+extracts-param-limit": "Wie viele Auszüge zurückgegeben werden sollen."
+	"apihelp-query+extracts-param-limit": "Wie viele Auszüge zurückgegeben werden sollen.",
+	"apihelp-query+extracts-example-1": "Ruft einen 175-Zeichen-Auszug ab"
 }

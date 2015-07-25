@@ -1,8 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Gomoko"
+			"Gomoko",
+			"Wladek92"
 		]
 	},
-	"textextracts-desc": "Fournit des extraits en texte brut ou en HTML limité du contenu de la page"
+	"textextracts-desc": "Fournit des extraits en texte brut ou en HTML limité du contenu de la page",
+	"apihelp-query+extracts-param-chars": "Nombre de caractères à retourner. Le texte courant retourné peut être légèrement plus long.",
+	"apihelp-query+extracts-param-sentences": "Combien de phrases renvoyer."
 }

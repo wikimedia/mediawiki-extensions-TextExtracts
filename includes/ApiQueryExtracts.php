@@ -43,6 +43,13 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 */
 	private $config;
 
+	// TODO: Allow extensions to hook into this to opt-in.
+	// This is partly for security reasons; see T107170.
+	/**
+	 * @var array
+	 */
+	private $supportedContentModels  = array( 'wikitext' );
+
 	public function __construct( $query, $moduleName, Config $conf ) {
 		parent::__construct( $query, $moduleName, 'ex' );
 		$this->config = $conf;
@@ -105,6 +112,12 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @return string
 	 */
 	private function getExtract( Title $title ) {
+		$contentModel = $title->getContentModel();
+		if ( !in_array( $contentModel, $this->supportedContentModels, true ) ) {
+			$this->setWarning( "{$title->getPrefixedDBkey()} has content model '$contentModel', which is not supported; returning an empty extract." );
+			return '';
+		}
+
 		$page = WikiPage::factory( $title );
 
 		$introOnly = $this->params['intro'];

@@ -138,7 +138,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 	}
 
 	private function cacheKey( WikiPage $page, $introOnly ) {
-		return wfMemcKey( 'mf', 'extract', $page->getLatest(),
+		return wfMemcKey( 'textextracts', $page->getId(), $page->getTouched(),
 			$page->getTitle()->getPageLanguage()->getPreferredVariant(),
 			$this->params['plaintext'], $introOnly
 		);

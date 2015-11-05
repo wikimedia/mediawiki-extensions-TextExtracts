@@ -372,11 +372,6 @@ class ApiQueryExtracts extends ApiQueryBase {
 				/** @todo Once support for MediaWiki < 1.25 is dropped, just use ApiBase::PARAM_HELP_MSG directly */
 				defined( 'ApiBase::PARAM_HELP_MSG' ) ? ApiBase::PARAM_HELP_MSG : '' => 'api-help-param-continue',
 			),
-			// Used implicitly by LanguageConverter
-			'variant' => array(
-				ApiBase::PARAM_TYPE => 'string',
-				ApiBase::PARAM_DFLT => false,
-			),
 		);
 	}
 
@@ -397,7 +392,6 @@ class ApiQueryExtracts extends ApiQueryBase {
 				" raw - This module's internal representation (section titles prefixed with <ASCII 1><ASCII 2><section level><ASCII 2><ASCII 1>",
 			),
 			'continue' => 'When more results are available, use this to continue',
-			'variant' => 'Convert content into this language variant`',
 		);
 	}
 

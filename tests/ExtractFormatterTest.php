@@ -64,41 +64,50 @@ class ExtractFormatterTest extends MediaWikiTestCase {
 		$this->assertEquals( $expected, ExtractFormatter::getFirstSentences( $text, $sentences ) );
 	}
 
-	private function sentences( $n = 1000000 ) {
-		$sentences = array(
-			'Foo is a bar.',
-			'Such a smart boy.',
-			'But completely useless.',
-		);
-		return implode( ' ', array_slice( $sentences, 0, $n ) );
-	}
-
 	public function provideGetFirstSentences() {
 		return array(
 			array(
-				$this->sentences(),
+				'Foo is a bar. Such a smart boy. But completely useless.',
 				2,
-				$this->sentences( 2 ),
+				'Foo is a bar. Such a smart boy.',
 			),
 			array(
-				$this->sentences(),
+				'Foo is a bar. Such a smart boy. But completely useless.',
 				1,
-				$this->sentences( 1 ),
+				'Foo is a bar.',
 			),
 			array(
-				$this->sentences( 1 ),
+				'Foo is a bar.',
 				1,
-				$this->sentences( 1 ),
+				'Foo is a bar.',
 			),
 			array(
-				$this->sentences( 1 ),
+				'Foo is a bar.',
 				2,
-				$this->sentences( 1 ),
+				'Foo is a bar.',
 			),
 			array(
 				'',
 				1,
 				'',
+			),
+			// Exclamation points too!!!
+			array(
+				'Foo is a bar! Such a smart boy! But completely useless!',
+				1,
+				'Foo is a bar!',
+			),
+			// A tricky one
+			array(
+				"Acid phosphatase (EC 3.1.3.2) is a chemical you don't want to mess with. Polyvinyl acetate, however, is another story.",
+				1,
+				"Acid phosphatase (EC 3.1.3.2) is a chemical you don't want to mess with.",
+			),
+			// Bug T118621
+			array(
+				'Foo was born in 1977. He enjoys listening to Siouxsie and the Banshees.',
+				1,
+				'Foo was born in 1977.',
 			),
 			/* @fixme
 			array(

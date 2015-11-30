@@ -109,12 +109,12 @@ class ExtractFormatterTest extends MediaWikiTestCase {
 				1,
 				'Foo was born in 1977.',
 			),
-			/* @fixme
+			// Bug T115795 - Test no cropping after initials
 			array(
 				'P.J. Harvey is a singer. She is awesome!',
 				1,
 				'P.J. Harvey is a singer.',
-			),*/
+			),
 		);
 	}
 

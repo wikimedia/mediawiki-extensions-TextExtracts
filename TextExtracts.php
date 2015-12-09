@@ -18,71 +18,16 @@
  * @file
  */
 
-$wgExtensionCredits['other'][] = array(
-	'path' => __FILE__,
-	'name' => 'TextExtracts',
-	'author' => array( 'Max Semenik' ),
-	'descriptionmsg' => 'textextracts-desc',
-	'url' => 'https://www.mediawiki.org/wiki/Extension:TextExtracts',
-);
-
-define( 'TEXT_EXTRACTS_INSTALLED', true );
-
-$dir = __DIR__;
-$wgMessagesDirs['TextExtracts'] = __DIR__ . '/i18n';
-$wgExtensionMessagesFiles['TextExtracts'] = "$dir/TextExtracts.i18n.php";
-
-
-$wgConfigRegistry['textextracts'] = 'GlobalVarConfig::newInstance';
-$wgAutoloadClasses['TextExtracts\ApiQueryExtracts'] = "$dir/includes/ApiQueryExtracts.php";
-$wgAutoloadClasses['TextExtracts\ExtractFormatter'] = "$dir/includes/ExtractFormatter.php";
-$wgAutoloadClasses['TextExtracts\Hooks'] = "$dir/includes/Hooks.php";
-$wgAPIPropModules['extracts'] = array(
-	'class' => 'TextExtracts\ApiQueryExtracts',
-	'factory' => 'wfNewApiQueryExtracts'
-);
-
-/**
- * @param ApiQuery $query
- * @param string $action
- * @return TextExtracts\ApiQueryExtracts
- */
-function wfNewApiQueryExtracts( $query, $action ) {
-	$config = ConfigFactory::getDefaultInstance()->makeConfig( 'textextracts' );
-	return new TextExtracts\ApiQueryExtracts( $query, $action, $config );
+if ( function_exists( 'wfLoadExtension' ) ) {
+	wfLoadExtension( 'TextExtracts' );
+	// Keep i18n globals so mergeMessageFileList.php doesn't break
+	$wgMessagesDirs['TextExtracts'] = __DIR__ . '/i18n';
+	/*wfWarn(
+		'Deprecated PHP entry point used for TextExtracts extension. ' .
+		'Please use wfLoadExtension instead, ' .
+		'see https://www.mediawiki.org/wiki/Extension_registration for more details.'
+	);*/
+	return;
+} else {
+	die( 'This version of the TextExtracts extension requires MediaWiki 1.25+' );
 }
-
-$wgHooks['OpenSearchXml'][] = 'TextExtracts\Hooks::onApiOpenSearchSuggest';
-$wgHooks['ApiOpenSearchSuggest'][] = 'TextExtracts\Hooks::onApiOpenSearchSuggest';
-$wgHooks['UnitTestsList'][] = function( &$files ) {
-	$files[] = __DIR__ . '/tests/ExtractFormatterTest.php';
-	return true;
-};
-
-
-// Configuration variables
-
-/**
- * Selectors of content to be removed from HTML
- */
-$wgExtractsRemoveClasses = array(
-	// These usually represent content that is not part of usual text flow
-	'table', 'div', 'ul.gallery',
-	// Section edit links
-	'.mw-editsection',
-	// Extension:Cite references
-	'sup.reference',
-	// Used by parser for various wikitext errors, no point having them in extracts
-	'.error',
-	// Ignored in MobileFrontend. @todo: decide if it's really needed
-	'.nomobile',
-	// Elements marked not to show up in the print version
-	'.noprint',
-	// Class specifically for this extension
-	'.noexcerpt',
-);
-
-/**
- * Whether this extension should provide its extracts for OpenSearch
- */
-$wgExtractsExtendOpenSearchXml = false;

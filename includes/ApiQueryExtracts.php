@@ -241,6 +241,16 @@ class ApiQueryExtracts extends ApiQueryBase {
 	}
 
 	/**
+	 * @param ApiQuery $query
+	 * @param string $action
+	 * @return TextExtracts\ApiQueryExtracts
+	 */
+	public static function factory( $query, $action ) {
+		$config = ConfigFactory::getDefaultInstance()->makeConfig( 'textextracts' );
+		return new TextExtracts\ApiQueryExtracts( $query, $action, $config );
+	}
+
+	/**
 	 * Converts page HTML into an extract
 	 * @param string $text
 	 * @return string

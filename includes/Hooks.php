@@ -9,6 +9,13 @@ use ConfigFactory;
 use FauxRequest;
 
 class Hooks {
+
+	// Unit test hook
+	public static function onUnitTestsList( &$files ) {
+		$files = array_merge( $files, glob( __DIR__ . '/tests/ExtractFormatterTest.php' ) );
+		return true;
+	}
+
 	/**
 	 * ApiOpenSearchSuggest hook handler
 	 * @param array $results

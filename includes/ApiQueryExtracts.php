@@ -19,10 +19,10 @@
 namespace TextExtracts;
 
 use ApiBase;
-use ApiResult;
 use ApiMain;
 use ApiQueryBase;
 use Config;
+use ConfigFactory;
 use FauxRequest;
 use MWTidy;
 use ParserCache;
@@ -241,13 +241,13 @@ class ApiQueryExtracts extends ApiQueryBase {
 	}
 
 	/**
-	 * @param ApiQuery $query
+	 * @param \ApiQuery $query
 	 * @param string $action
-	 * @return TextExtracts\ApiQueryExtracts
+	 * @return ApiQueryExtracts
 	 */
 	public static function factory( $query, $action ) {
 		$config = ConfigFactory::getDefaultInstance()->makeConfig( 'textextracts' );
-		return new TextExtracts\ApiQueryExtracts( $query, $action, $config );
+		return new self( $query, $action, $config );
 	}
 
 	/**

@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Arent"
+			"Arent",
+			"Siebrand"
 		]
 	},
-	"textextracts-desc": "Biedt platte-tekst of beperkte HTML weergave van pagina-inhoud"
+	"textextracts-desc": "Biedt tekst zonder opmaak of beperkte HTML weergave van pagina-inhoud"
 }

@@ -43,6 +43,7 @@
 			"ul.gallery",
 			".mw-editsection",
 			"sup.reference",
+			"ol.references",
 			".error",
 			".nomobile",
 			".noprint",

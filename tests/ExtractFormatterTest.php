@@ -115,6 +115,12 @@ class ExtractFormatterTest extends MediaWikiTestCase {
 				1,
 				'P.J. Harvey is a singer.',
 			),
+			// Bug T115817 - Non-breaking space is not a delimiter
+			array(
+				html_entity_decode( 'Pigeons (lat.&nbsp;Columbidae) are birds. They primarily feed on seeds.' ),
+				1,
+				html_entity_decode( 'Pigeons (lat.&nbsp;Columbidae) are birds.' ),
+			),
 		);
 	}
 

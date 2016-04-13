@@ -1,8 +1,9 @@
 <?php
 
 namespace TextExtracts;
+
 use Config;
-use HtmlFormatter;
+use HtmlFormatter\HtmlFormatter;
 use Exception;
 
 /**

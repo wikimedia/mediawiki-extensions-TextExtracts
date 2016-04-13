@@ -6,10 +6,9 @@ use TextExtracts\ExtractFormatter;
  */
 class ExtractFormatterTest extends MediaWikiTestCase {
 	/**
-	 * Disabled for now due to Jenkins weirdness
 	 * @dataProvider provideExtracts
 	 */
-	private function notReallyTestExtracts( $expected, $wikiText, $plainText ) {
+	public function testExtracts( $expected, $wikiText, $plainText ) {
 		$title = Title::newFromText( 'Test' );
 		$po = new ParserOptions();
 		$po->setEditSection( true );

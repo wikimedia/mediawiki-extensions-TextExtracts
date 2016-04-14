@@ -81,7 +81,7 @@ class ExtractFormatter extends HtmlFormatter {
 	public static function getFirstSentences( $text, $requestedSentenceCount ) {
 		// Based on code from OpenSearchXml by Brion Vibber
 		$endchars = array(
-			'[^\p{Lu}]\.[ \n]', '\![ \n]', '\?[ \n]', // regular ASCII
+			'[^\p{Lu}]\.(?:[ \n]|$)', '[\!\?](?:[ \n]|$)', // regular ASCII
 			'。', // full-width ideographic full-stop
 			'．', '！', '？', // double-width roman forms
 			'｡', // half-width ideographic full stop

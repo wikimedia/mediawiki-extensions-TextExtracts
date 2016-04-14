@@ -76,6 +76,11 @@ class ExtractFormatterTest extends MediaWikiTestCase {
 				'Foo is a bar.',
 			),
 			array(
+				'Foo is a bar. Such a smart boy.',
+				2,
+				'Foo is a bar. Such a smart boy.',
+			),
+			array(
 				'Foo is a bar.',
 				1,
 				'Foo is a bar.',

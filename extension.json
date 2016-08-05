@@ -32,9 +32,6 @@
 		],
 		"ApiOpenSearchSuggest": [
 			"TextExtracts\\Hooks::onApiOpenSearchSuggest"
-		],
-		"UnitTestsList": [
-			"TextExtracts\\Hooks::onUnitTestsList"
 		]
 	},
 	"config": {

@@ -208,14 +208,10 @@ class ApiQueryExtracts extends ApiQueryBase {
 		$api = new ApiMain( new FauxRequest( $request )	);
 		try {
 			$api->execute();
-			if ( defined( 'ApiResult::META_CONTENT' ) ) {
-				$data = $api->getResult()->getResultData( null, array(
-					'BC' => array(),
-					'Types' => array(),
-				) );
-			} else {
-				$data = $api->getResultData();
-			}
+			$data = $api->getResult()->getResultData( null, array(
+				'BC' => array(),
+				'Types' => array(),
+			) );
 		} catch ( UsageException $e ) {
 			if ( $e->getCodeString() === 'nosuchsection' ) {
 				// Looks like we tried to get the intro to a page without
@@ -223,14 +219,10 @@ class ApiQueryExtracts extends ApiQueryBase {
 				unset( $request['section'] );
 				$api = new ApiMain( new FauxRequest( $request )	);
 				$api->execute();
-				if ( defined( 'ApiResult::META_CONTENT' ) ) {
-					$data = $api->getResult()->getResultData( null, array(
-						'BC' => array(),
-						'Types' => array(),
-					) );
-				} else {
-					$data = $api->getResultData();
-				}
+				$data = $api->getResult()->getResultData( null, array(
+					'BC' => array(),
+					'Types' => array(),
+				) );
 			} else {
 				// Some other unexpected error - lets just report it to the user
 				// on the off chance that is the right thing.
@@ -369,45 +361,8 @@ class ApiQueryExtracts extends ApiQueryBase {
 			),
 			'continue' => array(
 				ApiBase::PARAM_TYPE => 'integer',
-				/** @todo Once support for MediaWiki < 1.25 is dropped, just use ApiBase::PARAM_HELP_MSG directly */
-				defined( 'ApiBase::PARAM_HELP_MSG' ) ? ApiBase::PARAM_HELP_MSG : '' => 'api-help-param-continue',
+				ApiBase::PARAM_HELP_MSG => 'api-help-param-continue',
 			),
-		);
-	}
-
-	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getParamDescription() {
-		return array(
-			'chars' => 'How many characters to return, actual text returned might be slightly longer.',
-			'sentences' => 'How many sentences to return',
-			'limit' => 'How many extracts to return',
-			'intro' => 'Return only content before the first section',
-			'plaintext' => 'Return extracts as plaintext instead of limited HTML',
-			'sectionformat' => array(
-				'How to format sections in plaintext mode:',
-				' plain - No formatting',
-				' wiki - Wikitext-style formatting == like this ==',
-				" raw - This module's internal representation (section titles prefixed with <ASCII 1><ASCII 2><section level><ASCII 2><ASCII 1>",
-			),
-			'continue' => 'When more results are available, use this to continue',
-		);
-	}
-
-	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getDescription() {
-		return 'Returns plain-text or limited HTML extracts of the given page(s)';
-	}
-
-	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getExamples() {
-		return array(
-			'api.php?action=query&prop=extracts&exchars=175&titles=Therion' => 'Get a 175-character extract',
 		);
 	}
 

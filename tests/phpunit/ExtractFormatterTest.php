@@ -1,4 +1,10 @@
 <?php
+
+namespace TextExtracts\Test;
+
+use MediaWiki\MediaWikiServices;
+use MediaWikiTestCase;
+use ParserOptions;
 use TextExtracts\ExtractFormatter;
 
 /**
@@ -9,10 +15,9 @@ class ExtractFormatterTest extends MediaWikiTestCase {
 	 * @dataProvider provideExtracts
 	 */
 	public function testExtracts( $expected, $text, $plainText ) {
-		$title = Title::newFromText( 'Test' );
 		$po = new ParserOptions();
 		$po->setEditSection( true );
-		$config = ConfigFactory::getDefaultInstance()->makeConfig( 'textextracts' );
+		$config = MediaWikiServices::getInstance()->getConfigFactory()->makeConfig( 'textextracts' );
 		$fmt = new ExtractFormatter( $text, $plainText, $config );
 		$fmt->remove( '.metadata' ); // Will be added via $wgExtractsRemoveClasses on WMF
 		$text = trim( $fmt->getText() );

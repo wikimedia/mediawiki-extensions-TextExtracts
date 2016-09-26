@@ -48,7 +48,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 	/**
 	 * @var array
 	 */
-	private $supportedContentModels  = array( 'wikitext' );
+	private $supportedContentModels = [ 'wikitext' ];
 
 	public function __construct( $query, $moduleName, Config $conf ) {
 		parent::__construct( $query, $moduleName, 'ex' );
@@ -91,9 +91,9 @@ class ApiQueryExtracts extends ApiQueryBase {
 			}
 
 			if ( $isXml ) {
-				$fit = $result->addValue( array( 'query', 'pages', $id ), 'extract', array( '*' => $text ) );
+				$fit = $result->addValue( [ 'query', 'pages', $id ], 'extract', [ '*' => $text ] );
 			} else {
-				$fit = $result->addValue( array( 'query', 'pages', $id ), 'extract', $text );
+				$fit = $result->addValue( [ 'query', 'pages', $id ], 'extract', $text );
 			}
 			if ( !$fit ) {
 				$this->setContinueEnumParameter( 'continue', $continue + $count - 1 );
@@ -196,33 +196,33 @@ class ApiQueryExtracts extends ApiQueryBase {
 				return $text;
 			}
 		}
-		$request = array(
+		$request = [
 			'action' => 'parse',
 			'page' => $page->getTitle()->getPrefixedText(),
 			'prop' => 'text'
-		);
+		];
 		if ( $this->params['intro'] ) {
 			$request['section'] = 0;
 		}
 		// in case of cache miss, render just the needed section
-		$api = new ApiMain( new FauxRequest( $request )	);
+		$api = new ApiMain( new FauxRequest( $request ) );
 		try {
 			$api->execute();
-			$data = $api->getResult()->getResultData( null, array(
-				'BC' => array(),
-				'Types' => array(),
-			) );
+			$data = $api->getResult()->getResultData( null, [
+				'BC' => [],
+				'Types' => [],
+			] );
 		} catch ( UsageException $e ) {
 			if ( $e->getCodeString() === 'nosuchsection' ) {
 				// Looks like we tried to get the intro to a page without
 				// sections!  Lets just grab what we can get.
 				unset( $request['section'] );
-				$api = new ApiMain( new FauxRequest( $request )	);
+				$api = new ApiMain( new FauxRequest( $request ) );
 				$api->execute();
-				$data = $api->getResult()->getResultData( null, array(
-					'BC' => array(),
-					'Types' => array(),
-				) );
+				$data = $api->getResult()->getResultData( null, [
+					'BC' => [],
+					'Types' => [],
+				] );
 			} else {
 				// Some other unexpected error - lets just report it to the user
 				// on the off chance that is the right thing.
@@ -304,7 +304,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 */
 	private function tidy( $text ) {
 		if ( $this->getConfig()->get( 'UseTidy' ) && !$this->params['plaintext'] ) {
-			$text = trim ( MWTidy::tidy( $text ) );
+			$text = trim( MWTidy::tidy( $text ) );
 		}
 		return $text;
 	}
@@ -312,7 +312,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 	private function doSections( $text ) {
 		$text = preg_replace_callback(
 			"/" . ExtractFormatter::SECTION_MARKER_START . '(\d)'. ExtractFormatter::SECTION_MARKER_END . "(.*?)$/m",
-			array( $this, 'sectionCallback' ),
+			[ $this, 'sectionCallback' ],
 			$text
 		);
 		return $text;
@@ -336,44 +336,44 @@ class ApiQueryExtracts extends ApiQueryBase {
 	}
 
 	public function getAllowedParams() {
-		return array(
-			'chars' => array(
+		return [
+			'chars' => [
 				ApiBase::PARAM_TYPE => 'integer',
 				ApiBase::PARAM_MIN => 1,
-			),
-			'sentences' => array(
+			],
+			'sentences' => [
 				ApiBase::PARAM_TYPE => 'integer',
 				ApiBase::PARAM_MIN => 1,
 				ApiBase::PARAM_MAX => 10,
-			),
-			'limit' => array(
+			],
+			'limit' => [
 				ApiBase::PARAM_DFLT => 1,
 				ApiBase::PARAM_TYPE => 'limit',
 				ApiBase::PARAM_MIN => 1,
 				ApiBase::PARAM_MAX => 20,
 				ApiBase::PARAM_MAX2 => 20,
-			),
+			],
 			'intro' => false,
 			'plaintext' => false,
-			'sectionformat' => array(
-				ApiBase::PARAM_TYPE => array( 'plain', 'wiki', 'raw' ),
+			'sectionformat' => [
+				ApiBase::PARAM_TYPE => [ 'plain', 'wiki', 'raw' ],
 				ApiBase::PARAM_DFLT => 'wiki',
-			),
-			'continue' => array(
+			],
+			'continue' => [
 				ApiBase::PARAM_TYPE => 'integer',
 				ApiBase::PARAM_HELP_MSG => 'api-help-param-continue',
-			),
-		);
+			],
+		];
 	}
 
 	/**
 	 * @see ApiBase::getExamplesMessages()
 	 */
 	protected function getExamplesMessages() {
-		return array(
+		return [
 			'action=query&prop=extracts&exchars=175&titles=Therion'
 				=> 'apihelp-query+extracts-example-1',
-		);
+		];
 	}
 
 	public function getHelpUrls() {

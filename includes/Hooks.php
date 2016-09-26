@@ -2,7 +2,6 @@
 
 namespace TextExtracts;
 
-
 use ApiMain;
 use ApiResult;
 use ConfigFactory;
@@ -22,17 +21,17 @@ class Hooks {
 		}
 		$pageIds = array_keys( $results );
 		$api = new ApiMain( new FauxRequest(
-			array(
+			[
 				'action' => 'query',
 				'prop' => 'extracts',
 				'explaintext' => true,
 				'exintro' => true,
 				'exlimit' => count( $results ),
 				'pageids' => implode( '|', $pageIds ),
-			) )
+			] )
 		);
 		$api->execute();
-		$data = $api->getResult()->getResultData( array( 'query', 'pages' ) );
+		$data = $api->getResult()->getResultData( [ 'query', 'pages' ] );
 		foreach ( $pageIds as $id ) {
 			$contentKey = isset( $data[$id]['extract'][ApiResult::META_CONTENT] )
 				? $data[$id]['extract'][ApiResult::META_CONTENT]

@@ -45,7 +45,7 @@ class ExtractFormatter extends HtmlFormatter {
 		if ( $plainText ) {
 			$this->flattenAllTags();
 		} else {
-			$this->flatten( array( 'a' ) );
+			$this->flatten( [ 'a' ] );
 		}
 	}
 
@@ -64,7 +64,7 @@ class ExtractFormatter extends HtmlFormatter {
 	public function onHtmlReady( $html ) {
 		if ( $this->plainText ) {
 			$html = preg_replace( '/\s*(<h([1-6])\b)/i',
-				"\n\n" . self::SECTION_MARKER_START . '$2' . self::SECTION_MARKER_END . '$1' ,
+				"\n\n" . self::SECTION_MARKER_START . '$2' . self::SECTION_MARKER_END . '$1',
 				$html
 			);
 		}
@@ -80,21 +80,21 @@ class ExtractFormatter extends HtmlFormatter {
 	 */
 	public static function getFirstSentences( $text, $requestedSentenceCount ) {
 		// Based on code from OpenSearchXml by Brion Vibber
-		$endchars = array(
+		$endchars = [
 			'[^\p{Lu}]\.(?:[ \n]|$)', '[\!\?](?:[ \n]|$)', // regular ASCII
 			'。', // full-width ideographic full-stop
 			'．', '！', '？', // double-width roman forms
 			'｡', // half-width ideographic full stop
-			);
+			];
 
 		$endgroup = implode( '|', $endchars );
 		$end = "(?:$endgroup)";
 		$sentence = ".+?$end+";
 		$requestedSentenceCount = intval( $requestedSentenceCount );
 		$regexp = "/^($sentence){1,{$requestedSentenceCount}}/u";
-		$matches = array();
+		$matches = [];
 		$res = preg_match( $regexp, $text, $matches );
-		if( $res ) {
+		if ( $res ) {
 			$text = trim( $matches[0] );
 		} else {
 			if ( $res === false ) {

@@ -4,8 +4,8 @@ namespace TextExtracts;
 
 use ApiMain;
 use ApiResult;
-use ConfigFactory;
 use FauxRequest;
+use MediaWiki\MediaWikiServices;
 
 class Hooks {
 
@@ -15,7 +15,7 @@ class Hooks {
 	 * @return bool
 	 */
 	public static function onApiOpenSearchSuggest( &$results ) {
-		$config = ConfigFactory::getDefaultInstance()->makeConfig( 'textextracts' );
+		$config = MediaWikiServices::getInstance()->getConfigFactory()->makeConfig( 'textextracts' );
 		if ( !$config->get( 'ExtractsExtendOpenSearchXml' ) || !count( $results ) ) {
 			return true;
 		}

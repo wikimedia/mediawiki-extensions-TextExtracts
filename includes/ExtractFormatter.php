@@ -3,6 +3,7 @@
 namespace TextExtracts;
 
 use Config;
+use DOMElement;
 use HtmlFormatter\HtmlFormatter;
 use Exception;
 
@@ -136,6 +137,7 @@ class ExtractFormatter extends HtmlFormatter {
 		$doc = $this->getDoc();
 		$spans = $doc->getElementsByTagName( 'span' );
 
+		/** @var DOMElement $span */
 		foreach ( $spans as $span ) {
 			$span->removeAttribute( 'class' );
 			$span->removeAttribute( 'style' );

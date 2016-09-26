@@ -22,8 +22,8 @@ use ApiBase;
 use ApiMain;
 use ApiQueryBase;
 use Config;
-use ConfigFactory;
 use FauxRequest;
+use MediaWiki\MediaWikiServices;
 use MWTidy;
 use ParserCache;
 use ParserOptions;
@@ -131,7 +131,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 		}
 		if ( $text === false ) {
 			$text = $this->parse( $page );
-			$text = $this->convertText( $text, $title, $this->params['plaintext'] );
+			$text = $this->convertText( $text );
 			$this->setCache( $page, $text );
 		}
 		return $text;
@@ -238,7 +238,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @return ApiQueryExtracts
 	 */
 	public static function factory( $query, $action ) {
-		$config = ConfigFactory::getDefaultInstance()->makeConfig( 'textextracts' );
+		$config = MediaWikiServices::getInstance()->getConfigFactory()->makeConfig( 'textextracts' );
 		return new self( $query, $action, $config );
 	}
 

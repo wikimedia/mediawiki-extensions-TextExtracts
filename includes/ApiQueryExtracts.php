@@ -180,12 +180,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 			$this->parserOptions = new ParserOptions( new User( '127.0.0.1' ) );
 		}
 		// first try finding full page in parser cache
-		if ( method_exists( $page, 'isParserCachedUsed' ) ) {
-			$useCache = $page->isParserCacheUsed( $this->parserOptions, 0 );
-		} else {
-			$useCache = $page->shouldCheckParserCache( $this->parserOptions, 0 );
-		}
-		if ( $useCache ) {
+		if ( $page->shouldCheckParserCache( $this->parserOptions, 0 ) ) {
 			$pout = ParserCache::singleton()->get( $page, $this->parserOptions );
 			if ( $pout ) {
 				$pout->setTOCEnabled( false );

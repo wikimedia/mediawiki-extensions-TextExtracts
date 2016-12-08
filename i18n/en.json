@@ -10,5 +10,7 @@
 	"apihelp-query+extracts-param-intro": "Return only content before the first section.",
 	"apihelp-query+extracts-param-plaintext": "Return extracts as plain text instead of limited HTML.",
 	"apihelp-query+extracts-param-sectionformat": "How to format sections in plaintext mode:\n;plain:No formatting.\n;wiki:Wikitext-style formatting (== like this ==).\n;raw:This module's internal representation (section titles prefixed with &lt;ASCII 1&gt;&lt;ASCII 2&gt;&lt;section level&gt;&lt;ASCII 2&gt;&lt;ASCII 1&gt;).",
-	"apihelp-query+extracts-example-1": "Get a 175-character extract"
+	"apihelp-query+extracts-example-1": "Get a 175-character extract",
+	"apiwarn-textextracts-limit": "<var>exlimit</var> was too large for a whole article extracts request, lowered to $1.",
+	"apiwarn-textextracts-unsupportedmodel": "$1 has content model $2, which is not supported; returning an empty extract."
 }

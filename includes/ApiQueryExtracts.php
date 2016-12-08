@@ -28,6 +28,7 @@ use MWTidy;
 use ParserCache;
 use ParserOptions;
 use Title;
+use ApiUsageException;
 use UsageException;
 use User;
 use WikiPage;
@@ -68,13 +69,15 @@ class ApiQueryExtracts extends ApiQueryBase {
 		$limit = intval( $params['limit'] );
 		if ( $limit > 1 && !$params['intro'] ) {
 			$limit = 1;
-			$this->setWarning( "exlimit was too large for a whole article extracts request, lowered to $limit" );
+			if ( is_callable( [ $this, 'addWarning' ] ) ) {
+				$this->addWarning( [ 'apiwarn-textextracts-limit', $limit ] );
+			} else {
+				$this->setWarning( "exlimit was too large for a whole article extracts request, lowered to $limit" );
+			}
 		}
 		if ( isset( $params['continue'] ) ) {
 			$continue = intval( $params['continue'] );
-			if ( $continue < 0 || $continue > count( $titles ) ) {
-				$this->dieUsageMsg( '_badcontinue' );
-			}
+			$this->dieContinueUsageIf( $continue < 0 || $continue > count( $titles ) );
 			$titles = array_slice( $titles, $continue, null, true );
 		}
 		$count = 0;
@@ -114,7 +117,13 @@ class ApiQueryExtracts extends ApiQueryBase {
 	private function getExtract( Title $title ) {
 		$contentModel = $title->getContentModel();
 		if ( !in_array( $contentModel, $this->supportedContentModels, true ) ) {
-			$this->setWarning( "{$title->getPrefixedDBkey()} has content model '$contentModel', which is not supported; returning an empty extract." );
+			if ( is_callable( [ $this, 'addWarning' ] ) ) {
+				$this->addWarning(
+					[ 'apiwarn-textextracts-unsupportedmodel', wfEscapeWikiText( $title->getPrefixedText() ), $contentModel ]
+				);
+			} else {
+				$this->setWarning( "{$title->getPrefixedDBkey()} has content model '$contentModel', which is not supported; returning an empty extract." );
+			}
 			return '';
 		}
 
@@ -207,6 +216,22 @@ class ApiQueryExtracts extends ApiQueryBase {
 				'BC' => [],
 				'Types' => [],
 			] );
+		} catch ( ApiUsageException $e ) {
+			if ( $e->getStatusValue()->hasMessage( 'apierror-nosuchsection' ) ) {
+				// Looks like we tried to get the intro to a page without
+				// sections!  Lets just grab what we can get.
+				unset( $request['section'] );
+				$api = new ApiMain( new FauxRequest( $request ) );
+				$api->execute();
+				$data = $api->getResult()->getResultData( null, [
+					'BC' => [],
+					'Types' => [],
+				] );
+			} else {
+				// Some other unexpected error - lets just report it to the user
+				// on the off chance that is the right thing.
+				throw $e;
+			}
 		} catch ( UsageException $e ) {
 			if ( $e->getCodeString() === 'nosuchsection' ) {
 				// Looks like we tried to get the intro to a page without

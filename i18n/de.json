@@ -10,6 +10,7 @@
 	"apihelp-query+extracts-param-limit": "Wie viele Auszüge zurückgegeben werden sollen (mehrere Auszüge können nur zurückgegeben werden, wenn exintro auf true gesetzt ist).",
 	"apihelp-query+extracts-param-intro": "Gibt nur den Inhalt vor dem ersten Abschnitt zurück.",
 	"apihelp-query+extracts-param-plaintext": "Gibt Auszüge als Klartext anstatt in beschränktem HTML zurück.",
-	"apihelp-query+extracts-param-variant": "Konvertiert Inhalt in seine Sprachvariante.",
-	"apihelp-query+extracts-example-1": "Ruft einen 175-Zeichen-Auszug ab"
+	"apihelp-query+extracts-example-1": "Ruft einen 175-Zeichen-Auszug ab",
+	"apiwarn-textextracts-limit": "<var>exlimit</var> war zu groß für eine ganze Artikelauszugsabfrage, begrenzt auf $1.",
+	"apiwarn-textextracts-unsupportedmodel": "$1 hat das Inhaltsmodell $2, das nicht unterstützt wird. Es wird ein leerer Auszug zurückgegeben."
 }

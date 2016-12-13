@@ -13,5 +13,7 @@
 	"apihelp-query+extracts-param-intro": "Returner kun innholdet foran første seksjon.",
 	"apihelp-query+extracts-param-plaintext": "Returner utdrag som ren tekst i stedet for HTML.",
 	"apihelp-query+extracts-param-sectionformat": "Hvordan seksjoner formateres i rentekstmodus:\n;plain:Ingen formatering.\n;wiki:Formatering i wikitekststil (== som dette ==)\n;raw:Denne modulens interne representasjon (seksjonstittel  med prefiks &lt;ASCII 1&gt;&lt;ASCII 2&gt;&lt;section level&gt;&lt;ASCII 2&gt;&lt;ASCII 1&gt;).",
-	"apihelp-query+extracts-example-1": "Hent et utdrag på 175 tegn"
+	"apihelp-query+extracts-example-1": "Hent et utdrag på 175 tegn",
+	"apiwarn-textextracts-limit": "<var>exlimit</var> var for stor for en forespørsel om full artikkeluthenting, senket til $1.",
+	"apiwarn-textextracts-unsupportedmodel": "$1 har innholdsmodellen $2, som ikke støttes; returnerer en tom uthenting."
 }

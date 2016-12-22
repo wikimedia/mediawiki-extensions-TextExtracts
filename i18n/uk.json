@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Andriykopanytsia",
-			"Ата"
+			"Ата",
+			"Piramidion"
 		]
 	},
 	"textextracts-desc": "Забезпечує видобування звичайного текст або обмеженого HTML із вмісту сторінки",
@@ -13,6 +14,7 @@
 	"apihelp-query+extracts-param-intro": "Виводити лише вміст до першого розділу.",
 	"apihelp-query+extracts-param-plaintext": "Виводити уривки у вигляді звичайного тексту замість обмеженого HTML.",
 	"apihelp-query+extracts-param-sectionformat": "Як форматувати розділи у режимі звичайного тексту:\n;plain:Без форматування.\n;wiki:Форматування у вікістилі (== отак ==).\n;raw:Зовнішнє представлення цього модуля (назви розділів матимуть префікс &lt;ASCII 1&gt;&lt;ASCII 2&gt;&lt;section level&gt;&lt;ASCII 2&gt;&lt;ASCII 1&gt;).",
-	"apihelp-query+extracts-param-variant": "Конвертувати вміст у варіант цією мовою.",
-	"apihelp-query+extracts-example-1": "Отримати 175-символьний уривок"
+	"apihelp-query+extracts-example-1": "Отримати 175-символьний уривок",
+	"apiwarn-textextracts-limit": "<var>exlimit</var> був надто великим для виконання запиту з видобування цілої статті; понижено до $1.",
+	"apiwarn-textextracts-unsupportedmodel": "$1 має контентну модель $2, яка не підтримується; повертаємо порожній витяг."
 }

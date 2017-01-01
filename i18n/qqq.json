@@ -1,6 +1,10 @@
 {
-	"@metadata": [],
-	"textextracts-desc": "{{desc}}",
+	"@metadata": {
+		"authors": [
+			"Umherirrender"
+		]
+	},
+	"textextracts-desc": "{{desc|name=TextExtracts|url=https://www.mediawiki.org/wiki/Extension:TextExtracts}}",
 	"apihelp-query+extracts-description": "{{doc-apihelp-description|query+extracts}}",
 	"apihelp-query+extracts-param-chars": "{{doc-apihelp-param|query+extracts|chars}}",
 	"apihelp-query+extracts-param-sentences": "{{doc-apihelp-param|query+extracts|sentences}}",

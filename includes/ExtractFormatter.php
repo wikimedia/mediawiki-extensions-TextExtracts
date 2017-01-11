@@ -80,6 +80,10 @@ class ExtractFormatter extends HtmlFormatter {
 	 * @return string
 	 */
 	public static function getFirstSentences( $text, $requestedSentenceCount ) {
+		if ( $requestedSentenceCount <= 0 ) {
+			return '';
+		}
+
 		// Based on code from OpenSearchXml by Brion Vibber
 		$endchars = [
 			'[^\p{Lu}]\.(?:[ \n]|$)', '[\!\?](?:[ \n]|$)', // regular ASCII
@@ -89,20 +93,19 @@ class ExtractFormatter extends HtmlFormatter {
 			];
 
 		$endgroup = implode( '|', $endchars );
-		$end = "(?:$endgroup)";
-		$sentence = ".+?$end+";
-		$requestedSentenceCount = intval( $requestedSentenceCount );
-		$regexp = "/^($sentence){1,{$requestedSentenceCount}}/u";
+		$regexp = "/($endgroup)+/u";
+
 		$matches = [];
-		$res = preg_match( $regexp, $text, $matches );
+		$res = preg_match_all( $regexp, $text, $matches, PREG_OFFSET_CAPTURE );
+
 		if ( $res ) {
-			$text = trim( $matches[0] );
+			$index = min( $requestedSentenceCount, $res ) - 1;
+			list( $tail, $length ) = $matches[0][ $index ];
+			// PCRE returns raw offsets, so using substr() instead of mb_substr()
+			$text = substr( $text, 0, $length ) . trim( $tail );
 		} else {
-			if ( $res === false ) {
-				throw new Exception( __METHOD__ . "() error compiling regular expression $regexp" );
-			}
 			// Just return the first line
-			$lines = explode( "\n", $text );
+			$lines = explode( "\n", $text, 2 );
 			$text = trim( $lines[0] );
 		}
 		return $text;

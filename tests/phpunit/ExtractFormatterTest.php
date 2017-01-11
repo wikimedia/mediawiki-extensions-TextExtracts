@@ -63,6 +63,7 @@ class ExtractFormatterTest extends MediaWikiTestCase {
 	}
 
 	public function provideGetFirstSentences() {
+		$longLine = str_repeat( 'word ', 1000000 );
 		return [
 			[
 				'Foo is a bar. Such a smart boy. But completely useless.',
@@ -106,6 +107,12 @@ class ExtractFormatterTest extends MediaWikiTestCase {
 				1,
 				"Acid phosphatase (EC 3.1.3.2) is a chemical you don't want to mess with.",
 			],
+			// No clear sentences
+			[
+				"foo\nbar\nbaz",
+				2,
+				'foo',
+			],
 			// Bug T118621
 			[
 				'Foo was born in 1977. He enjoys listening to Siouxsie and the Banshees.',
@@ -123,6 +130,17 @@ class ExtractFormatterTest extends MediaWikiTestCase {
 				html_entity_decode( 'Pigeons (lat.&nbsp;Columbidae) are birds. They primarily feed on seeds.' ),
 				1,
 				html_entity_decode( 'Pigeons (lat.&nbsp;Columbidae) are birds.' ),
+			],
+			// Bug T145231 - various problems with regexes
+			[
+				$longLine,
+				3,
+				trim( $longLine ),
+			],
+			[
+				str_repeat( 'Sentence. ', 70000 ),
+				65536,
+				trim( str_repeat( 'Sentence. ', 65536 ) ),
 			],
 		];
 	}

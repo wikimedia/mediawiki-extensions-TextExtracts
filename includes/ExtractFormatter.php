@@ -116,6 +116,9 @@ class ExtractFormatter extends HtmlFormatter {
 	 * @return string
 	 */
 	public static function getFirstChars( $text, $requestedLength ) {
+		if ( $requestedLength <= 0 ) {
+			return '';
+		}
 		$length = mb_strlen( $text );
 		if ( $length <= $requestedLength ) {
 			return $text;

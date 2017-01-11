@@ -143,7 +143,8 @@ class ExtractFormatterTest extends MediaWikiTestCase {
 		$longTextExpected = trim( str_repeat( 'тест ', 13108 ) );
 
 		return [
-			// [ $text, 0, '' ],
+			[ $text, -8, '' ],
+			[ $text, 0, '' ],
 			[ $text, 100, $text ],
 			[ $text, 1, 'Lullzy' ],
 			[ $text, 6, 'Lullzy' ],

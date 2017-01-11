@@ -120,9 +120,9 @@ class ExtractFormatter extends HtmlFormatter {
 		if ( $length <= $requestedLength ) {
 			return $text;
 		}
-		$pattern = "#^.{{$requestedLength}}[\\w/]*>?#su";
-		preg_match( $pattern, $text, $m );
-		return $m[0];
+		$pattern = "#^[\\w/]*>?#su";
+		preg_match( $pattern, mb_substr( $text, $requestedLength ), $m );
+		return mb_substr( $text, 0, $requestedLength ) . $m[0];
 	}
 
 	/**

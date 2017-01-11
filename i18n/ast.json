@@ -12,5 +12,7 @@
 	"apihelp-query+extracts-param-intro": "Devolver sólo el conteníu anterior a la primera seición.",
 	"apihelp-query+extracts-param-plaintext": "Devolver estractos como testu planu en llugar de HTML parcial.",
 	"apihelp-query+extracts-param-sectionformat": "Como dar formatu a les seiciones en mou testu planu:\n;plain:Sin formatu.\n;wiki:Formatu d'estilu testu wiki (== como esto ==).\n;raw:Representación interna d'esti módulu (títulos de sección prefixaos con &lt;ASCII 1&gt;&lt;ASCII 2&gt;&lt;nivel de seición&gt;&lt;ASCII 2&gt;&lt;ASCII 1&gt;).",
-	"apihelp-query+extracts-example-1": "Recibir un estractu de 175 caráuteres"
+	"apihelp-query+extracts-example-1": "Recibir un estractu de 175 caráuteres",
+	"apiwarn-textextracts-limit": "<var>exlimit</var> yera grande enforma pa una solicitú completa d'estractos del artículu, baxóse a $1.",
+	"apiwarn-textextracts-unsupportedmodel": "$1 tien el modelu de conteníu $2, que nun ye compatible; devolveráse un estractu vacíu."
 }

@@ -139,6 +139,7 @@ class ExtractFormatterTest extends MediaWikiTestCase {
 
 	public function provideGetFirstChars() {
 		$text = 'Lullzy lulz are lullzy!';
+		$html = 'foo<tag>bar</tag>';
 		$longText = str_repeat( 'тест ', 50000 );
 		$longTextExpected = trim( str_repeat( 'тест ', 13108 ) );
 
@@ -150,6 +151,13 @@ class ExtractFormatterTest extends MediaWikiTestCase {
 			[ $text, 6, 'Lullzy' ],
 			// [ $text, 7, 'Lullzy' ],
 			[ $text, 8, 'Lullzy lulz' ],
+			// HTML processing
+			[ $html, 1, 'foo' ],
+			[ $html, 4, 'foo<tag>' ], // let HTML sanitizer clean it up later
+			[ $html, 12, 'foo<tag>bar</tag>' ],
+			[ $html, 13, 'foo<tag>bar</tag>' ],
+			[ $html, 16, 'foo<tag>bar</tag>' ],
+			[ $html, 17, 'foo<tag>bar</tag>' ],
 			// T143178 - previously, characters were extracted using regexps which failed when
 			// requesting 64K chars or more.
 			[ $longText, 65536, $longTextExpected ],

@@ -45,7 +45,8 @@
 			".error",
 			".nomobile",
 			".noprint",
-			".noexcerpt"
+			".noexcerpt",
+			".sortkey"
 		],
 		"ExtractsExtendOpenSearchXml": false
 	},

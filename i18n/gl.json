@@ -13,6 +13,6 @@
 	"apihelp-query+extracts-param-intro": "Só devolver contido antes da primeira sección.",
 	"apihelp-query+extracts-param-plaintext": "Devolver extractos como texto plano no canto de HTML limitado.",
 	"apihelp-query+extracts-param-sectionformat": "Como formatear seccións en modo texto plano:\n;plain:Sen formato.\n;wiki:Formateo en estilo wiki (== como isto ==).\n;raw:Representación interna deste módulo (títulos de sección prefixados con &lt;ASCII 1&gt;&lt;ASCII 2&gt;&lt;nivel de sección&gt;&lt;ASCII 2&gt;&lt;ASCII 1&gt;).",
-	"apihelp-query+extracts-param-variant": "Converter o contido nesta variante do idioma.",
-	"apihelp-query+extracts-example-1": "Devolver un extracto de 175 caracteres"
+	"apihelp-query+extracts-example-1": "Devolver un extracto de 175 caracteres",
+	"apiwarn-textextracts-unsupportedmodel": "$1 ten o modelo de contido $2, que non está soportado; devolvendo un extracto baleiro."
 }

@@ -34,6 +34,12 @@ use User;
 use WikiPage;
 
 class ApiQueryExtracts extends ApiQueryBase {
+
+	/**
+	 * Bump when memcache needs clearing
+	 */
+	const CACHE_VERSION = 1;
+
 	/**
 	 * @var ParserOptions
 	 */
@@ -147,7 +153,8 @@ class ApiQueryExtracts extends ApiQueryBase {
 	}
 
 	private function cacheKey( WikiPage $page, $introOnly ) {
-		return wfMemcKey( 'textextracts', $page->getId(), $page->getTouched(),
+		return wfMemcKey( 'textextracts', self::CACHE_VERSION,
+			$page->getId(), $page->getTouched(),
 			$page->getTitle()->getPageLanguage()->getPreferredVariant(),
 			$this->params['plaintext'], $introOnly
 		);

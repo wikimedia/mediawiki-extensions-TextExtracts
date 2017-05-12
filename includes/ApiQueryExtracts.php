@@ -187,6 +187,9 @@ class ApiQueryExtracts extends ApiQueryBase {
 	private function parse( WikiPage $page ) {
 		if ( !$this->parserOptions ) {
 			$this->parserOptions = new ParserOptions( new User( '127.0.0.1' ) );
+			if ( is_callable( [ $this->parserOptions, 'setWrapOutputClass' ] ) ) {
+				$this->parserOptions->setWrapOutputClass( false );
+			}
 		}
 		// first try finding full page in parser cache
 		if ( $page->shouldCheckParserCache( $this->parserOptions, 0 ) ) {
@@ -203,7 +206,8 @@ class ApiQueryExtracts extends ApiQueryBase {
 		$request = [
 			'action' => 'parse',
 			'page' => $page->getTitle()->getPrefixedText(),
-			'prop' => 'text'
+			'prop' => 'text',
+			'wrapoutputclass' => '',
 		];
 		if ( $this->params['intro'] ) {
 			$request['section'] = 0;

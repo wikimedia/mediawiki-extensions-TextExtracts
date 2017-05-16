@@ -21,6 +21,7 @@ namespace TextExtracts;
 use ApiBase;
 use ApiMain;
 use ApiQueryBase;
+use BagOStuff;
 use Config;
 use FauxRequest;
 use MediaWiki\MediaWikiServices;
@@ -157,8 +158,8 @@ class ApiQueryExtracts extends ApiQueryBase {
 		return $text;
 	}
 
-	private function cacheKey( WikiPage $page, $introOnly ) {
-		return wfMemcKey( 'textextracts', self::CACHE_VERSION,
+	private function cacheKey( BagOStuff $cache, WikiPage $page, $introOnly ) {
+		return $cache->makeKey( 'textextracts', self::CACHE_VERSION,
 			$page->getId(), $page->getTouched(),
 			$page->getTitle()->getPageLanguage()->getPreferredVariant(),
 			$this->params['plaintext'], $introOnly
@@ -168,15 +169,15 @@ class ApiQueryExtracts extends ApiQueryBase {
 	private function getFromCache( WikiPage $page, $introOnly ) {
 		global $wgMemc;
 
-		$key = $this->cacheKey( $page, $introOnly );
+		$key = $this->cacheKey( $wgMemc, $page, $introOnly );
 		return $wgMemc->get( $key );
 	}
 
 	private function setCache( WikiPage $page, $text ) {
 		global $wgMemc;
 
-		$key = $this->cacheKey( $page, $this->params['intro'] );
-		$wgMemc->set( $key, $text );
+		$key = $this->cacheKey( $wgMemc, $page, $this->params['intro'] );
+		$wgMemc->set( $key, $text, $this->getConfig()->get( 'ParserCacheExpireTime' ) );
 	}
 
 	private function getFirstSection( $text, $plainText ) {

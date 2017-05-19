@@ -378,7 +378,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 				ApiBase::PARAM_MAX => 10,
 			],
 			'limit' => [
-				ApiBase::PARAM_DFLT => 1,
+				ApiBase::PARAM_DFLT => 20,
 				ApiBase::PARAM_TYPE => 'limit',
 				ApiBase::PARAM_MIN => 1,
 				ApiBase::PARAM_MAX => 20,

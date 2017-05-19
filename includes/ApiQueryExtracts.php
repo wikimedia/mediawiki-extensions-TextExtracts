@@ -67,7 +67,8 @@ class ApiQueryExtracts extends ApiQueryBase {
 		if ( count( $titles ) == 0 ) {
 			return;
 		}
-		$isXml = $this->getMain()->isInternalMode() || $this->getMain()->getPrinter()->getFormat() == 'XML';
+		$isXml = $this->getMain()->isInternalMode()
+			|| $this->getMain()->getPrinter()->getFormat() == 'XML';
 		$result = $this->getResult();
 		$params = $this->params = $this->extractRequestParams();
 		$this->requireMaxOneParameter( $params, 'chars', 'sentences' );
@@ -78,7 +79,8 @@ class ApiQueryExtracts extends ApiQueryBase {
 			if ( is_callable( [ $this, 'addWarning' ] ) ) {
 				$this->addWarning( [ 'apiwarn-textextracts-limit', $limit ] );
 			} else {
-				$this->setWarning( "exlimit was too large for a whole article extracts request, lowered to $limit" );
+				$this->setWarning( 'exlimit was too large for a whole article extracts request, ' .
+					"lowered to $limit" );
 			}
 		}
 		if ( isset( $params['continue'] ) ) {
@@ -124,11 +126,14 @@ class ApiQueryExtracts extends ApiQueryBase {
 		$contentModel = $title->getContentModel();
 		if ( !in_array( $contentModel, $this->supportedContentModels, true ) ) {
 			if ( is_callable( [ $this, 'addWarning' ] ) ) {
-				$this->addWarning(
-					[ 'apiwarn-textextracts-unsupportedmodel', wfEscapeWikiText( $title->getPrefixedText() ), $contentModel ]
-				);
+				$this->addWarning( [
+					'apiwarn-textextracts-unsupportedmodel',
+					wfEscapeWikiText( $title->getPrefixedText() ),
+					$contentModel
+				] );
 			} else {
-				$this->setWarning( "{$title->getPrefixedDBkey()} has content model '$contentModel', which is not supported; returning an empty extract." );
+				$this->setWarning( "{$title->getPrefixedDBkey()} has content model '$contentModel',"
+					. ' which is not supported; returning an empty extract.' );
 			}
 			return '';
 		}
@@ -342,7 +347,8 @@ class ApiQueryExtracts extends ApiQueryBase {
 
 	private function doSections( $text ) {
 		$text = preg_replace_callback(
-			"/" . ExtractFormatter::SECTION_MARKER_START . '(\d)'. ExtractFormatter::SECTION_MARKER_END . "(.*?)$/m",
+			"/" . ExtractFormatter::SECTION_MARKER_START . '(\d)' .
+				ExtractFormatter::SECTION_MARKER_END . "(.*?)$/m",
 			[ $this, 'sectionCallback' ],
 			$text
 		);

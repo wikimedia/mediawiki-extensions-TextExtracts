@@ -25,11 +25,14 @@ class ExtractFormatterTest extends MediaWikiTestCase {
 	}
 
 	public function provideExtracts() {
+		// @codingStandardsIgnoreStart
 		$dutch = '<b>Dutch</b> (<span class="unicode haudio" style="white-space:nowrap;"><span class="fn"><a href="/wiki/File:Nl-Nederlands.ogg" title="About this sound"><img alt="About this sound" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Loudspeaker.svg/11px-Loudspeaker.svg.png" width="11" height="11" srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Loudspeaker.svg/17px-Loudspeaker.svg.png 1.5x, https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Loudspeaker.svg/22px-Loudspeaker.svg.png 2x" /></a>&#160;<a href="https://upload.wikimedia.org/wikipedia/commons/d/db/Nl-Nederlands.ogg" class="internal" title="Nl-Nederlands.ogg"><i>Nederlands</i></a></span>&#160;<small class="metadata audiolinkinfo" style="cursor:help;">(<a href="/w/index.php?title=Wikipedia:Media_help&amp;action=edit&amp;redlink=1" class="new" title="Wikipedia:Media help (page does not exist)"><span style="cursor:help;">help</span></a>·<a href="/wiki/File:Nl-Nederlands.ogg" title="File:Nl-Nederlands.ogg"><span style="cursor:help;">info</span></a>)</small></span>) is a <a href="/w/index.php?title=West_Germanic_languages&amp;action=edit&amp;redlink=1" class="new" title="West Germanic languages (page does not exist)">West Germanic language</a> and the native language of most of the population of the <a href="/w/index.php?title=Netherlands&amp;action=edit&amp;redlink=1" class="new" title="Netherlands (page does not exist)">Netherlands</a>';
+		// @codingStandardsIgnoreEnd
 
 		return [
 			[
-				"Dutch ( Nederlands ) is a West Germanic language and the native language of most of the population of the Netherlands",
+				'Dutch ( Nederlands ) is a West Germanic language and the native language of ' .
+					'most of the population of the Netherlands',
 				$dutch,
 				true,
 			],
@@ -103,7 +106,8 @@ class ExtractFormatterTest extends MediaWikiTestCase {
 			],
 			// A tricky one
 			[
-				"Acid phosphatase (EC 3.1.3.2) is a chemical you don't want to mess with. Polyvinyl acetate, however, is another story.",
+				"Acid phosphatase (EC 3.1.3.2) is a chemical you don't want to mess with. " .
+					"Polyvinyl acetate, however, is another story.",
 				1,
 				"Acid phosphatase (EC 3.1.3.2) is a chemical you don't want to mess with.",
 			],
@@ -127,7 +131,8 @@ class ExtractFormatterTest extends MediaWikiTestCase {
 			],
 			// Bug T115817 - Non-breaking space is not a delimiter
 			[
-				html_entity_decode( 'Pigeons (lat.&nbsp;Columbidae) are birds. They primarily feed on seeds.' ),
+				html_entity_decode( 'Pigeons (lat.&nbsp;Columbidae) are birds. ' .
+					'They primarily feed on seeds.' ),
 				1,
 				html_entity_decode( 'Pigeons (lat.&nbsp;Columbidae) are birds.' ),
 			],

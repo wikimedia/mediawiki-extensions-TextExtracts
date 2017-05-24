@@ -39,6 +39,9 @@ class ApiQueryExtractsTest extends PHPUnit_Framework_TestCase {
 		$instance = $this->newInstance();
 		$params = $instance->getAllowedParams();
 		$this->assertInternalType( 'array', $params );
+		$this->assertArrayHasKey( 'chars', $params );
+		$this->assertEquals( $params['chars'][\ApiBase::PARAM_MIN], 1 );
+		$this->assertEquals( $params['chars'][\ApiBase::PARAM_MAX], 1200 );
 		$this->assertArrayHasKey( 'limit', $params );
 		$this->assertEquals( $params['limit'][\ApiBase::PARAM_DFLT], 20 );
 		$this->assertEquals( $params['limit'][\ApiBase::PARAM_TYPE], 'limit' );

@@ -377,6 +377,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 			'chars' => [
 				ApiBase::PARAM_TYPE => 'integer',
 				ApiBase::PARAM_MIN => 1,
+				ApiBase::PARAM_MAX => 1200,
 			],
 			'sentences' => [
 				ApiBase::PARAM_TYPE => 'integer',

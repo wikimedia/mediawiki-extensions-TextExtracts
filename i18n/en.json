@@ -4,6 +4,7 @@
 	},
 	"textextracts-desc": "Provides plain-text or limited HTML extracts of page content",
 	"apihelp-query+extracts-description": "Returns plain-text or limited HTML extracts of the given pages.",
+	"apihelp-query+extracts-summary": "Returns plain-text or limited HTML extracts of the given pages.",
 	"apihelp-query+extracts-param-chars": "How many characters to return. Actual text returned might be slightly longer.",
 	"apihelp-query+extracts-param-sentences": "How many sentences to return.",
 	"apihelp-query+extracts-param-limit": "How many extracts to return. (Multiple extracts can only be returned if exintro is set to true.)",

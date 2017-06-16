@@ -7,6 +7,7 @@
 	},
 	"textextracts-desc": "Proporciona extractos de texto do contido da páxina sen formato ou con HTML limitado",
 	"apihelp-query+extracts-description": "Devolve texto plano ou extractos limitados en HTML das páxinas indicadas.",
+	"apihelp-query+extracts-summary": "Devolve texto plano ou extractos limitados en HTML das páxinas indicadas.",
 	"apihelp-query+extracts-param-chars": "Cantos caracteres devolver. O texto devolto actual pode ser un pouco máis longo.",
 	"apihelp-query+extracts-param-sentences": "Cantas frases devolver.",
 	"apihelp-query+extracts-param-limit": "Cantos extractos devolver. (Os extractos múltiples só se poden devolver se exintro ten valor ''true'', verdadeiro)",

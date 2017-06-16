@@ -6,6 +6,7 @@
 	},
 	"textextracts-desc": "Дава извадоци од содржината на страницата во прост текст или ограничен HTML",
 	"apihelp-query+extracts-description": "Дава извадоци од дадените страници во прост текст или ограничен HTML.",
+	"apihelp-query+extracts-summary": "Дава извадоци од дадените страници во прост текст или ограничен HTML.",
 	"apihelp-query+extracts-param-chars": "Колку знаци да има извадокот. Самиот текст што ќе се даде може да биде малку подолг.",
 	"apihelp-query+extracts-param-sentences": "Колку реченици да има извадокот.",
 	"apihelp-query+extracts-param-limit": "Колку извадоци да се дадат. (Ќе се дадат повеќе извадоци само exintro е наместен на true)",

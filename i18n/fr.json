@@ -3,11 +3,13 @@
 		"authors": [
 			"Gomoko",
 			"Wladek92",
-			"Urhixidur"
+			"Urhixidur",
+			"Thibaut120094"
 		]
 	},
 	"textextracts-desc": "Fournit des extraits en texte brut ou en HTML limité du contenu de la page",
 	"apihelp-query+extracts-description": "Renvoie du texte brut ou des extraits limités de HTML des pages fournies.",
+	"apihelp-query+extracts-summary": "Renvoie du texte brut ou des extraits limités de HTML des pages fournies.",
 	"apihelp-query+extracts-param-chars": "Nombre de caractères à retourner. Le texte courant retourné peut être légèrement plus long.",
 	"apihelp-query+extracts-param-sentences": "Combien de phrases renvoyer.",
 	"apihelp-query+extracts-param-limit": "Combien d'extraits à retourner (les extraits multiples peuvent être retournés si exintro et mis à true).",

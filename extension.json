@@ -38,6 +38,9 @@
 		"ExtractsRemoveClasses": [
 			"table",
 			"div",
+			"script",
+			"input",
+			"style",
 			"ul.gallery",
 			".mw-editsection",
 			"sup.reference",

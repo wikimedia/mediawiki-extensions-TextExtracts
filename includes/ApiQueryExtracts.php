@@ -220,6 +220,8 @@ class ApiQueryExtracts extends ApiQueryBase {
 			'action' => 'parse',
 			'page' => $page->getTitle()->getPrefixedText(),
 			'prop' => 'text',
+			// Invokes special handling when using partial wikitext (T168743)
+			'sectionpreview' => 1,
 			'wrapoutputclass' => '',
 		];
 		if ( $this->params['intro'] ) {

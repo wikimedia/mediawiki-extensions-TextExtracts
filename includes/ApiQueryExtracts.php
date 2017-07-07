@@ -90,16 +90,23 @@ class ApiQueryExtracts extends ApiQueryBase {
 			$titles = array_slice( $titles, $continue, null, true );
 		}
 		$count = 0;
+		$titleInFileNamespace = false;
 		/** @var Title $t */
 		foreach ( $titles as $id => $t ) {
 			if ( ++$count > $limit ) {
 				$this->setContinueEnumParameter( 'continue', $continue + $count - 1 );
 				break;
 			}
-			$text = $this->getExtract( $t );
-			$text = $this->truncate( $text );
-			if ( $this->params['plaintext'] ) {
-				$text = $this->doSections( $text );
+
+			if ( $t->inNamespace( NS_FILE ) ) {
+				$text = '';
+				$titleInFileNamespace = true;
+			} else {
+				$text = $this->getExtract( $t );
+				$text = $this->truncate( $text );
+				if ( $this->params['plaintext'] ) {
+					$text = $this->doSections( $text );
+				}
 			}
 
 			if ( $isXml ) {
@@ -111,6 +118,9 @@ class ApiQueryExtracts extends ApiQueryBase {
 				$this->setContinueEnumParameter( 'continue', $continue + $count - 1 );
 				break;
 			}
+		}
+		if ( $titleInFileNamespace ) {
+			$this->addWarning( 'apiwarn-textextracts-title-in-file-namespace' );
 		}
 	}
 

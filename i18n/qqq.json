@@ -15,5 +15,6 @@
 	"apihelp-query+extracts-param-sectionformat": "{{doc-apihelp-param|query+extracts|sectionformat}}",
 	"apihelp-query+extracts-example-1": "{{doc-apihelp-example|query+extracts}}",
 	"apiwarn-textextracts-limit": "{{doc-apierror}}\n\nParameters:\n* $1 - Limit that will be used",
-	"apiwarn-textextracts-unsupportedmodel": "{{doc-apierror}}\n\nParameters:\n* $1 - Page title\n* $2 - Content model"
+	"apiwarn-textextracts-unsupportedmodel": "{{doc-apierror}}\n\nParameters:\n* $1 - Page title\n* $2 - Content model",
+	"apiwarn-textextracts-title-in-file-namespace": "{{doc-apierror}}\n\nWarning message displayed when an extract for a title in File namespace is requested."
 }

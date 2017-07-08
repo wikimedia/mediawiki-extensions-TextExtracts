@@ -12,5 +12,6 @@
 	"apihelp-query+extracts-param-plaintext": "Gibt Auszüge als Klartext anstatt in beschränktem HTML zurück.",
 	"apihelp-query+extracts-example-1": "Ruft einen 175-Zeichen-Auszug ab",
 	"apiwarn-textextracts-limit": "<var>exlimit</var> war zu groß für eine ganze Artikelauszugsabfrage, begrenzt auf $1.",
-	"apiwarn-textextracts-unsupportedmodel": "$1 hat das Inhaltsmodell $2, das nicht unterstützt wird. Es wird ein leerer Auszug zurückgegeben."
+	"apiwarn-textextracts-unsupportedmodel": "$1 hat das Inhaltsmodell $2, das nicht unterstützt wird. Es wird ein leerer Auszug zurückgegeben.",
+	"apiwarn-textextracts-title-in-file-namespace": "Es wurde ein Auszug für einen Titel im Dateinamensraum angefordert, jedoch wurde nichts zurückgegeben."
 }

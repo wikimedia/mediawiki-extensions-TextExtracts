@@ -16,5 +16,6 @@
 	"apihelp-query+extracts-param-sectionformat": "Como formatar as secções no modo de texto simples:\n;plain:Sem formatação.\n;wiki:Formatação ao estilo de texto wiki (== assim ==)\n;raw:A representação interna deste módulo (títulos de secção com os prefixos &lt;ASCII 1&gt;&lt;ASCII 2&gt;&lt;nível de secção&gt;&lt;ASCII 2&gt;&lt;ASCII 1&gt;).",
 	"apihelp-query+extracts-example-1": "Obter um extrato de 175 caracteres",
 	"apiwarn-textextracts-limit": "<var>exlimit</var> era demasiado grande para um pedido de extrato de um artigo completo; reduzido para $1.",
-	"apiwarn-textextracts-unsupportedmodel": "$1 tem o modelo de conteúdo $2, que não é suportado; a devolver um extrato vazio."
+	"apiwarn-textextracts-unsupportedmodel": "$1 tem o modelo de conteúdo $2, que não é suportado; a devolver um extrato vazio.",
+	"apiwarn-textextracts-title-in-file-namespace": "Foi pedido um extrato para um título no espaço nominal Ficheiro, não foi devolvido nenhum."
 }

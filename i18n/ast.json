@@ -15,5 +15,6 @@
 	"apihelp-query+extracts-param-sectionformat": "Como dar formatu a les seiciones en mou testu planu:\n;plain:Sin formatu.\n;wiki:Formatu d'estilu testu wiki (== como esto ==).\n;raw:Representación interna d'esti módulu (títulos de sección prefixaos con &lt;ASCII 1&gt;&lt;ASCII 2&gt;&lt;nivel de seición&gt;&lt;ASCII 2&gt;&lt;ASCII 1&gt;).",
 	"apihelp-query+extracts-example-1": "Recibir un estractu de 175 caráuteres",
 	"apiwarn-textextracts-limit": "<var>exlimit</var> yera grande enforma pa una solicitú completa d'estractos del artículu, baxóse a $1.",
-	"apiwarn-textextracts-unsupportedmodel": "$1 tien el modelu de conteníu $2, que nun ye compatible; devolveráse un estractu vacíu."
+	"apiwarn-textextracts-unsupportedmodel": "$1 tien el modelu de conteníu $2, que nun ye compatible; devolveráse un estractu vacíu.",
+	"apiwarn-textextracts-title-in-file-namespace": "Pidióse l'estractu d'un títulu del espaciu de nomes Ficheru, nun se devolvió nada."
 }

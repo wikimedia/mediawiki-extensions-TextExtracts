@@ -15,5 +15,7 @@
 	"apihelp-query+extracts-param-intro": "Retornar apenas o conteúdo antes da primeira seção.",
 	"apihelp-query+extracts-param-plaintext": "Retornar extratos como texto simples em vez de HTML limitado.",
 	"apihelp-query+extracts-param-sectionformat": "Como formatar as seções no modo de texto simples:\n;plain: sem formato\n;wiki: formato no estilo wiki (== dessa forma ==)\n;raw: representação interna deste módulo (títulos de seção prefixados com &lt;ASCII 1&gt;&lt;ASCII 2&gt;&lt;section level&gt;&lt;ASCII 2&gt;&lt;ASCII 1&gt;).",
-	"apihelp-query+extracts-example-1": "Obter um extrato de 175 caracteres"
+	"apihelp-query+extracts-example-1": "Obter um extrato de 175 caracteres",
+	"apiwarn-textextracts-limit": "<var>exlimit</var> foi muito grande para um pedido completo de extrato de artigo, reduzido para $1",
+	"apiwarn-textextracts-unsupportedmodel": "$1 tem o modelo de conteúdo $2, que não é suportado; devolvendo um extrato vazio."
 }

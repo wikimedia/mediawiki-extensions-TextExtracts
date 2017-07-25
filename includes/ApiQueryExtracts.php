@@ -218,7 +218,6 @@ class ApiQueryExtracts extends ApiQueryBase {
 		if ( $page->shouldCheckParserCache( $this->parserOptions, 0 ) ) {
 			$pout = ParserCache::singleton()->get( $page, $this->parserOptions );
 			if ( $pout ) {
-				$pout->setTOCEnabled( false );
 				$text = $pout->getText();
 				if ( $this->params['intro'] ) {
 					$text = $this->getFirstSection( $text, false );

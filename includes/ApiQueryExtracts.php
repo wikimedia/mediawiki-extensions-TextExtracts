@@ -24,6 +24,7 @@ use ApiQueryBase;
 use BagOStuff;
 use Config;
 use FauxRequest;
+use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
 use MWTidy;
 use ParserCache;
@@ -205,9 +206,12 @@ class ApiQueryExtracts extends ApiQueryBase {
 	/**
 	 * Returns page HTML
 	 * @param WikiPage $page
-	 * @return string
+	 * @return string|null
+	 * @throws ApiUsageException
+	 * @throws UsageException
 	 */
 	private function parse( WikiPage $page ) {
+		$apiException = null;
 		if ( !$this->parserOptions ) {
 			$this->parserOptions = new ParserOptions( new User( '127.0.0.1' ) );
 			if ( is_callable( [ $this->parserOptions, 'setWrapOutputClass' ] ) ) {
@@ -245,6 +249,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 				'Types' => [],
 			] );
 		} catch ( ApiUsageException $e ) {
+			$apiException = $e->__toString();
 			if ( $e->getStatusValue()->hasMessage( 'apierror-nosuchsection' ) ) {
 				// Looks like we tried to get the intro to a page without
 				// sections!  Lets just grab what we can get.
@@ -261,6 +266,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 				throw $e;
 			}
 		} catch ( UsageException $e ) {
+			$apiException = $e->__toString();
 			if ( $e->getCodeString() === 'nosuchsection' ) {
 				// Looks like we tried to get the intro to a page without
 				// sections!  Lets just grab what we can get.
@@ -277,6 +283,17 @@ class ApiQueryExtracts extends ApiQueryBase {
 				throw $e;
 			}
 		}
+		if ( !array_key_exists( 'parse', $data ) ) {
+			LoggerFactory::getInstance( 'textextracts' )->warning(
+				'API Parse request failed while generating text extract', [
+					'title' => $page->getTitle()->getFullText(),
+					'url' => $this->getRequest()->getFullRequestURL(),
+					'exception' => $apiException,
+					'request' => $request
+			] );
+			return null;
+		}
+
 		return $data['parse']['text']['*'];
 	}
 

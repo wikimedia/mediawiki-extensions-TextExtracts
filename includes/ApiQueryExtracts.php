@@ -26,7 +26,7 @@ use Config;
 use FauxRequest;
 use MediaWiki\MediaWikiServices;
 use MWTidy;
-use ParserCache;
+
 use ParserOptions;
 use Title;
 use ApiUsageException;
@@ -77,12 +77,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 		$limit = intval( $params['limit'] );
 		if ( $limit > 1 && !$params['intro'] ) {
 			$limit = 1;
-			if ( is_callable( [ $this, 'addWarning' ] ) ) {
-				$this->addWarning( [ 'apiwarn-textextracts-limit', $limit ] );
-			} else {
-				$this->setWarning( 'exlimit was too large for a whole article extracts request, ' .
-					"lowered to $limit" );
-			}
+			$this->addWarning( [ 'apiwarn-textextracts-limit', $limit ] );
 		}
 		if ( isset( $params['continue'] ) ) {
 			$continue = intval( $params['continue'] );
@@ -136,16 +131,11 @@ class ApiQueryExtracts extends ApiQueryBase {
 	private function getExtract( Title $title ) {
 		$contentModel = $title->getContentModel();
 		if ( !in_array( $contentModel, $this->supportedContentModels, true ) ) {
-			if ( is_callable( [ $this, 'addWarning' ] ) ) {
-				$this->addWarning( [
-					'apiwarn-textextracts-unsupportedmodel',
-					wfEscapeWikiText( $title->getPrefixedText() ),
-					$contentModel
-				] );
-			} else {
-				$this->setWarning( "{$title->getPrefixedDBkey()} has content model '$contentModel',"
-					. ' which is not supported; returning an empty extract.' );
-			}
+			$this->addWarning( [
+				'apiwarn-textextracts-unsupportedmodel',
+				wfEscapeWikiText( $title->getPrefixedText() ),
+				$contentModel
+			] );
 			return '';
 		}
 
@@ -216,7 +206,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 		}
 		// first try finding full page in parser cache
 		if ( $page->shouldCheckParserCache( $this->parserOptions, 0 ) ) {
-			$pout = ParserCache::singleton()->get( $page, $this->parserOptions );
+			$pout = MediaWikiServices::getInstance()->getParserCache()->get( $page, $this->parserOptions );
 			if ( $pout ) {
 				$text = $pout->getText();
 				if ( $this->params['intro'] ) {

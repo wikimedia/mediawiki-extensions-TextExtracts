@@ -5,7 +5,6 @@ namespace TextExtracts;
 use Config;
 use DOMElement;
 use HtmlFormatter\HtmlFormatter;
-use Exception;
 
 /**
  * Provides text-only or limited-HTML extracts of page HTML

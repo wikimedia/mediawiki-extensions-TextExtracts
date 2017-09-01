@@ -31,8 +31,8 @@ class ExtractFormatter extends HtmlFormatter {
 	private $plainText;
 
 	/**
-	 * @param string $text: Text to convert
-	 * @param bool $plainText: Whether extract should be plaintext
+	 * @param string $text Text to convert
+	 * @param bool $plainText Whether extract should be plaintext
 	 * @param Config $config
 	 */
 	public function __construct( $text, $plainText, Config $config ) {

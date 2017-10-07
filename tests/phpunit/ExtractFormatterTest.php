@@ -72,9 +72,9 @@ class ExtractFormatterTest extends MediaWikiTestCase {
 
 	/**
 	 * @dataProvider provideGetFirstSentences
-	 * @param $text
-	 * @param $sentences
-	 * @param $expected
+	 * @param string $text
+	 * @param string $sentences
+	 * @param string $expected
 	 */
 	public function testGetFirstSentences( $text, $sentences, $expected ) {
 		$this->assertEquals( $expected, ExtractFormatter::getFirstSentences( $text, $sentences ) );
@@ -167,9 +167,9 @@ class ExtractFormatterTest extends MediaWikiTestCase {
 
 	/**
 	 * @dataProvider provideGetFirstChars
-	 * @param $text
-	 * @param $chars
-	 * @param $expected
+	 * @param string $text
+	 * @param string $chars
+	 * @param string $expected
 	 */
 	public function testGetFirstChars( $text, $chars, $expected ) {
 		$this->assertEquals( $expected, ExtractFormatter::getFirstChars( $text, $chars ) );

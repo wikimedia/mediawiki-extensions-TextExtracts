@@ -427,6 +427,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 
 	/**
 	 * @see ApiBase::getExamplesMessages()
+	 * @return array
 	 */
 	protected function getExamplesMessages() {
 		return [

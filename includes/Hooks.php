@@ -12,7 +12,7 @@ class Hooks {
 
 	/**
 	 * ApiOpenSearchSuggest hook handler
-	 * @param array $results
+	 * @param array &$results
 	 * @return bool
 	 */
 	public static function onApiOpenSearchSuggest( &$results ) {

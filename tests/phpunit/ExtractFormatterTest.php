@@ -19,7 +19,8 @@ class ExtractFormatterTest extends MediaWikiTestCase {
 		$po->setEditSection( true );
 		$config = MediaWikiServices::getInstance()->getConfigFactory()->makeConfig( 'textextracts' );
 		$fmt = new ExtractFormatter( $text, $plainText, $config );
-		$fmt->remove( '.metadata' ); // Will be added via $wgExtractsRemoveClasses on WMF
+		// .metadata class will be added via $wgExtractsRemoveClasses on WMF
+		$fmt->remove( '.metadata' );
 		$text = trim( $fmt->getText() );
 		$this->assertEquals( $expected, $text );
 	}
@@ -191,7 +192,8 @@ class ExtractFormatterTest extends MediaWikiTestCase {
 			[ $text, 8, 'Lullzy lulz' ],
 			// HTML processing
 			[ $html, 1, 'foo' ],
-			[ $html, 4, 'foo<tag>' ], // let HTML sanitizer clean it up later
+			// let HTML sanitizer clean it up later
+			[ $html, 4, 'foo<tag>' ],
 			[ $html, 12, 'foo<tag>bar</tag>' ],
 			[ $html, 13, 'foo<tag>bar</tag>' ],
 			[ $html, 16, 'foo<tag>bar</tag>' ],

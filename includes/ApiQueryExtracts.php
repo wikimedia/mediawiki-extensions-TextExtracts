@@ -380,16 +380,17 @@ class ApiQueryExtracts extends ApiQueryBase {
 		if ( $this->params['sectionformat'] == 'raw' ) {
 			return $matches[0];
 		}
-		$func = __CLASS__ . "::doSection_{$this->params['sectionformat']}";
+		$sectionformat = ucfirst( $this->params['sectionformat'] );
+		$func = __CLASS__ . "::doSection{$sectionformat}";
 		return call_user_func( $func, $matches[1], trim( $matches[2] ) );
 	}
 
-	private static function doSection_wiki( $level, $text ) {
+	private static function doSectionWiki( $level, $text ) {
 		$bars = str_repeat( '=', $level );
 		return "\n$bars $text $bars";
 	}
 
-	private static function doSection_plain( $level, $text ) {
+	private static function doSectionPlain( $level, $text ) {
 		return "\n$text";
 	}
 

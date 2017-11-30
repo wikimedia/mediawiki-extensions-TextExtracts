@@ -49,7 +49,15 @@ class ExtractFormatter extends HtmlFormatter {
 		}
 	}
 
-	public function getText( $dummy = null ) {
+	/**
+	 * Performs final transformations (such as newline replacement for plaintext
+	 * option) and returns resulting HTML.
+	 *
+	 * @param DOMElement|string|null $element ID of element to get HTML from.
+	 * Ignored
+	 * @return string Processed HTML
+	 */
+	public function getText( $element = null ) {
 		$this->filterContent();
 		$text = parent::getText();
 		if ( $this->plainText ) {
@@ -64,6 +72,10 @@ class ExtractFormatter extends HtmlFormatter {
 		return $text;
 	}
 
+	/**
+	 * @param string $html HTML string to process
+	 * @return string Processed HTML
+	 */
 	public function onHtmlReady( $html ) {
 		if ( $this->plainText ) {
 			$html = preg_replace( '/\s*(<h([1-6])\b)/i',

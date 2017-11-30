@@ -59,11 +59,22 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 */
 	private $supportedContentModels = [ 'wikitext' ];
 
+	/**
+	 * @param \ApiQuery $query API query module object
+	 * @param string $moduleName Name of this query module
+	 * @param Config $conf MediaWiki configuration
+	 * @return ApiQueryExtracts
+	 */
 	public function __construct( $query, $moduleName, Config $conf ) {
 		parent::__construct( $query, $moduleName, 'ex' );
 		$this->config = $conf;
 	}
 
+	/**
+	 * Evaluates the parameters, performs the requested extraction of text,
+	 * and sets up the result
+	 * @return null
+	 */
 	public function execute() {
 		$titles = $this->getPageSet()->getGoodTitles();
 		if ( count( $titles ) == 0 ) {
@@ -120,6 +131,10 @@ class ApiQueryExtracts extends ApiQueryBase {
 		}
 	}
 
+	/**
+	 * @param array $params Ignored parameters
+	 * @return string
+	 */
 	public function getCacheMode( $params ) {
 		return 'public';
 	}
@@ -394,6 +409,10 @@ class ApiQueryExtracts extends ApiQueryBase {
 		return "\n$text";
 	}
 
+	/**
+	 * Return an array describing all possible parameters to this module
+	 * @return array
+	 */
 	public function getAllowedParams() {
 		return [
 			'chars' => [
@@ -437,6 +456,10 @@ class ApiQueryExtracts extends ApiQueryBase {
 		];
 	}
 
+	/**
+	 * @see ApiBase::getHelpUrls()
+	 * @return string
+	 */
 	public function getHelpUrls() {
 		return 'https://www.mediawiki.org/wiki/Extension:TextExtracts#API';
 	}

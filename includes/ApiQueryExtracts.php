@@ -288,13 +288,13 @@ class ApiQueryExtracts extends ApiQueryBase {
 	}
 
 	/**
-	 * @param \ApiQuery $query
-	 * @param string $action
+	 * @param \ApiQuery $query API query module
+	 * @param string $name Name of this query module
 	 * @return ApiQueryExtracts
 	 */
-	public static function factory( $query, $action ) {
+	public static function factory( $query, $name ) {
 		$config = MediaWikiServices::getInstance()->getConfigFactory()->makeConfig( 'textextracts' );
-		return new self( $query, $action, $config );
+		return new self( $query, $name, $config );
 	}
 
 	/**

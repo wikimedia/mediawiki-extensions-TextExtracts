@@ -33,7 +33,7 @@ class ExtractFormatter extends HtmlFormatter {
 	/**
 	 * @param string $text Text to convert
 	 * @param bool $plainText Whether extract should be plaintext
-	 * @param Config $config
+	 * @param Config $config Configuration object
 	 */
 	public function __construct( $text, $plainText, Config $config ) {
 		parent::__construct( HtmlFormatter::wrapHTML( $text ) );
@@ -74,8 +74,8 @@ class ExtractFormatter extends HtmlFormatter {
 	/**
 	 * Returns no more than the given number of sentences
 	 *
-	 * @param string $text
-	 * @param int $requestedSentenceCount
+	 * @param string $text Source text to extract from
+	 * @param int $requestedSentenceCount Maximum number of sentences to extract
 	 * @return string
 	 */
 	public static function getFirstSentences( $text, $requestedSentenceCount ) {
@@ -113,8 +113,8 @@ class ExtractFormatter extends HtmlFormatter {
 	/**
 	 * Returns no more than a requested number of characters, preserving words
 	 *
-	 * @param string $text
-	 * @param int $requestedLength
+	 * @param string $text Source text to extract from
+	 * @param int $requestedLength Maximum number of characters to return
 	 * @return string
 	 */
 	public static function getFirstChars( $text, $requestedLength ) {

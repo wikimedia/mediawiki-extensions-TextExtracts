@@ -16,7 +16,6 @@ class ExtractFormatterTest extends MediaWikiTestCase {
 	 */
 	public function testExtracts( $expected, $text, $plainText ) {
 		$po = new ParserOptions();
-		$po->setEditSection( true );
 		$config = MediaWikiServices::getInstance()->getConfigFactory()->makeConfig( 'textextracts' );
 		$fmt = new ExtractFormatter( $text, $plainText, $config );
 		// .metadata class will be added via $wgExtractsRemoveClasses on WMF

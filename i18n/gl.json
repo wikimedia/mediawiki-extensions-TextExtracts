@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Toliño",
-			"Elisardojm"
+			"Elisardojm",
+			"Banjo"
 		]
 	},
 	"textextracts-desc": "Proporciona extractos de texto do contido da páxina sen formato ou con HTML limitado",
@@ -16,5 +17,6 @@
 	"apihelp-query+extracts-param-sectionformat": "Como formatear seccións en modo texto plano:\n;plain:Sen formato.\n;wiki:Formateo en estilo wiki (== como isto ==).\n;raw:Representación interna deste módulo (títulos de sección prefixados con &lt;ASCII 1&gt;&lt;ASCII 2&gt;&lt;nivel de sección&gt;&lt;ASCII 2&gt;&lt;ASCII 1&gt;).",
 	"apihelp-query+extracts-example-1": "Devolver un extracto de 175 caracteres",
 	"apiwarn-textextracts-limit": "<var>exlimit</var> era demasiado grande para unha petición de extracción do artigo completo, reducida a $1.",
-	"apiwarn-textextracts-unsupportedmodel": "$1 ten o modelo de contido $2, que non está soportado; devolvendo un extracto baleiro."
+	"apiwarn-textextracts-unsupportedmodel": "$1 ten o modelo de contido $2, que non está soportado; devolvendo un extracto baleiro.",
+	"apiwarn-textextracts-title-in-file-namespace": "Pediuse un extracto para un título no espazo de nomes Ficheiro, non se obtivo ningún."
 }

@@ -219,7 +219,9 @@ class ApiQueryExtracts extends ApiQueryBase {
 		$apiException = null;
 		if ( !$this->parserOptions ) {
 			$this->parserOptions = new ParserOptions( new User( '127.0.0.1' ) );
-			if ( is_callable( [ $this->parserOptions, 'setWrapOutputClass' ] ) ) {
+			if ( is_callable( [ $this->parserOptions, 'setWrapOutputClass' ] ) &&
+				!defined( 'ParserOutput::SUPPORTS_UNWRAP_TRANSFORM' )
+			) {
 				$this->parserOptions->setWrapOutputClass( false );
 			}
 		}
@@ -227,7 +229,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 		if ( $page->shouldCheckParserCache( $this->parserOptions, 0 ) ) {
 			$pout = MediaWikiServices::getInstance()->getParserCache()->get( $page, $this->parserOptions );
 			if ( $pout ) {
-				$text = $pout->getText();
+				$text = $pout->getText( [ 'unwrap' => true ] );
 				if ( $this->params['intro'] ) {
 					$text = $this->getFirstSection( $text, false );
 				}

@@ -8,6 +8,7 @@ use ParserOptions;
 use TextExtracts\ExtractFormatter;
 
 /**
+ * @covers \TextExtracts\ExtractFormatter
  * @group TextExtracts
  */
 class ExtractFormatterTest extends MediaWikiTestCase {

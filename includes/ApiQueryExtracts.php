@@ -40,7 +40,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 	/**
 	 * Bump when memcache needs clearing
 	 */
-	const CACHE_VERSION = 1;
+	const CACHE_VERSION = 2;
 
 	/**
 	 * @var ParserOptions

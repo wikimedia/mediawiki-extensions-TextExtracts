@@ -2,14 +2,13 @@
 namespace TextExtracts\Test;
 
 use MediaWikiCoversValidator;
-use PHPUnit_Framework_TestCase;
 use TextExtracts\ApiQueryExtracts;
 
 /**
  * @covers \TextExtracts\ApiQueryExtracts
  * @group TextExtracts
  */
-class ApiQueryExtractsTest extends PHPUnit_Framework_TestCase {
+class ApiQueryExtractsTest extends \PHPUnit\Framework\TestCase {
 	use MediaWikiCoversValidator;
 
 	private function newInstance() {

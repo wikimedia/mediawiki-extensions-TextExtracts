@@ -43,6 +43,11 @@ class ApiQueryExtracts extends ApiQueryBase {
 	const CACHE_VERSION = 2;
 
 	/**
+	 * @var string
+	 */
+	const PREFIX = 'ex';
+
+	/**
 	 * @var ParserOptions
 	 */
 	private $parserOptions;
@@ -66,7 +71,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @return ApiQueryExtracts
 	 */
 	public function __construct( $query, $moduleName, Config $conf ) {
-		parent::__construct( $query, $moduleName, 'ex' );
+		parent::__construct( $query, $moduleName, self::PREFIX );
 		$this->config = $conf;
 	}
 
@@ -109,10 +114,16 @@ class ApiQueryExtracts extends ApiQueryBase {
 				$text = '';
 				$titleInFileNamespace = true;
 			} else {
+				$params = $this->params;
 				$text = $this->getExtract( $t );
 				$text = $this->truncate( $text );
-				if ( $this->params['plaintext'] ) {
+				if ( $params['plaintext'] ) {
 					$text = $this->doSections( $text );
+				} else {
+					if ( $params['sentences'] ) {
+						$this->addWarning( $this->msg( 'apiwarn-textextracts-sentences-and-html', self::PREFIX ) );
+					}
+					$this->addWarning( 'apiwarn-textextracts-malformed-html' );
 				}
 			}
 

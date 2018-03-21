@@ -16,5 +16,7 @@
 	"apihelp-query+extracts-example-1": "Дај извадок во 175 знаци",
 	"apiwarn-textextracts-limit": "<var>exlimit</var> е преголемо за точно барање од цела статија. Го намалив на $1.",
 	"apiwarn-textextracts-unsupportedmodel": "$1 го има содржинскиот модел $2, кој не е поддржан. Давам празен извадок.",
-	"apiwarn-textextracts-title-in-file-namespace": "Беше побаран извадок за наслов во именскиот простор „Податотека“, но не добив ништо."
+	"apiwarn-textextracts-title-in-file-namespace": "Беше побаран извадок за наслов во именскиот простор „Податотека“, но не добив ништо.",
+	"apiwarn-textextracts-sentences-and-html": "Параметарот <var>$1sentences</var> може да има неочекуван исход кога се користи во HTML-режим.",
+	"apiwarn-textextracts-malformed-html": "HTML може да е погрешно срочено и/или неурамнотежено, па затоа може да се изоставени слики во редовите. Користете го на сопствен ризик. Познатите проблеми се наведени на https://www.mediawiki.org/wiki/Extension:TextExtracts#Caveats."
 }

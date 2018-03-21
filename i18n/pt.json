@@ -17,5 +17,7 @@
 	"apihelp-query+extracts-example-1": "Obter um extrato de 175 caracteres",
 	"apiwarn-textextracts-limit": "<var>exlimit</var> era demasiado grande para um pedido de extrato de um artigo completo; reduzido para $1.",
 	"apiwarn-textextracts-unsupportedmodel": "$1 tem o modelo de conteúdo $2, que não é suportado; a devolver um extrato vazio.",
-	"apiwarn-textextracts-title-in-file-namespace": "Foi pedido um extrato para um título no espaço nominal Ficheiro, não foi devolvido nenhum."
+	"apiwarn-textextracts-title-in-file-namespace": "Foi pedido um extrato para um título no espaço nominal Ficheiro, não foi devolvido nenhum.",
+	"apiwarn-textextracts-sentences-and-html": "O parâmetro <var>$1sentences</var> pode gerar resultados inesperados quando é usado em modo HTML.",
+	"apiwarn-textextracts-malformed-html": "O HTML pode estar incorreto ou desequilibrado (ter etiquetas abertas e não fechadas) e pode omitir imagens em linha. Use por sua conta e risco. Os problemas conhecidos são listados em https://www.mediawiki.org/wiki/Extension:TextExtracts#Caveats."
 }

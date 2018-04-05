@@ -68,7 +68,6 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @param \ApiQuery $query API query module object
 	 * @param string $moduleName Name of this query module
 	 * @param Config $conf MediaWiki configuration
-	 * @return ApiQueryExtracts
 	 */
 	public function __construct( $query, $moduleName, Config $conf ) {
 		parent::__construct( $query, $moduleName, self::PREFIX );

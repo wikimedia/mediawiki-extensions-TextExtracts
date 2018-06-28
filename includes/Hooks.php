@@ -13,13 +13,13 @@ class Hooks {
 	/**
 	 * ApiOpenSearchSuggest hook handler
 	 * @param array &$results Array of search results
-	 * @return bool
 	 */
 	public static function onApiOpenSearchSuggest( &$results ) {
 		$config = MediaWikiServices::getInstance()->getConfigFactory()->makeConfig( 'textextracts' );
-		if ( !$config->get( 'ExtractsExtendOpenSearchXml' ) || !count( $results ) ) {
-			return true;
+		if ( !$config->get( 'ExtractsExtendOpenSearchXml' ) || $results === [] ) {
+			return;
 		}
+
 		foreach ( array_chunk( array_keys( $results ), ApiBase::LIMIT_SML1 ) as $pageIds ) {
 			$api = new ApiMain( new FauxRequest(
 				[
@@ -43,6 +43,5 @@ class Hooks {
 				}
 			}
 		}
-		return true;
 	}
 }

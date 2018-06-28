@@ -81,7 +81,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 */
 	public function execute() {
 		$titles = $this->getPageSet()->getGoodTitles();
-		if ( count( $titles ) == 0 ) {
+		if ( $titles === [] ) {
 			return;
 		}
 		$isXml = $this->getMain()->isInternalMode()

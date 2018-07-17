@@ -7,7 +7,7 @@
 	"textextracts-desc": "Ufre estractos del conteníu de la páxina en testu simple o HTML llimitáu",
 	"apihelp-query+extracts-description": "Devuelve testu planu o estractos en HTML parciales de les páxines indicaes.",
 	"apihelp-query+extracts-summary": "Devuelve testu planu o estractos en HTML parciales de les páxines indicaes.",
-	"apihelp-query+extracts-param-chars": "Cuántos caráuteres hai que devolver. El testu real devueltu pué ser un poco más llargu.",
+	"apihelp-query+extracts-param-chars": "Cuántos caráuteres hai que devolver. El testu real devueltu puede ser un poco más llargu.",
 	"apihelp-query+extracts-param-sentences": "Cuántes frases hai que devolver.",
 	"apihelp-query+extracts-param-limit": "Cuántos estractos van devolvese. (Sólo pueden devolvese estractos múltiples s'establez «exintro» como verdadero.)",
 	"apihelp-query+extracts-param-intro": "Devolver sólo el conteníu anterior a la primera seición.",

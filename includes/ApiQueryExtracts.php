@@ -228,7 +228,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 	private function parse( WikiPage $page ) {
 		$apiException = null;
 		if ( !$this->parserOptions ) {
-			$this->parserOptions = new ParserOptions( new User( '127.0.0.1' ) );
+			$this->parserOptions = new ParserOptions( new User() );
 			if ( is_callable( [ $this->parserOptions, 'setWrapOutputClass' ] ) &&
 				!defined( 'ParserOutput::SUPPORTS_UNWRAP_TRANSFORM' )
 			) {

@@ -31,7 +31,6 @@ use MWTidy;
 use ParserOptions;
 use Title;
 use ApiUsageException;
-use UsageException;
 use User;
 use WikiPage;
 
@@ -223,7 +222,6 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @param WikiPage $page
 	 * @return string|null
 	 * @throws ApiUsageException
-	 * @throws UsageException
 	 */
 	private function parse( WikiPage $page ) {
 		$apiException = null;
@@ -268,23 +266,6 @@ class ApiQueryExtracts extends ApiQueryBase {
 		} catch ( ApiUsageException $e ) {
 			$apiException = $e->__toString();
 			if ( $e->getStatusValue()->hasMessage( 'apierror-nosuchsection' ) ) {
-				// Looks like we tried to get the intro to a page without
-				// sections!  Lets just grab what we can get.
-				unset( $request['section'] );
-				$api = new ApiMain( new FauxRequest( $request ) );
-				$api->execute();
-				$data = $api->getResult()->getResultData( null, [
-					'BC' => [],
-					'Types' => [],
-				] );
-			} else {
-				// Some other unexpected error - lets just report it to the user
-				// on the off chance that is the right thing.
-				throw $e;
-			}
-		} catch ( UsageException $e ) {
-			$apiException = $e->__toString();
-			if ( $e->getCodeString() === 'nosuchsection' ) {
 				// Looks like we tried to get the intro to a page without
 				// sections!  Lets just grab what we can get.
 				unset( $request['section'] );

@@ -5,6 +5,8 @@
 		]
 	},
 	"textextracts-desc": "Stellt Auszüge aus Seiten in Klartext oder beschränktem HTML zur Verfügung",
+	"apihelp-query+extracts-description": "Gibt den Klartext oder beschränkte HTML-Auszüge der angegebenen Seiten zurück.",
+	"apihelp-query+extracts-summary": "Gibt den Klartext oder beschränkte HTML-Auszüge der angegebenen Seiten zurück.",
 	"apihelp-query+extracts-param-chars": "Wie viele Zeichen zurückgegeben werden sollen. Der tatsächlich zurückgegebene Text kann etwas länger sein.",
 	"apihelp-query+extracts-param-sentences": "Wie viele Sätze zurückgegeben werden sollen.",
 	"apihelp-query+extracts-param-limit": "Wie viele Auszüge zurückgegeben werden sollen (mehrere Auszüge können nur zurückgegeben werden, wenn exintro auf true gesetzt ist).",

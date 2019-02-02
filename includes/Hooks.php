@@ -34,9 +34,7 @@ class Hooks {
 			$api->execute();
 			$data = $api->getResult()->getResultData( [ 'query', 'pages' ] );
 			foreach ( $pageIds as $id ) {
-				$contentKey = isset( $data[$id]['extract'][ApiResult::META_CONTENT] )
-					? $data[$id]['extract'][ApiResult::META_CONTENT]
-					: '*';
+				$contentKey = $data[$id]['extract'][ApiResult::META_CONTENT] ?? '*';
 				if ( isset( $data[$id]['extract'][$contentKey] ) ) {
 					$results[$id]['extract'] = $data[$id]['extract'][$contentKey];
 					$results[$id]['extract trimmed'] = false;

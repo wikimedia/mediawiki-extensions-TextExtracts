@@ -63,7 +63,7 @@ class ExtractFormatter extends HtmlFormatter {
 		if ( $this->plainText ) {
 			$text = html_entity_decode( $text );
 			// replace nbsp with space
-			$text = str_replace( "\xC2\xA0", ' ', $text );
+			$text = str_replace( "\u{00A0}", ' ', $text );
 			// for Windows
 			$text = str_replace( "\r", "\n", $text );
 			// normalise newlines

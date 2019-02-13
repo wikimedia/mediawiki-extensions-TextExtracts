@@ -10,33 +10,50 @@ use Wikimedia\TestingAccessWrapper;
  * @covers \TextExtracts\ApiQueryExtracts
  * @group TextExtracts
  */
-class ApiQueryExtractsTest extends \PHPUnit\Framework\TestCase {
+class ApiQueryExtractsTest extends \MediaWikiTestCase {
 	use MediaWikiCoversValidator;
+	use \PHPUnit4And6Compat;
 
 	private function newInstance() {
-		$context = $this->getMockBuilder( 'IContextSource' )
-			->disableOriginalConstructor()
-			->getMock();
+		$config = new \HashConfig( [
+			'ParserCacheExpireTime' => \IExpiringStore::TTL_INDEFINITE,
+		] );
 
-		$main = $this->getMockBuilder( 'ApiMain' )
-			->disableOriginalConstructor()
-			->getMock();
+		$context = $this->createMock( \IContextSource::class );
+		$context->method( 'getConfig' )
+			->willReturn( $config );
+
+		$main = $this->createMock( \ApiMain::class );
 		$main->expects( $this->once() )
 			->method( 'getContext' )
-			->will( $this->returnValue( $context ) );
+			->willReturn( $context );
 
-		$query = $this->getMockBuilder( 'ApiQuery' )
-			->disableOriginalConstructor()
-			->getMock();
+		$query = $this->createMock( \ApiQuery::class );
 		$query->expects( $this->once() )
 			->method( 'getMain' )
-			->will( $this->returnValue( $main ) );
-
-		$config = $this->getMockBuilder( 'Config' )
-			->disableOriginalConstructor()
-			->getMock();
+			->willReturn( $main );
 
 		return new ApiQueryExtracts( $query, '', $config );
+	}
+
+	public function testMemCacheHelpers() {
+		$this->setMwGlobals( 'wgMemc', new \HashBagOStuff() );
+
+		$title = $this->createMock( \Title::class );
+		$title->method( 'getPageLanguage' )
+			->willReturn( $this->createMock( \Language::class ) );
+
+		$page = $this->createMock( \WikiPage::class );
+		$page->method( 'getTitle' )
+			->willReturn( $title );
+
+		$text = 'Text to cache';
+
+		/** @var ApiQueryExtracts $instance */
+		$instance = TestingAccessWrapper::newFromObject( $this->newInstance() );
+		$this->assertFalse( $instance->getFromCache( $page, false ), 'is not cached yet' );
+		$instance->setCache( $page, $text );
+		$this->assertSame( $text, $instance->getFromCache( $page, false ) );
 	}
 
 	public function testSelfDocumentation() {

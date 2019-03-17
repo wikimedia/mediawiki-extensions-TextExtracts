@@ -46,10 +46,6 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 */
 	const PREFIX = 'ex';
 
-	/**
-	 * @var ParserOptions
-	 */
-	private $parserOptions;
 	private $params;
 	/**
 	 * @var Config
@@ -225,12 +221,11 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 */
 	private function parse( WikiPage $page ) {
 		$apiException = null;
-		if ( !$this->parserOptions ) {
-			$this->parserOptions = new ParserOptions( new User() );
-		}
+		$parserOptions = new ParserOptions( new User() );
+
 		// first try finding full page in parser cache
-		if ( $page->shouldCheckParserCache( $this->parserOptions, 0 ) ) {
-			$pout = MediaWikiServices::getInstance()->getParserCache()->get( $page, $this->parserOptions );
+		if ( $page->shouldCheckParserCache( $parserOptions, 0 ) ) {
+			$pout = MediaWikiServices::getInstance()->getParserCache()->get( $page, $parserOptions );
 			if ( $pout ) {
 				$text = $pout->getText( [ 'unwrap' => true ] );
 				if ( $this->params['intro'] ) {

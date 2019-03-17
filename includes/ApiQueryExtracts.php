@@ -227,11 +227,6 @@ class ApiQueryExtracts extends ApiQueryBase {
 		$apiException = null;
 		if ( !$this->parserOptions ) {
 			$this->parserOptions = new ParserOptions( new User() );
-			if ( is_callable( [ $this->parserOptions, 'setWrapOutputClass' ] ) &&
-				!defined( 'ParserOutput::SUPPORTS_UNWRAP_TRANSFORM' )
-			) {
-				$this->parserOptions->setWrapOutputClass( false );
-			}
 		}
 		// first try finding full page in parser cache
 		if ( $page->shouldCheckParserCache( $this->parserOptions, 0 ) ) {

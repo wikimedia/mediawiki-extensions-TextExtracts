@@ -2,7 +2,6 @@
 
 namespace TextExtracts;
 
-use Config;
 use DOMElement;
 use HtmlFormatter\HtmlFormatter;
 
@@ -33,14 +32,12 @@ class ExtractFormatter extends HtmlFormatter {
 	/**
 	 * @param string $text Text to convert
 	 * @param bool $plainText Whether extract should be plaintext
-	 * @param Config $config Configuration object
 	 */
-	public function __construct( $text, $plainText, Config $config ) {
+	public function __construct( $text, $plainText ) {
 		parent::__construct( HtmlFormatter::wrapHTML( $text ) );
 		$this->plainText = $plainText;
 
 		$this->setRemoveMedia( true );
-		$this->remove( $config->get( 'ExtractsRemoveClasses' ) );
 
 		if ( $plainText ) {
 			$this->flattenAllTags();

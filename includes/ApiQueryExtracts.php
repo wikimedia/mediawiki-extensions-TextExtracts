@@ -306,11 +306,8 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @return string
 	 */
 	private function convertText( $text ) {
-		$fmt = new ExtractFormatter(
-			$text,
-			$this->params['plaintext'],
-			$this->config
-		);
+		$fmt = new ExtractFormatter( $text, $this->params['plaintext'] );
+		$fmt->remove( $this->config->get( 'ExtractsRemoveClasses' ) );
 		$text = $fmt->getText();
 
 		return trim( $text );

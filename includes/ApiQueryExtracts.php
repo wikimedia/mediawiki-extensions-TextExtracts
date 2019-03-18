@@ -353,9 +353,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @return string
 	 */
 	private function tidy( $text ) {
-		$tidyConfig = $this->getConfig()->get( 'TidyConfig' );
-
-		if ( $tidyConfig !== null && !$this->params['plaintext'] ) {
+		if ( MWTidy::isEnabled() && !$this->params['plaintext'] ) {
 			$text = trim( MWTidy::tidy( $text ) );
 		}
 		return $text;

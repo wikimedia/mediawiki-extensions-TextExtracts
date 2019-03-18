@@ -24,10 +24,8 @@
 			"i18n"
 		]
 	},
-	"AutoloadClasses": {
-		"TextExtracts\\ApiQueryExtracts": "includes/ApiQueryExtracts.php",
-		"TextExtracts\\ExtractFormatter": "includes/ExtractFormatter.php",
-		"TextExtracts\\Hooks": "includes/Hooks.php"
+	"AutoloadNamespaces": {
+		"TextExtracts\\": "includes/"
 	},
 	"Hooks": {
 		"OpenSearchXml": [

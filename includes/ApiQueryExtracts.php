@@ -329,7 +329,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @return string
 	 */
 	private function getFirstChars( $text, $requestedLength ) {
-		$text = ExtractFormatter::getFirstChars( $text, $requestedLength );
+		$text = TextTruncator::getFirstChars( $text, $requestedLength );
 		// Fix possibly unclosed tags
 		$text = $this->tidy( $text );
 		$text .= wfMessage( 'ellipsis' )->inContentLanguage()->text();
@@ -342,7 +342,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @return string
 	 */
 	private function getFirstSentences( $text, $requestedSentenceCount ) {
-		$text = ExtractFormatter::getFirstSentences( $text, $requestedSentenceCount );
+		$text = TextTruncator::getFirstSentences( $text, $requestedSentenceCount );
 		$text = $this->tidy( $text );
 		return $text;
 	}

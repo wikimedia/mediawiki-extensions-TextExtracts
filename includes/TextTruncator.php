@@ -40,12 +40,14 @@ class TextTruncator {
 		// Based on code from OpenSearchXml by Brion Vibber
 		$endchars = [
 			// regular ASCII
-			'\P{Lu}\.(?:[ \n]|$)',
-			'[!?](?:[ \n]|$)',
+			'\P{Lu}\.(?=[ \n]|$)',
+			'[!?](?=[ \n]|$)',
 			// full-width ideographic full-stop
 			'。',
 			// double-width roman forms
-			'．', '！', '？',
+			'．',
+			'！',
+			'？',
 			// half-width ideographic full stop
 			'｡',
 		];
@@ -62,7 +64,7 @@ class TextTruncator {
 		$index = min( $requestedSentenceCount, $res ) - 1;
 		list( $tail, $length ) = $matches[0][$index];
 		// PCRE returns raw offsets, so using substr() instead of mb_substr()
-		$text = substr( $text, 0, $length ) . trim( $tail );
+		$text = substr( $text, 0, $length ) . $tail;
 
 		return $this->tidy( $text );
 	}

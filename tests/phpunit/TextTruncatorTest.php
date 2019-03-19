@@ -107,6 +107,12 @@ class TextTruncatorTest extends \PHPUnit\Framework\TestCase {
 				65536,
 				trim( str_repeat( 'Sentence. ', 65536 ) ),
 			],
+
+			'Preserve whitespace before end character' => [
+				'Aa . Bb',
+				1,
+				'Aa .',
+			],
 		];
 	}
 

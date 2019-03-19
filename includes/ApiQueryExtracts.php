@@ -28,9 +28,6 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 */
 	const CACHE_VERSION = 2;
 
-	/**
-	 * @var string
-	 */
 	const PREFIX = 'ex';
 
 	private $params;
@@ -291,8 +288,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 		$fmt = new ExtractFormatter( $text, $this->params['plaintext'] );
 		$fmt->remove( $this->config->get( 'ExtractsRemoveClasses' ) );
 		$text = $fmt->getText();
-
-		return trim( $text );
+		return $text;
 	}
 
 	/**
@@ -301,47 +297,17 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @return string
 	 */
 	private function truncate( $text ) {
-		if ( $this->params['chars'] ) {
-			return $this->getFirstChars( $text, $this->params['chars'] );
-		} elseif ( $this->params['sentences'] ) {
-			return $this->getFirstSentences( $text, $this->params['sentences'] );
+		if ( !$this->params['plaintext'] && MWTidy::isEnabled() ) {
+			$truncator = new TextTruncator( MWTidy::singleton() );
+		} else {
+			$truncator = new TextTruncator();
 		}
-		return $text;
-	}
 
-	/**
-	 * Returns no more than a requested number of characters
-	 * @param string $text
-	 * @param int $requestedLength
-	 * @return string
-	 */
-	private function getFirstChars( $text, $requestedLength ) {
-		$text = TextTruncator::getFirstChars( $text, $requestedLength );
-		// Fix possibly unclosed tags
-		$text = $this->tidy( $text );
-		$text .= wfMessage( 'ellipsis' )->inContentLanguage()->text();
-		return $text;
-	}
-
-	/**
-	 * @param string $text
-	 * @param int $requestedSentenceCount
-	 * @return string
-	 */
-	private function getFirstSentences( $text, $requestedSentenceCount ) {
-		$text = TextTruncator::getFirstSentences( $text, $requestedSentenceCount );
-		$text = $this->tidy( $text );
-		return $text;
-	}
-
-	/**
-	 * A simple wrapper around tidy
-	 * @param string $text
-	 * @return string
-	 */
-	private function tidy( $text ) {
-		if ( MWTidy::isEnabled() && !$this->params['plaintext'] ) {
-			$text = trim( MWTidy::tidy( $text ) );
+		if ( $this->params['chars'] ) {
+			$text = $truncator->getFirstChars( $text, $this->params['chars'] ) .
+				$this->msg( 'ellipsis' )->text();
+		} elseif ( $this->params['sentences'] ) {
+			$text = $truncator->getFirstSentences( $text, $this->params['sentences'] );
 		}
 		return $text;
 	}

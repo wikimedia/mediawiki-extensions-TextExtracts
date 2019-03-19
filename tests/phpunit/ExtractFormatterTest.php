@@ -12,6 +12,7 @@ use TextExtracts\ExtractFormatter;
  * @license GPL-2.0-or-later
  */
 class ExtractFormatterTest extends MediaWikiTestCase {
+
 	/**
 	 * @dataProvider provideExtracts
 	 */
@@ -19,7 +20,7 @@ class ExtractFormatterTest extends MediaWikiTestCase {
 		$fmt = new ExtractFormatter( $text, $plainText );
 		// .metadata class will be added via $wgExtractsRemoveClasses on WMF
 		$fmt->remove( [ 'div', '.metadata' ] );
-		$text = trim( $fmt->getText() );
+		$text = $fmt->getText();
 		$this->assertSame( $expected, $text );
 	}
 

@@ -2,6 +2,7 @@
 
 namespace TextExtracts\Test;
 
+use MediaWiki\Tidy\TidyDriverBase;
 use TextExtracts\TextTruncator;
 
 /**
@@ -11,6 +12,7 @@ use TextExtracts\TextTruncator;
  * @license GPL-2.0-or-later
  */
 class TextTruncatorTest extends \PHPUnit\Framework\TestCase {
+	use \PHPUnit4And6Compat;
 
 	/**
 	 * @dataProvider provideGetFirstSentences
@@ -19,7 +21,8 @@ class TextTruncatorTest extends \PHPUnit\Framework\TestCase {
 	 * @param string $expected
 	 */
 	public function testGetFirstSentences( $text, $sentences, $expected ) {
-		$this->assertSame( $expected, TextTruncator::getFirstSentences( $text, $sentences ) );
+		$truncator = new TextTruncator();
+		$this->assertSame( $expected, $truncator->getFirstSentences( $text, $sentences ) );
 	}
 
 	public function provideGetFirstSentences() {
@@ -114,7 +117,8 @@ class TextTruncatorTest extends \PHPUnit\Framework\TestCase {
 	 * @param string $expected
 	 */
 	public function testGetFirstChars( $text, $chars, $expected ) {
-		$this->assertSame( $expected, TextTruncator::getFirstChars( $text, $chars ) );
+		$truncator = new TextTruncator();
+		$this->assertSame( $expected, $truncator->getFirstChars( $text, $chars ) );
 	}
 
 	public function provideGetFirstChars() {
@@ -143,6 +147,19 @@ class TextTruncatorTest extends \PHPUnit\Framework\TestCase {
 			// requesting 64K chars or more.
 			[ $longText, 65536, $longTextExpected ],
 		];
+	}
+
+	public function testTidyIntegration() {
+		$tidy = $this->createMock( TidyDriverBase::class );
+		$tidy->method( 'tidy' )
+			->willReturnCallback( function ( $text ) {
+				return "<tidy>$text</tidy>";
+			} );
+		$truncator = new TextTruncator( $tidy );
+
+		$text = 'Aa. Bb.';
+		$this->assertSame( '<tidy>Aa.</tidy>', $truncator->getFirstSentences( $text, 1 ) );
+		$this->assertSame( '<tidy>Aa</tidy>', $truncator->getFirstChars( $text, 1 ) );
 	}
 
 }

@@ -2,10 +2,28 @@
 
 namespace TextExtracts;
 
+use MediaWiki\Tidy\TidyDriverBase;
+
 /**
+ * This class needs to understand HTML as well as plain text. It tries to not break HTML tags, but
+ * might break pairs of tags, leaving unclosed tags behind. A Tidy instance must be provided to fix
+ * this.
+ *
  * @license GPL-2.0-or-later
  */
 class TextTruncator {
+
+	/**
+	 * @var TidyDriverBase|null
+	 */
+	private $tidyDriver;
+
+	/**
+	 * @param TidyDriverBase|null $tidy
+	 */
+	public function __construct( TidyDriverBase $tidy = null ) {
+		$this->tidyDriver = $tidy;
+	}
 
 	/**
 	 * Returns no more than the given number of sentences
@@ -14,7 +32,7 @@ class TextTruncator {
 	 * @param int $requestedSentenceCount Maximum number of sentences to extract
 	 * @return string
 	 */
-	public static function getFirstSentences( $text, $requestedSentenceCount ) {
+	public function getFirstSentences( $text, $requestedSentenceCount ) {
 		if ( $requestedSentenceCount <= 0 ) {
 			return '';
 		}
@@ -22,7 +40,8 @@ class TextTruncator {
 		// Based on code from OpenSearchXml by Brion Vibber
 		$endchars = [
 			// regular ASCII
-			'[^\p{Lu}]\.(?:[ \n]|$)', '[\!\?](?:[ \n]|$)',
+			'\P{Lu}\.(?:[ \n]|$)',
+			'[!?](?:[ \n]|$)',
 			// full-width ideographic full-stop
 			'。',
 			// double-width roman forms
@@ -31,23 +50,21 @@ class TextTruncator {
 			'｡',
 		];
 
-		$endgroup = implode( '|', $endchars );
-		$regexp = "/($endgroup)+/u";
-
-		$matches = [];
+		$regexp = '/(?:' . implode( '|', $endchars ) . ')+/u';
 		$res = preg_match_all( $regexp, $text, $matches, PREG_OFFSET_CAPTURE );
 
-		if ( $res ) {
-			$index = min( $requestedSentenceCount, $res ) - 1;
-			list( $tail, $length ) = $matches[0][ $index ];
-			// PCRE returns raw offsets, so using substr() instead of mb_substr()
-			$text = substr( $text, 0, $length ) . trim( $tail );
-		} else {
+		if ( !$res ) {
 			// Just return the first line
 			$lines = explode( "\n", $text, 2 );
-			$text = trim( $lines[0] );
+			return trim( $lines[0] );
 		}
-		return $text;
+
+		$index = min( $requestedSentenceCount, $res ) - 1;
+		list( $tail, $length ) = $matches[0][$index];
+		// PCRE returns raw offsets, so using substr() instead of mb_substr()
+		$text = substr( $text, 0, $length ) . trim( $tail );
+
+		return $this->tidy( $text );
 	}
 
 	/**
@@ -57,17 +74,35 @@ class TextTruncator {
 	 * @param int $requestedLength Maximum number of characters to return
 	 * @return string
 	 */
-	public static function getFirstChars( $text, $requestedLength ) {
+	public function getFirstChars( $text, $requestedLength ) {
 		if ( $requestedLength <= 0 ) {
 			return '';
 		}
+
 		$length = mb_strlen( $text );
 		if ( $length <= $requestedLength ) {
 			return $text;
 		}
-		$pattern = "#^[\\w/]*>?#su";
+
+		// This ungreedy pattern always matches, just might return an empty string
+		$pattern = '/^[\w\/]*>?/su';
 		preg_match( $pattern, mb_substr( $text, $requestedLength ), $m );
-		return mb_substr( $text, 0, $requestedLength ) . $m[0];
+		$text = mb_substr( $text, 0, $requestedLength ) . $m[0];
+
+		return $this->tidy( $text );
+	}
+
+	/**
+	 * @param string $text
+	 * @return string
+	 */
+	private function tidy( $text ) {
+		if ( $this->tidyDriver ) {
+			// Fix possibly unclosed HTML tags.
+			$text = $this->tidyDriver->tidy( $text );
+		}
+
+		return trim( $text );
 	}
 
 }

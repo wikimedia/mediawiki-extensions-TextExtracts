@@ -14,6 +14,9 @@ class ExtractFormatter extends HtmlFormatter {
 	const SECTION_MARKER_START = "\1\2";
 	const SECTION_MARKER_END = "\2\1";
 
+	/**
+	 * @var bool
+	 */
 	private $plainText;
 
 	/**
@@ -53,7 +56,7 @@ class ExtractFormatter extends HtmlFormatter {
 			// normalise newlines
 			$text = preg_replace( "/\n{3,}/", "\n\n", $text );
 		}
-		return $text;
+		return trim( $text );
 	}
 
 	/**

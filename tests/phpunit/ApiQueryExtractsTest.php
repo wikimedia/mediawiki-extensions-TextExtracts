@@ -66,15 +66,15 @@ class ApiQueryExtractsTest extends \MediaWikiTestCase {
 
 		$params = $instance->getAllowedParams();
 		$this->assertInternalType( 'array', $params );
-		$this->assertArrayHasKey( 'chars', $params );
-		$this->assertEquals( $params['chars'][\ApiBase::PARAM_MIN], 1 );
-		$this->assertEquals( $params['chars'][\ApiBase::PARAM_MAX], 1200 );
-		$this->assertArrayHasKey( 'limit', $params );
-		$this->assertEquals( $params['limit'][\ApiBase::PARAM_DFLT], 20 );
-		$this->assertEquals( $params['limit'][\ApiBase::PARAM_TYPE], 'limit' );
-		$this->assertEquals( $params['limit'][\ApiBase::PARAM_MIN], 1 );
-		$this->assertEquals( $params['limit'][\ApiBase::PARAM_MAX], 20 );
-		$this->assertEquals( $params['limit'][\ApiBase::PARAM_MAX2], 20 );
+
+		$this->assertSame( $params['chars'][\ApiBase::PARAM_MIN], 1 );
+		$this->assertSame( $params['chars'][\ApiBase::PARAM_MAX], 1200 );
+
+		$this->assertSame( $params['limit'][\ApiBase::PARAM_DFLT], 20 );
+		$this->assertSame( $params['limit'][\ApiBase::PARAM_TYPE], 'limit' );
+		$this->assertSame( $params['limit'][\ApiBase::PARAM_MIN], 1 );
+		$this->assertSame( $params['limit'][\ApiBase::PARAM_MAX], 20 );
+		$this->assertSame( $params['limit'][\ApiBase::PARAM_MAX2], 20 );
 	}
 
 	/**

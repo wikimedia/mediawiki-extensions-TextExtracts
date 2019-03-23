@@ -360,31 +360,28 @@ class ApiQueryExtracts extends ApiQueryBase {
 	}
 
 	private function doSections( $text ) {
-		$text = preg_replace_callback(
-			"/" . ExtractFormatter::SECTION_MARKER_START . '(\d)' .
-				ExtractFormatter::SECTION_MARKER_END . "(.*?)$/m",
-			[ $this, 'sectionCallback' ],
-			$text
-		);
-		return $text;
-	}
+		$pattern = '/' .
+			ExtractFormatter::SECTION_MARKER_START . '(\d)' .
+			ExtractFormatter::SECTION_MARKER_END . '(.*)/';
 
-	private function sectionCallback( $matches ) {
-		if ( $this->params['sectionformat'] == 'raw' ) {
-			return $matches[0];
+		switch ( $this->params['sectionformat'] ) {
+			case 'raw':
+				return $text;
+
+			case 'wiki':
+				return preg_replace_callback( $pattern, function ( $matches ) {
+					$bars = str_repeat( '=', $matches[1] );
+					return "\n$bars " . trim( $matches[2] ) . " $bars";
+				}, $text );
+
+			case 'plain':
+				return preg_replace_callback( $pattern, function ( $matches ) {
+					return "\n" . trim( $matches[2] );
+				}, $text );
+
+			default:
+				throw new \LogicException( 'Invalid sectionformat' );
 		}
-		$sectionformat = ucfirst( $this->params['sectionformat'] );
-		$func = __CLASS__ . "::doSection{$sectionformat}";
-		return call_user_func( $func, $matches[1], trim( $matches[2] ) );
-	}
-
-	private static function doSectionWiki( $level, $text ) {
-		$bars = str_repeat( '=', $level );
-		return "\n$bars $text $bars";
-	}
-
-	private static function doSectionPlain( $level, $text ) {
-		return "\n$text";
 	}
 
 	/**

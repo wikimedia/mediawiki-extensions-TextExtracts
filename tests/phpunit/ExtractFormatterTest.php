@@ -8,6 +8,8 @@ use TextExtracts\ExtractFormatter;
 /**
  * @covers \TextExtracts\ExtractFormatter
  * @group TextExtracts
+ *
+ * @license GPL-2.0-or-later
  */
 class ExtractFormatterTest extends MediaWikiTestCase {
 	/**

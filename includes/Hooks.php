@@ -8,6 +8,9 @@ use ApiResult;
 use FauxRequest;
 use MediaWiki\MediaWikiServices;
 
+/**
+ * @license GPL-2.0-or-later
+ */
 class Hooks {
 
 	/**

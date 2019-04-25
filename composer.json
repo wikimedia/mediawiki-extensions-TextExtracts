@@ -3,7 +3,13 @@
 		"jakub-onderka/php-parallel-lint": "1.0.0",
 		"jakub-onderka/php-console-highlighter": "0.3.2",
 		"mediawiki/mediawiki-codesniffer": "24.0.0",
-		"mediawiki/minus-x": "0.3.1"
+		"mediawiki/minus-x": "0.3.1",
+		"phpunit/phpunit": "^8"
+	},
+	"autoload": {
+		"classmap": [
+			"includes/"
+		]
 	},
 	"scripts": {
 		"fix": [
@@ -13,10 +19,14 @@
 		"test": [
 			"parallel-lint . --exclude vendor --exclude node_modules",
 			"phpcs -p -s",
-			"minus-x check ."
+			"minus-x check .",
+			"./vendor/bin/phpunit --bootstrap vendor/autoload.php tests/phpunit/ExtractFormatterTest.php"
 		]
 	},
 	"extra": {
 		"phan-taint-check-plugin": "1.5.0"
+	},
+	"require": {
+		"wikimedia/html-formatter": "^1.0"
 	}
 }

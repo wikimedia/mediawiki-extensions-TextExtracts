@@ -75,6 +75,9 @@ class ExtractFormatter extends HtmlFormatter {
 	 */
 	public function onHtmlReady( $html ) {
 		if ( $this->plainText ) {
+			// Add newlines between paragraph tags that don't have at least one or else
+			// there won't be any whitespace preserved. See issue T20194.
+			$html = preg_replace( '/(<\/p>)\V*<p>/iU', '$1' . "\n\n", $html );
 			$html = preg_replace( '/\s*(<h([1-6])\b)/i',
 				"\n\n" . self::SECTION_MARKER_START . '$2' . self::SECTION_MARKER_END . '$1',
 				$html

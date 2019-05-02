@@ -9,6 +9,8 @@ use Wikimedia\TestingAccessWrapper;
 /**
  * @covers \TextExtracts\ApiQueryExtracts
  * @group TextExtracts
+ *
+ * @license GPL-2.0-or-later
  */
 class ApiQueryExtractsTest extends \MediaWikiTestCase {
 	use MediaWikiCoversValidator;

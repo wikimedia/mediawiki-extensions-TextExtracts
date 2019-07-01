@@ -74,7 +74,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 		$this->requireMaxOneParameter( $params, 'chars', 'sentences' );
 		$continue = 0;
 		$limit = intval( $params['limit'] );
-		if ( $limit > 1 && !$params['intro'] ) {
+		if ( $limit > 1 && !$params['intro'] && count( $titles ) > 1 ) {
 			$limit = 1;
 			$this->addWarning( [ 'apiwarn-textextracts-limit', $limit ] );
 		}

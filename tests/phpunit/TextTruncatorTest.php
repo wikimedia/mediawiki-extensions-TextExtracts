@@ -58,6 +58,21 @@ class TextTruncatorTest extends \PHPUnit\Framework\TestCase {
 				1,
 				'',
 			],
+			'0 sentences mean empty result' => [
+				'Foo is a bar. Such a smart boy.',
+				0,
+				'',
+			],
+			"Don't explode on negative input" => [
+				'Foo is a bar. Such a smart boy.',
+				-1,
+				'',
+			],
+			'More sentences requested than is available' => [
+				'Foo is a bar. Such a smart boy.',
+				3,
+				'Foo is a bar. Such a smart boy.',
+			],
 			// Exclamation points too!!!
 			[
 				'Foo is a bar! Such a smart boy! But completely useless!',

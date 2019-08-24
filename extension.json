@@ -21,7 +21,8 @@
 	},
 	"MessagesDirs": {
 		"TextExtracts": [
-			"i18n"
+			"i18n",
+			"i18n/api"
 		]
 	},
 	"AutoloadNamespaces": {

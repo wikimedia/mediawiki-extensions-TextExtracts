@@ -389,6 +389,6 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @return string
 	 */
 	public function getHelpUrls() {
-		return 'https://www.mediawiki.org/wiki/Extension:TextExtracts#API';
+		return 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:TextExtracts#API';
 	}
 }

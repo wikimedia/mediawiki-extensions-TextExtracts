@@ -14,7 +14,6 @@ use Wikimedia\TestingAccessWrapper;
  */
 class ApiQueryExtractsTest extends \MediaWikiTestCase {
 	use MediaWikiCoversValidator;
-	use \PHPUnit4And6Compat;
 
 	private function newInstance() {
 		$config = new \HashConfig( [

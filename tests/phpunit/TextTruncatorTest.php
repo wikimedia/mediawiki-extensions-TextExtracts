@@ -12,8 +12,6 @@ use TextExtracts\TextTruncator;
  * @license GPL-2.0-or-later
  */
 class TextTruncatorTest extends \PHPUnit\Framework\TestCase {
-	use \PHPUnit4And6Compat;
-
 	/**
 	 * @dataProvider provideGetFirstSentences
 	 * @param string $text

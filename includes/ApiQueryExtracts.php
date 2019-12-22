@@ -167,7 +167,8 @@ class ApiQueryExtracts extends ApiQueryBase {
 		return $cache->makeKey( 'textextracts', self::CACHE_VERSION,
 			$page->getId(), $page->getTouched(),
 			$page->getTitle()->getPageLanguage()->getPreferredVariant(),
-			$this->params['plaintext'], $introOnly
+			$this->params['plaintext'] ? 'plaintext' : 'html',
+			$introOnly ? 'intro' : 'full'
 		);
 	}
 

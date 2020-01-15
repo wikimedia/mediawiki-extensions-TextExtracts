@@ -61,12 +61,12 @@ class ApiQueryExtractsTest extends \MediaWikiTestCase {
 		/** @var ApiQueryExtracts $instance */
 		$instance = TestingAccessWrapper::newFromObject( $this->newInstance() );
 
-		$this->assertInternalType( 'string', $instance->getCacheMode( [] ) );
+		$this->assertIsString( $instance->getCacheMode( [] ) );
 		$this->assertNotEmpty( $instance->getExamplesMessages() );
-		$this->assertInternalType( 'string', $instance->getHelpUrls() );
+		$this->assertIsString( $instance->getHelpUrls() );
 
 		$params = $instance->getAllowedParams();
-		$this->assertInternalType( 'array', $params );
+		$this->assertIsArray( $params );
 
 		$this->assertSame( $params['chars'][\ApiBase::PARAM_MIN], 1 );
 		$this->assertSame( $params['chars'][\ApiBase::PARAM_MAX], 1200 );

@@ -5,16 +5,15 @@ namespace TextExtracts;
 use ApiBase;
 use ApiMain;
 use ApiQueryBase;
+use ApiUsageException;
 use BagOStuff;
 use Config;
 use FauxRequest;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
 use MWTidy;
-
 use ParserOptions;
 use Title;
-use ApiUsageException;
 use User;
 use WikiPage;
 

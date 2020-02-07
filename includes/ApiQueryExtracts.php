@@ -6,7 +6,6 @@ use ApiBase;
 use ApiMain;
 use ApiQueryBase;
 use ApiUsageException;
-use BagOStuff;
 use Config;
 use FauxRequest;
 use MediaWiki\Logger\LoggerFactory;
@@ -15,6 +14,7 @@ use MWTidy;
 use ParserOptions;
 use Title;
 use User;
+use WANObjectCache;
 use WikiPage;
 
 /**
@@ -34,6 +34,10 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @var Config
 	 */
 	private $config;
+	/**
+	 * @var WANObjectCache
+	 */
+	private $cache;
 
 	// TODO: Allow extensions to hook into this to opt-in.
 	// This is partly for security reasons; see T107170.
@@ -46,10 +50,12 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @param \ApiQuery $query API query module object
 	 * @param string $moduleName Name of this query module
 	 * @param Config $conf MediaWiki configuration
+	 * @param WANObjectCache $cache
 	 */
-	public function __construct( $query, $moduleName, Config $conf ) {
+	public function __construct( $query, $moduleName, Config $conf, WANObjectCache $cache ) {
 		parent::__construct( $query, $moduleName, self::PREFIX );
 		$this->config = $conf;
+		$this->cache = $cache;
 	}
 
 	/**
@@ -162,7 +168,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 		return $text;
 	}
 
-	private function cacheKey( BagOStuff $cache, WikiPage $page, $introOnly ) {
+	private function cacheKey( WANObjectCache $cache, WikiPage $page, $introOnly ) {
 		return $cache->makeKey( 'textextracts', self::CACHE_VERSION,
 			$page->getId(), $page->getTouched(),
 			$page->getTitle()->getPageLanguage()->getPreferredVariant(),
@@ -173,18 +179,18 @@ class ApiQueryExtracts extends ApiQueryBase {
 	}
 
 	private function getFromCache( WikiPage $page, $introOnly ) {
-		global $wgMemc;
-
-		$key = $this->cacheKey( $wgMemc, $page, $introOnly );
-		return $wgMemc->get( $key );
+		$cache = $this->cache;
+		// @TODO: replace with getWithSetCallback()
+		$key = $this->cacheKey( $cache, $page, $introOnly );
+		return $cache->get( $key );
 	}
 
 	private function setCache( WikiPage $page, $text ) {
-		global $wgMemc;
-
+		$cache = $this->cache;
+		// @TODO: replace with getWithSetCallback()
 		// FIXME: Test suite invokes the class without initialising params
-		$key = $this->cacheKey( $wgMemc, $page, $this->params && $this->params['intro'] );
-		$wgMemc->set( $key, $text, $this->getConfig()->get( 'ParserCacheExpireTime' ) );
+		$key = $this->cacheKey( $cache, $page, $this->params && $this->params['intro'] );
+		$cache->set( $key, $text, $this->getConfig()->get( 'ParserCacheExpireTime' ) );
 	}
 
 	private function getFirstSection( $text, $plainText ) {
@@ -278,7 +284,8 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 */
 	public static function factory( $query, $name ) {
 		$config = MediaWikiServices::getInstance()->getConfigFactory()->makeConfig( 'textextracts' );
-		return new self( $query, $name, $config );
+		$cache = MediaWikiServices::getInstance()->getMainWANObjectCache();
+		return new self( $query, $name, $config, $cache );
 	}
 
 	/**

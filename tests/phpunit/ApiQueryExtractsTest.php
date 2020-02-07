@@ -20,6 +20,8 @@ class ApiQueryExtractsTest extends \MediaWikiTestCase {
 			'ParserCacheExpireTime' => \IExpiringStore::TTL_INDEFINITE,
 		] );
 
+		$cache = new \WANObjectCache( [ 'cache' => new \HashBagOStuff() ] );
+
 		$context = $this->createMock( \IContextSource::class );
 		$context->method( 'getConfig' )
 			->willReturn( $config );
@@ -34,12 +36,10 @@ class ApiQueryExtractsTest extends \MediaWikiTestCase {
 			->method( 'getMain' )
 			->willReturn( $main );
 
-		return new ApiQueryExtracts( $query, '', $config );
+		return new ApiQueryExtracts( $query, '', $config, $cache );
 	}
 
 	public function testMemCacheHelpers() {
-		$this->setMwGlobals( 'wgMemc', new \HashBagOStuff() );
-
 		$title = $this->createMock( \Title::class );
 		$title->method( 'getPageLanguage' )
 			->willReturn( $this->createMock( \Language::class ) );
@@ -53,7 +53,9 @@ class ApiQueryExtractsTest extends \MediaWikiTestCase {
 		/** @var ApiQueryExtracts $instance */
 		$instance = TestingAccessWrapper::newFromObject( $this->newInstance() );
 		$this->assertFalse( $instance->getFromCache( $page, false ), 'is not cached yet' );
+
 		$instance->setCache( $page, $text );
+		$instance->cache->clearProcessCache();
 		$this->assertSame( $text, $instance->getFromCache( $page, false ) );
 	}
 

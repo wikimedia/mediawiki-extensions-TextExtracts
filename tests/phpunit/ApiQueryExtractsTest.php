@@ -52,6 +52,9 @@ class ApiQueryExtractsTest extends \MediaWikiTestCase {
 
 		/** @var ApiQueryExtracts $instance */
 		$instance = TestingAccessWrapper::newFromObject( $this->newInstance() );
+		// Default param values for this API module
+		$instance->params = [ 'intro' => false, 'plaintext' => false ];
+
 		$this->assertFalse( $instance->getFromCache( $page, false ), 'is not cached yet' );
 
 		$instance->setCache( $page, $text );

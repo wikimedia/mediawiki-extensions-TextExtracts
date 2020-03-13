@@ -166,7 +166,8 @@ class ApiQueryExtracts extends ApiQueryBase {
 		return $cache->makeKey( 'textextracts', self::CACHE_VERSION,
 			$page->getId(), $page->getTouched(),
 			$page->getTitle()->getPageLanguage()->getPreferredVariant(),
-			$this->params['plaintext'] ? 'plaintext' : 'html',
+			// FIXME: Test suite invokes the class without initialising params
+			$this->params && $this->params['plaintext'] ? 'plaintext' : 'html',
 			$introOnly ? 'intro' : 'full'
 		);
 	}
@@ -181,7 +182,8 @@ class ApiQueryExtracts extends ApiQueryBase {
 	private function setCache( WikiPage $page, $text ) {
 		global $wgMemc;
 
-		$key = $this->cacheKey( $wgMemc, $page, $this->params['intro'] );
+		// FIXME: Test suite invokes the class without initialising params
+		$key = $this->cacheKey( $wgMemc, $page, $this->params && $this->params['intro'] );
 		$wgMemc->set( $key, $text, $this->getConfig()->get( 'ParserCacheExpireTime' ) );
 	}
 

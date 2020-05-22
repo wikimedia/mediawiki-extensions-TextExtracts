@@ -17,5 +17,5 @@
 	"apiwarn-textextracts-unsupportedmodel": "$1, desteklenmeyen içerik modeli $2; boş bir ekstraktı döndürerek.",
 	"apiwarn-textextracts-title-in-file-namespace": "Dosya ad alanında bir başlık için ayıklama istendi, hiçbiri döndürülmedi.",
 	"apiwarn-textextracts-sentences-and-html": "<var>$1sentences</var> parametresi, HTML modunda kullanıldığında beklenmeyen sonuçlara sahip olabilir.",
-	"apiwarn-textextracts-malformed-html": "HTML hatalı biçimlendirilmiş ve/veya dengesiz olabilir ve satır içi görüntüleri atlayabilir. Kendi sorumluluğunuzdadır kullanın. Bilinen sorunlar https://www.mediawiki.org/wiki/Extension:TextExtracts#Caveats adresinde listelenmiştir."
+	"apiwarn-textextracts-malformed-html": "HTML hatalı biçimlendirilmiş ve/veya dengesiz olabilir ve satır içi görüntüleri atlayabilir. Kendi sorumluluğunuzdadır kullanın. Bilinen sorunlar https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:TextExtracts#Caveats adresinde listelenmiştir."
 }

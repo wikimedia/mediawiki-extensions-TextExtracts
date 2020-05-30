@@ -25,9 +25,9 @@ class ApiQueryExtracts extends ApiQueryBase {
 	/**
 	 * Bump when memcache needs clearing
 	 */
-	const CACHE_VERSION = 2;
+	private const CACHE_VERSION = 2;
 
-	const PREFIX = 'ex';
+	private const PREFIX = 'ex';
 
 	private $params;
 	/**

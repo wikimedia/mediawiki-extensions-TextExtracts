@@ -10,7 +10,6 @@ use Config;
 use FauxRequest;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
-use MWTidy;
 use ParserOptions;
 use Title;
 use User;
@@ -304,10 +303,10 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @return string
 	 */
 	private function truncate( $text ) {
-		if ( !$this->params['plaintext'] && MWTidy::isEnabled() ) {
-			$truncator = new TextTruncator( MWTidy::singleton() );
+		if ( !$this->params['plaintext'] ) {
+			$truncator = new TextTruncator( true );
 		} else {
-			$truncator = new TextTruncator();
+			$truncator = new TextTruncator( false );
 		}
 
 		if ( $this->params['chars'] ) {

@@ -28,7 +28,11 @@ class ApiQueryExtracts extends ApiQueryBase {
 
 	private const PREFIX = 'ex';
 
+	/**
+	 * @var array
+	 */
 	private $params;
+
 	/**
 	 * @var Config
 	 */
@@ -167,6 +171,12 @@ class ApiQueryExtracts extends ApiQueryBase {
 		return $text;
 	}
 
+	/**
+	 * @param WANObjectCache $cache
+	 * @param WikiPage $page
+	 * @param bool $introOnly
+	 * @return string
+	 */
 	private function cacheKey( WANObjectCache $cache, WikiPage $page, $introOnly ) {
 		return $cache->makeKey( 'textextracts', self::CACHE_VERSION,
 			$page->getId(), $page->getTouched(),
@@ -176,6 +186,11 @@ class ApiQueryExtracts extends ApiQueryBase {
 		);
 	}
 
+	/**
+	 * @param WikiPage $page
+	 * @param bool $introOnly
+	 * @return string
+	 */
 	private function getFromCache( WikiPage $page, $introOnly ) {
 		$cache = $this->cache;
 		// @TODO: replace with getWithSetCallback()
@@ -183,6 +198,10 @@ class ApiQueryExtracts extends ApiQueryBase {
 		return $cache->get( $key );
 	}
 
+	/**
+	 * @param WikiPage $page
+	 * @param string $text
+	 */
 	private function setCache( WikiPage $page, $text ) {
 		$cache = $this->cache;
 		// @TODO: replace with getWithSetCallback()
@@ -190,6 +209,11 @@ class ApiQueryExtracts extends ApiQueryBase {
 		$cache->set( $key, $text, $this->getConfig()->get( 'ParserCacheExpireTime' ) );
 	}
 
+	/**
+	 * @param string $text
+	 * @param bool $plainText
+	 * @return string
+	 */
 	private function getFirstSection( $text, $plainText ) {
 		if ( $plainText ) {
 			$regexp = '/^(.*?)(?=' . ExtractFormatter::SECTION_MARKER_START . ')/s';
@@ -318,6 +342,10 @@ class ApiQueryExtracts extends ApiQueryBase {
 		return $text;
 	}
 
+	/**
+	 * @param string $text
+	 * @return string
+	 */
 	private function doSections( $text ) {
 		$pattern = '/' .
 			ExtractFormatter::SECTION_MARKER_START . '(\d)' .

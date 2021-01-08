@@ -143,7 +143,12 @@ class ApiQueryExtractsTest extends \MediaWikiTestCase {
 			[
 				'abc',
 				[ 'chars' => 1 ],
-				'abc(ellipsis)'
+				'abc'
+			],
+			[
+				'abc',
+				[ 'chars' => 1, 'plaintext' => false ],
+				'abc'
 			],
 			[
 				'abc',
@@ -163,7 +168,12 @@ class ApiQueryExtractsTest extends \MediaWikiTestCase {
 			[
 				'abc abc. xyz xyz.',
 				[ 'chars' => 1000 ],
-				'abc abc. xyz xyz.(ellipsis)'
+				'abc abc. xyz xyz.'
+			],
+			[
+				'abc abc. xyz xyz.',
+				[ 'chars' => 1000, 'plaintext' => false ],
+				'abc abc. xyz xyz.'
 			],
 			[
 				'abc abc. xyz xyz.',

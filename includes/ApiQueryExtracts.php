@@ -14,6 +14,7 @@ use ParserOptions;
 use Title;
 use User;
 use WANObjectCache;
+use Wikimedia\ParamValidator\ParamValidator;
 use WikiPage;
 
 /**
@@ -45,7 +46,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 	// TODO: Allow extensions to hook into this to opt-in.
 	// This is partly for security reasons; see T107170.
 	/**
-	 * @var array
+	 * @var string[]
 	 */
 	private $supportedContentModels = [ 'wikitext' ];
 
@@ -64,7 +65,6 @@ class ApiQueryExtracts extends ApiQueryBase {
 	/**
 	 * Evaluates the parameters, performs the requested extraction of text,
 	 * and sets up the result
-	 * @return null
 	 */
 	public function execute() {
 		$titles = $this->getPageSet()->getGoodTitles();
@@ -189,7 +189,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 	/**
 	 * @param WikiPage $page
 	 * @param bool $introOnly
-	 * @return string
+	 * @return string|false
 	 */
 	private function getFromCache( WikiPage $page, $introOnly ) {
 		$cache = $this->cache;
@@ -372,8 +372,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 	}
 
 	/**
-	 * Return an array describing all possible parameters to this module
-	 * @return array
+	 * @inheritDoc
 	 */
 	public function getAllowedParams() {
 		return [
@@ -388,7 +387,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 				ApiBase::PARAM_MAX => 10,
 			],
 			'limit' => [
-				ApiBase::PARAM_DFLT => 20,
+				ParamValidator::PARAM_DEFAULT => 20,
 				ApiBase::PARAM_TYPE => 'limit',
 				ApiBase::PARAM_MIN => 1,
 				ApiBase::PARAM_MAX => 20,
@@ -398,7 +397,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 			'plaintext' => false,
 			'sectionformat' => [
 				ApiBase::PARAM_TYPE => [ 'plain', 'wiki', 'raw' ],
-				ApiBase::PARAM_DFLT => 'wiki',
+				ParamValidator::PARAM_DEFAULT => 'wiki',
 			],
 			'continue' => [
 				ApiBase::PARAM_TYPE => 'integer',
@@ -408,8 +407,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 	}
 
 	/**
-	 * @see ApiBase::getExamplesMessages()
-	 * @return array
+	 * @inheritDoc
 	 */
 	protected function getExamplesMessages() {
 		return [
@@ -419,10 +417,10 @@ class ApiQueryExtracts extends ApiQueryBase {
 	}
 
 	/**
-	 * @see ApiBase::getHelpUrls()
-	 * @return string
+	 * @inheritDoc
 	 */
 	public function getHelpUrls() {
 		return 'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:TextExtracts#API';
 	}
+
 }

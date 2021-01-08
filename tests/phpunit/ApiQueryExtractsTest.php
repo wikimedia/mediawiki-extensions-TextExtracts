@@ -25,6 +25,12 @@ class ApiQueryExtractsTest extends \MediaWikiTestCase {
 		$context = $this->createMock( \IContextSource::class );
 		$context->method( 'getConfig' )
 			->willReturn( $config );
+		$context->method( 'msg' )
+			->willReturnCallback( function ( $key, ...$params ) {
+				$msg = $this->createMock( \Message::class );
+				$msg->method( 'text' )->willReturn( "($key)" );
+				return $msg;
+			} );
 
 		$main = $this->createMock( \ApiMain::class );
 		$main->expects( $this->once() )
@@ -120,6 +126,54 @@ class ApiQueryExtractsTest extends \MediaWikiTestCase {
 	}
 
 	/**
+	 * @dataProvider provideTextsToTruncate
+	 */
+	public function testTruncate( $text, array $params, $expected ) {
+		/** @var ApiQueryExtracts $instance */
+		$instance = TestingAccessWrapper::newFromObject( $this->newInstance() );
+		$instance->params = $params + [ 'chars' => null, 'sentences' => null, 'plaintext' => true ];
+
+		$this->assertSame( $expected, $instance->truncate( $text ) );
+	}
+
+	public function provideTextsToTruncate() {
+		return [
+			[ '', [], '' ],
+			[ 'abc', [], 'abc' ],
+			[
+				'abc',
+				[ 'chars' => 1 ],
+				'abc(ellipsis)'
+			],
+			[
+				'abc',
+				[ 'sentences' => 1 ],
+				'abc'
+			],
+			[
+				'abc abc. xyz xyz.',
+				[ 'chars' => 1 ],
+				'abc(ellipsis)'
+			],
+			[
+				'abc abc. xyz xyz.',
+				[ 'sentences' => 1 ],
+				'abc abc.'
+			],
+			[
+				'abc abc. xyz xyz.',
+				[ 'chars' => 1000 ],
+				'abc abc. xyz xyz.(ellipsis)'
+			],
+			[
+				'abc abc. xyz xyz.',
+				[ 'sentences' => 10 ],
+				'abc abc. xyz xyz.'
+			],
+		];
+	}
+
+	/**
 	 * @dataProvider provideSectionsToFormat
 	 */
 	public function testDoSections( $text, $format, $expected ) {
@@ -158,4 +212,5 @@ class ApiQueryExtractsTest extends \MediaWikiTestCase {
 			],
 		];
 	}
+
 }

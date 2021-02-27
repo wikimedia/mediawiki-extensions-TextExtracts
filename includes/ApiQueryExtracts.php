@@ -8,6 +8,7 @@ use ApiQueryBase;
 use ApiUsageException;
 use Config;
 use FauxRequest;
+use MediaWiki\Languages\LanguageConverterFactory;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
 use ParserOptions;
@@ -42,6 +43,10 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @var WANObjectCache
 	 */
 	private $cache;
+	/**
+	 * @var LanguageConverterFactory
+	 */
+	private $langConvFactory;
 
 	// TODO: Allow extensions to hook into this to opt-in.
 	// This is partly for security reasons; see T107170.
@@ -55,11 +60,19 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @param string $moduleName Name of this query module
 	 * @param Config $conf MediaWiki configuration
 	 * @param WANObjectCache $cache
+	 * @param LanguageConverterFactory $langConvFactory
 	 */
-	public function __construct( $query, $moduleName, Config $conf, WANObjectCache $cache ) {
+	public function __construct(
+		$query,
+		$moduleName,
+		Config $conf,
+		WANObjectCache $cache,
+		LanguageConverterFactory $langConvFactory
+	) {
 		parent::__construct( $query, $moduleName, self::PREFIX );
 		$this->config = $conf;
 		$this->cache = $cache;
+		$this->langConvFactory = $langConvFactory;
 	}
 
 	/**
@@ -178,9 +191,10 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @return string
 	 */
 	private function cacheKey( WANObjectCache $cache, WikiPage $page, $introOnly ) {
+		$langConv = $this->langConvFactory->getLanguageConverter( $page->getTitle()->getPageLanguage() );
 		return $cache->makeKey( 'textextracts', self::CACHE_VERSION,
 			$page->getId(), $page->getTouched(),
-			$page->getTitle()->getPageLanguage()->getPreferredVariant(),
+			$langConv->getPreferredVariant(),
 			$this->params['plaintext'] ? 'plaintext' : 'html',
 			$introOnly ? 'intro' : 'full'
 		);
@@ -304,9 +318,11 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @return ApiQueryExtracts
 	 */
 	public static function factory( $query, $name ) {
-		$config = MediaWikiServices::getInstance()->getConfigFactory()->makeConfig( 'textextracts' );
-		$cache = MediaWikiServices::getInstance()->getMainWANObjectCache();
-		return new self( $query, $name, $config, $cache );
+		$services = MediaWikiServices::getInstance();
+		$config = $services->getConfigFactory()->makeConfig( 'textextracts' );
+		$cache = $services->getMainWANObjectCache();
+		$langConvFactory = $services->getLanguageConverterFactory();
+		return new self( $query, $name, $config, $cache, $langConvFactory );
 	}
 
 	/**

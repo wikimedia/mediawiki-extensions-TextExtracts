@@ -2,6 +2,8 @@
 
 namespace TextExtracts\Test;
 
+use ILanguageConverter;
+use MediaWiki\Languages\LanguageConverterFactory;
 use MediaWikiCoversValidator;
 use TextExtracts\ApiQueryExtracts;
 use Wikimedia\TestingAccessWrapper;
@@ -36,7 +38,11 @@ class ApiQueryExtractsTest extends \MediaWikiTestCase {
 			->method( 'getMain' )
 			->willReturn( $main );
 
-		return new ApiQueryExtracts( $query, '', $config, $cache );
+		$langConvFactory = $this->createMock( LanguageConverterFactory::class );
+		$langConvFactory->method( 'getLanguageConverter' )
+			->willReturn( $this->createMock( ILanguageConverter::class ) );
+
+		return new ApiQueryExtracts( $query, '', $config, $cache, $langConvFactory );
 	}
 
 	public function testMemCacheHelpers() {

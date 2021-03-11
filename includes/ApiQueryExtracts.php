@@ -343,11 +343,8 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @return string
 	 */
 	private function truncate( $text ) {
-		if ( !$this->params['plaintext'] ) {
-			$truncator = new TextTruncator( true );
-		} else {
-			$truncator = new TextTruncator( false );
-		}
+		$useTidy = !$this->params['plaintext'];
+		$truncator = new TextTruncator( $useTidy );
 
 		if ( $this->params['chars'] ) {
 			$text = $truncator->getFirstChars( $text, $this->params['chars'] ) .

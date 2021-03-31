@@ -7,6 +7,7 @@ use ApiMain;
 use ApiQueryBase;
 use ApiUsageException;
 use Config;
+use ConfigFactory;
 use FauxRequest;
 use MediaWiki\Languages\LanguageConverterFactory;
 use MediaWiki\Logger\LoggerFactory;
@@ -58,19 +59,19 @@ class ApiQueryExtracts extends ApiQueryBase {
 	/**
 	 * @param \ApiQuery $query API query module object
 	 * @param string $moduleName Name of this query module
-	 * @param Config $conf MediaWiki configuration
+	 * @param ConfigFactory $configFactory
 	 * @param WANObjectCache $cache
 	 * @param LanguageConverterFactory $langConvFactory
 	 */
 	public function __construct(
 		$query,
 		$moduleName,
-		Config $conf,
+		ConfigFactory $configFactory,
 		WANObjectCache $cache,
 		LanguageConverterFactory $langConvFactory
 	) {
 		parent::__construct( $query, $moduleName, self::PREFIX );
-		$this->config = $conf;
+		$this->config = $configFactory->makeConfig( 'textextracts' );
 		$this->cache = $cache;
 		$this->langConvFactory = $langConvFactory;
 	}
@@ -252,6 +253,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 
 		// first try finding full page in parser cache
 		if ( $page->shouldCheckParserCache( $parserOptions, 0 ) ) {
+			// TODO inject ParserCache
 			$pout = MediaWikiServices::getInstance()->getParserCache()->get( $page, $parserOptions );
 			if ( $pout ) {
 				$text = $pout->getText( [ 'unwrap' => true ] );
@@ -310,19 +312,6 @@ class ApiQueryExtracts extends ApiQueryBase {
 		}
 
 		return $data['parse']['text']['*'];
-	}
-
-	/**
-	 * @param \ApiQuery $query API query module
-	 * @param string $name Name of this query module
-	 * @return ApiQueryExtracts
-	 */
-	public static function factory( $query, $name ) {
-		$services = MediaWikiServices::getInstance();
-		$config = $services->getConfigFactory()->makeConfig( 'textextracts' );
-		$cache = $services->getMainWANObjectCache();
-		$langConvFactory = $services->getLanguageConverterFactory();
-		return new self( $query, $name, $config, $cache, $langConvFactory );
 	}
 
 	/**

@@ -22,6 +22,11 @@ class ApiQueryExtractsTest extends \MediaWikiTestCase {
 			'ParserCacheExpireTime' => \IExpiringStore::TTL_INDEFINITE,
 		] );
 
+		$configFactory = $this->createMock( \ConfigFactory::class );
+		$configFactory->method( 'makeConfig' )
+			->with( 'textextracts' )
+			->willReturn( $config );
+
 		$cache = new \WANObjectCache( [ 'cache' => new \HashBagOStuff() ] );
 
 		$context = $this->createMock( \IContextSource::class );
@@ -48,7 +53,7 @@ class ApiQueryExtractsTest extends \MediaWikiTestCase {
 		$langConvFactory->method( 'getLanguageConverter' )
 			->willReturn( $this->createMock( ILanguageConverter::class ) );
 
-		return new ApiQueryExtracts( $query, '', $config, $cache, $langConvFactory );
+		return new ApiQueryExtracts( $query, '', $configFactory, $cache, $langConvFactory );
 	}
 
 	public function testMemCacheHelpers() {

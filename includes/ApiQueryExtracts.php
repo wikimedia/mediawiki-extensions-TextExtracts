@@ -231,9 +231,10 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 */
 	private function getFirstSection( $text, $plainText ) {
 		if ( $plainText ) {
-			$regexp = '/^(.*?)(?=' . ExtractFormatter::SECTION_MARKER_START . ')/s';
+			$regexp = '/^.*?(?=' . ExtractFormatter::SECTION_MARKER_START .
+				'(?!.' . ExtractFormatter::SECTION_MARKER_END . '<h2 id="mw-toc-heading"))/s';
 		} else {
-			$regexp = '/^(.*?)(?=<h[1-6]\b)/s';
+			$regexp = '/^.*?(?=<h[1-6]\b(?! id="mw-toc-heading"))/s';
 		}
 		if ( preg_match( $regexp, $text, $matches ) ) {
 			$text = $matches[0];

@@ -14,7 +14,7 @@ use Wikimedia\TestingAccessWrapper;
  *
  * @license GPL-2.0-or-later
  */
-class ApiQueryExtractsTest extends \MediaWikiTestCase {
+class ApiQueryExtractsTest extends \MediaWikiIntegrationTestCase {
 	use MediaWikiCoversValidator;
 
 	private function newInstance() {

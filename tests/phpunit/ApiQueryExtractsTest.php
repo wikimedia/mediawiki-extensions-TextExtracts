@@ -90,14 +90,14 @@ class ApiQueryExtractsTest extends \MediaWikiIntegrationTestCase {
 		$params = $instance->getAllowedParams();
 		$this->assertIsArray( $params );
 
-		$this->assertSame( $params['chars'][\ApiBase::PARAM_MIN], 1 );
-		$this->assertSame( $params['chars'][\ApiBase::PARAM_MAX], 1200 );
+		$this->assertSame( 1, $params['chars'][\ApiBase::PARAM_MIN] );
+		$this->assertSame( 1200, $params['chars'][\ApiBase::PARAM_MAX] );
 
-		$this->assertSame( $params['limit'][\ApiBase::PARAM_DFLT], 20 );
-		$this->assertSame( $params['limit'][\ApiBase::PARAM_TYPE], 'limit' );
-		$this->assertSame( $params['limit'][\ApiBase::PARAM_MIN], 1 );
-		$this->assertSame( $params['limit'][\ApiBase::PARAM_MAX], 20 );
-		$this->assertSame( $params['limit'][\ApiBase::PARAM_MAX2], 20 );
+		$this->assertSame( 20, $params['limit'][\ApiBase::PARAM_DFLT] );
+		$this->assertSame( 'limit', $params['limit'][\ApiBase::PARAM_TYPE] );
+		$this->assertSame( 1, $params['limit'][\ApiBase::PARAM_MIN] );
+		$this->assertSame( 20, $params['limit'][\ApiBase::PARAM_MAX] );
+		$this->assertSame( 20, $params['limit'][\ApiBase::PARAM_MAX2] );
 	}
 
 	/**

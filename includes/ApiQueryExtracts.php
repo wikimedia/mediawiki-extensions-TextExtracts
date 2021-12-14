@@ -12,6 +12,7 @@ use FauxRequest;
 use MediaWiki\Languages\LanguageConverterFactory;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Page\WikiPageFactory;
 use ParserOptions;
 use Title;
 use User;
@@ -48,6 +49,10 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @var LanguageConverterFactory
 	 */
 	private $langConvFactory;
+	/**
+	 * @var WikiPageFactory
+	 */
+	private $wikiPageFactory;
 
 	// TODO: Allow extensions to hook into this to opt-in.
 	// This is partly for security reasons; see T107170.
@@ -62,18 +67,21 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @param ConfigFactory $configFactory
 	 * @param WANObjectCache $cache
 	 * @param LanguageConverterFactory $langConvFactory
+	 * @param WikiPageFactory $wikiPageFactory
 	 */
 	public function __construct(
 		$query,
 		$moduleName,
 		ConfigFactory $configFactory,
 		WANObjectCache $cache,
-		LanguageConverterFactory $langConvFactory
+		LanguageConverterFactory $langConvFactory,
+		WikiPageFactory $wikiPageFactory
 	) {
 		parent::__construct( $query, $moduleName, self::PREFIX );
 		$this->config = $configFactory->makeConfig( 'textextracts' );
 		$this->cache = $cache;
 		$this->langConvFactory = $langConvFactory;
+		$this->wikiPageFactory = $wikiPageFactory;
 	}
 
 	/**
@@ -166,7 +174,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 			return '';
 		}
 
-		$page = WikiPage::factory( $title );
+		$page = $this->wikiPageFactory->newFromTitle( $title );
 
 		$introOnly = $this->params['intro'];
 		$text = $this->getFromCache( $page, $introOnly );

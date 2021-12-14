@@ -19,7 +19,8 @@
 			"services": [
 				"ConfigFactory",
 				"MainWANObjectCache",
-				"LanguageConverterFactory"
+				"LanguageConverterFactory",
+				"WikiPageFactory"
 			]
 		}
 	},

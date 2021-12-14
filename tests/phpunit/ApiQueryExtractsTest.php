@@ -53,7 +53,14 @@ class ApiQueryExtractsTest extends \MediaWikiIntegrationTestCase {
 		$langConvFactory->method( 'getLanguageConverter' )
 			->willReturn( $this->createMock( ILanguageConverter::class ) );
 
-		return new ApiQueryExtracts( $query, '', $configFactory, $cache, $langConvFactory );
+		return new ApiQueryExtracts(
+			$query,
+			'',
+			$configFactory,
+			$cache,
+			$langConvFactory,
+			$this->getServiceContainer()->getWikiPageFactory()
+		);
 	}
 
 	public function testMemCacheHelpers() {

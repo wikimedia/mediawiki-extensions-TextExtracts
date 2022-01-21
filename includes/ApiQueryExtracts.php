@@ -15,7 +15,6 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\WikiPageFactory;
 use ParserOptions;
 use Title;
-use User;
 use WANObjectCache;
 use Wikimedia\ParamValidator\ParamValidator;
 use WikiPage;
@@ -257,7 +256,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 */
 	private function parse( WikiPage $page ) {
 		$apiException = null;
-		$parserOptions = new ParserOptions( new User() );
+		$parserOptions = ParserOptions::newFromAnon();
 
 		// first try finding full page in parser cache
 		if ( $page->shouldCheckParserCache( $parserOptions, 0 ) ) {

@@ -43,6 +43,7 @@
 			"value": [
 				"table",
 				"div",
+				"figure",
 				"script",
 				"input",
 				"style",

@@ -241,7 +241,7 @@ class ApiQueryExtractsTest extends \MediaWikiIntegrationTestCase {
 			],
 
 			'Multiple matches' => [
-				"${marker}First\n${marker}Second",
+				"{$marker}First\n{$marker}Second",
 				'wiki',
 				"\n=== First ===\n\n=== Second ===",
 			],

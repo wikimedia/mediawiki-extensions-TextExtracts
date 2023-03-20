@@ -147,6 +147,16 @@ class ApiQueryExtractsTest extends \MediaWikiIntegrationTestCase {
 				false,
 				'Example <h11>...',
 			],
+			'__TOC__ before intro (HTML)' => [
+				'<h2 id="mw-toc-heading">Contents</h2>Intro<h2>Actual heading</h2>...',
+				false,
+				'<h2 id="mw-toc-heading">Contents</h2>Intro',
+			],
+			'__TOC__ before intro (plaintext)' => [
+				"\1\2_\2\1<h2 id=\"mw-toc-heading\">Contents</h2>Intro\1\2_\2\1<h2>Actual heading</h2>...",
+				true,
+				"\1\2_\2\1<h2 id=\"mw-toc-heading\">Contents</h2>Intro",
+			],
 		];
 	}
 

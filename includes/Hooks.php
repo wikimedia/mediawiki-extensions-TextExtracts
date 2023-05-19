@@ -5,8 +5,8 @@ namespace TextExtracts;
 use ApiBase;
 use ApiMain;
 use ApiResult;
-use FauxRequest;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Request\FauxRequest;
 
 /**
  * @license GPL-2.0-or-later

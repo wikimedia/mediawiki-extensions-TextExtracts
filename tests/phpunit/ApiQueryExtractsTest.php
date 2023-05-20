@@ -124,7 +124,7 @@ class ApiQueryExtractsTest extends \MediaWikiIntegrationTestCase {
 		$this->assertSame( $expected, $instance->getFirstSection( $text, $isPlainText ) );
 	}
 
-	public function provideFirstSectionsToExtract() {
+	public static function provideFirstSectionsToExtract() {
 		return [
 			'Plain text match' => [
 				"First\nsection \1\2... \1\2...",
@@ -171,7 +171,7 @@ class ApiQueryExtractsTest extends \MediaWikiIntegrationTestCase {
 		$this->assertSame( $expected, $instance->truncate( $text ) );
 	}
 
-	public function provideTextsToTruncate() {
+	public static function provideTextsToTruncate() {
 		return [
 			[ '', [], '' ],
 			[ 'abc', [], 'abc' ],
@@ -229,7 +229,7 @@ class ApiQueryExtractsTest extends \MediaWikiIntegrationTestCase {
 		$this->assertSame( $expected, $instance->doSections( $text ) );
 	}
 
-	public function provideSectionsToFormat() {
+	public static function provideSectionsToFormat() {
 		$level = 3;
 		$marker = "\1\2$level\2\1";
 

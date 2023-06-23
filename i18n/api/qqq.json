@@ -4,7 +4,6 @@
 			"Umherirrender"
 		]
 	},
-	"apihelp-query+extracts-description": "{{doc-apihelp-description|query+extracts}}",
 	"apihelp-query+extracts-summary": "{{doc-apihelp-summary|query+extracts}}",
 	"apihelp-query+extracts-param-chars": "{{doc-apihelp-param|query+extracts|chars}}",
 	"apihelp-query+extracts-param-sentences": "{{doc-apihelp-param|query+extracts|sentences}}",

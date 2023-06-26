@@ -4,7 +4,6 @@
 			"McDutchie"
 		]
 	},
-	"apihelp-query+extracts-description": "Restitue extractos del paginas date in forma de texto simple o HTML limitate.",
 	"apihelp-query+extracts-summary": "Restitue extractos del paginas date in forma de texto simple o HTML limitate.",
 	"apihelp-query+extracts-param-chars": "Quante characteres restituer. Le texto effectivemente restituite pote esser un poco plus longe.",
 	"apihelp-query+extracts-param-sentences": "Quante phrases restituer.",

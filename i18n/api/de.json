@@ -5,7 +5,6 @@
 			"Metalhead64"
 		]
 	},
-	"apihelp-query+extracts-description": "Gibt den Klartext oder beschränkte HTML-Auszüge der angegebenen Seiten zurück.",
 	"apihelp-query+extracts-summary": "Gibt den Klartext oder beschränkte HTML-Auszüge der angegebenen Seiten zurück.",
 	"apihelp-query+extracts-param-chars": "Wie viele Zeichen zurückgegeben werden sollen. Der tatsächlich zurückgegebene Text kann etwas länger sein.",
 	"apihelp-query+extracts-param-sentences": "Wie viele Sätze zurückgegeben werden sollen.",

@@ -5,7 +5,6 @@
 			"Ата"
 		]
 	},
-	"apihelp-query+extracts-description": "Видає звичайний текст або обмежені уривки HTML даних сторінок.",
 	"apihelp-query+extracts-summary": "Видає звичайний текст або обмежені уривки HTML заданих сторінок.",
 	"apihelp-query+extracts-param-chars": "Скільки символів виводити. Дійсно виданий текст може бути дещо довшим.",
 	"apihelp-query+extracts-param-sentences": "Скільки речень виводити.",

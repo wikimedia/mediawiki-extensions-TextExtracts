@@ -4,7 +4,6 @@
 			"Eleassar"
 		]
 	},
-	"apihelp-query+extracts-description": "Vrne golo besedilo ali omejene izvlečke HTML predloženih strani.",
 	"apihelp-query+extracts-summary": "Vrne golo besedilo ali omejene izvlečke HTML predloženih strani.",
 	"apihelp-query+extracts-param-chars": "Koliko znakov naj bo vrnjenih. Dejansko vrnjeno besedilo je lahko nekoliko daljše.",
 	"apihelp-query+extracts-param-sentences": "Koliko stavkov naj bo vrnjenih.",

@@ -5,7 +5,6 @@
 			"Guycn2"
 		]
 	},
-	"apihelp-query+extracts-description": "מחזיר מובאות בטקסט רגיל או ב־HMTL מוגבל של דפים נתונים.",
 	"apihelp-query+extracts-summary": "החזרת קטעים של הדפים הנתונים בטקסט רגיל או ב־HTML מוגבל.",
 	"apihelp-query+extracts-param-chars": "כמה תווים להחזיר. הטקסט האמתי עשוי להיות ארוך קצת יותר.",
 	"apihelp-query+extracts-param-sentences": "כמה משפטים להחזיר.",

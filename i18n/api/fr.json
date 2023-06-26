@@ -9,7 +9,6 @@
 			"Wladek92"
 		]
 	},
-	"apihelp-query+extracts-description": "Renvoie des extraits des pages fournies en texte brut ou en HTML limité.",
 	"apihelp-query+extracts-summary": "Renvoie des extraits en texte brut ou en HTML limité des pages données.",
 	"apihelp-query+extracts-param-chars": "Nombre de caractères à retourner. Le texte courant retourné peut être légèrement plus long.",
 	"apihelp-query+extracts-param-sentences": "Combien de phrases renvoyer.",

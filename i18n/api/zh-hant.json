@@ -4,7 +4,6 @@
 			"Kly"
 		]
 	},
-	"apihelp-query+extracts-description": "回傳純文字或受限的指定頁面 HTML 匯出。",
 	"apihelp-query+extracts-summary": "回傳純文字或受限的指定頁面 HTML 匯出。",
 	"apihelp-query+extracts-param-chars": "要回傳的字元數量。實際回傳的文字可能會稍多。",
 	"apihelp-query+extracts-param-sentences": "要回傳的文句數量。",

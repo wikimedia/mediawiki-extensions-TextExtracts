@@ -4,7 +4,6 @@
 			"Bjankuloski06"
 		]
 	},
-	"apihelp-query+extracts-description": "Дава извадоци од дадените страници во прост текст или ограничен HTML.",
 	"apihelp-query+extracts-summary": "Дава извадоци од дадените страници во прост текст или ограничен HTML.",
 	"apihelp-query+extracts-param-chars": "Колку знаци да има извадокот. Самиот текст што ќе се даде може да биде малку подолг.",
 	"apihelp-query+extracts-param-sentences": "Колку реченици да има извадокот.",

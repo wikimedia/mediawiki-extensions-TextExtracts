@@ -4,7 +4,6 @@
 			"Jon Harald Søby"
 		]
 	},
-	"apihelp-query+extracts-description": "Returnerer utdrag i ren tekst eller begrenset HTML for de gitte sidene.",
 	"apihelp-query+extracts-summary": "Returnerer tekstutdrag fra de gitte sidene i rentekst eller begrenset HTML.",
 	"apihelp-query+extracts-param-chars": "Hvor mange tegn som skal returneres. Den faktiske teksten som returneres kan være litt lenger.",
 	"apihelp-query+extracts-param-sentences": "Hvor mange setninger som skal returneres.",

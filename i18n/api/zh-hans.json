@@ -6,7 +6,6 @@
 			"Yfdyh000"
 		]
 	},
-	"apihelp-query+extracts-description": "返回指定页面的纯文本或有限的HTML页面内容提取物。",
 	"apihelp-query+extracts-summary": "返回指定页面的纯文本或有限的HTML页面内容提取物。",
 	"apihelp-query+extracts-param-chars": "返回多少个字符。实际返回的文本可能比这稍长。",
 	"apihelp-query+extracts-param-sentences": "返回的句子数量。",

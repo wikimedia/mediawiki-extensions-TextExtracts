@@ -410,6 +410,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 			'sectionformat' => [
 				ApiBase::PARAM_TYPE => [ 'plain', 'wiki', 'raw' ],
 				ParamValidator::PARAM_DEFAULT => 'wiki',
+				ApiBase::PARAM_HELP_MSG_PER_VALUE => [],
 			],
 			'continue' => [
 				ApiBase::PARAM_TYPE => 'integer',

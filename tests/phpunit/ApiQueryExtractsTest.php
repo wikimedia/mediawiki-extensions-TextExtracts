@@ -6,6 +6,7 @@ use ILanguageConverter;
 use MediaWiki\Languages\LanguageConverterFactory;
 use MediaWikiCoversValidator;
 use TextExtracts\ApiQueryExtracts;
+use Wikimedia\LightweightObjectStore\ExpirationAwareness;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -19,7 +20,7 @@ class ApiQueryExtractsTest extends \MediaWikiIntegrationTestCase {
 
 	private function newInstance() {
 		$config = new \HashConfig( [
-			'ParserCacheExpireTime' => \IExpiringStore::TTL_INDEFINITE,
+			'ParserCacheExpireTime' => ExpirationAwareness::TTL_INDEFINITE,
 		] );
 
 		$configFactory = $this->createMock( \ConfigFactory::class );

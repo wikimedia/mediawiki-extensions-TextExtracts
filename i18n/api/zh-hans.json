@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"GuoPC",
+			"LittlePaw365",
 			"Liuxinyu970226",
 			"Xiplus",
 			"Yfdyh000"
@@ -15,7 +16,7 @@
 	"apihelp-query+extracts-param-plaintext": "返回提取物为纯文本而非HTML。",
 	"apihelp-query+extracts-param-sectionformat": "纯文本模式下如何格式化章节：",
 	"apihelp-query+extracts-paramvalue-sectionformat-plain": "无格式。",
-	"apihelp-query+extracts-paramvalue-sectionformat-wiki": "Wiki文本样式的格式（== 像是这样 ==）。",
+	"apihelp-query+extracts-paramvalue-sectionformat-wiki": "wikitext样式的格式（== 像这样 ==）。",
 	"apihelp-query+extracts-paramvalue-sectionformat-raw": "此模块的内部表示方法（章节标题前缀&lt;ASCII 1&gt;&lt;ASCII 2&gt;&lt;章节级别&gt;&lt;ASCII 2&gt;&lt;ASCII 1&gt;）",
 	"apihelp-query+extracts-example-1": "获得175个字符的内容",
 	"apiwarn-textextracts-limit": "<var>exlimit</var>对于一整个条目的提取请求而言太大，已降低为$1。",

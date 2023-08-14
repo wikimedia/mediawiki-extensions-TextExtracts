@@ -34,9 +34,12 @@
 		"TextExtracts\\": "includes/"
 	},
 	"Hooks": {
-		"ApiOpenSearchSuggest": [
-			"TextExtracts\\Hooks::onApiOpenSearchSuggest"
-		]
+		"ApiOpenSearchSuggest": "main"
+	},
+	"HookHandlers": {
+		"main": {
+			"class": "TextExtracts\\Hooks"
+		}
 	},
 	"config": {
 		"ExtractsRemoveClasses": {

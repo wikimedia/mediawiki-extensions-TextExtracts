@@ -4,6 +4,7 @@ namespace TextExtracts\Test;
 
 use ILanguageConverter;
 use MediaWiki\Languages\LanguageConverterFactory;
+use MediaWiki\Title\Title;
 use MediaWikiCoversValidator;
 use TextExtracts\ApiQueryExtracts;
 use Wikimedia\LightweightObjectStore\ExpirationAwareness;
@@ -68,7 +69,7 @@ class ApiQueryExtractsTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	public function testMemCacheHelpers() {
-		$title = $this->createMock( \Title::class );
+		$title = $this->createMock( Title::class );
 		$title->method( 'getPageLanguage' )
 			->willReturn( $this->createMock( \Language::class ) );
 

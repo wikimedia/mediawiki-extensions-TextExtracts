@@ -315,7 +315,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 					'url' => $this->getRequest()->getFullRequestURL(),
 					'exception' => $apiException,
 					'request' => $request
-			] );
+				] );
 			return null;
 		}
 

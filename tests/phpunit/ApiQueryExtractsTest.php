@@ -5,7 +5,9 @@ namespace TextExtracts\Test;
 use ILanguageConverter;
 use MediaWiki\Config\ConfigFactory;
 use MediaWiki\Config\HashConfig;
+use MediaWiki\Context\IContextSource;
 use MediaWiki\Languages\LanguageConverterFactory;
+use MediaWiki\Message\Message;
 use MediaWiki\Title\Title;
 use MediaWikiCoversValidator;
 use TextExtracts\ApiQueryExtracts;
@@ -33,12 +35,12 @@ class ApiQueryExtractsTest extends \MediaWikiIntegrationTestCase {
 
 		$cache = new \WANObjectCache( [ 'cache' => new \HashBagOStuff() ] );
 
-		$context = $this->createMock( \IContextSource::class );
+		$context = $this->createMock( IContextSource::class );
 		$context->method( 'getConfig' )
 			->willReturn( $config );
 		$context->method( 'msg' )
 			->willReturnCallback( function ( $key, ...$params ) {
-				$msg = $this->createMock( \Message::class );
+				$msg = $this->createMock( Message::class );
 				$msg->method( 'text' )->willReturn( "($key)" );
 				return $msg;
 			} );

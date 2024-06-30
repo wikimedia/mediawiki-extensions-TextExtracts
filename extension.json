@@ -20,7 +20,8 @@
 				"ConfigFactory",
 				"MainWANObjectCache",
 				"LanguageConverterFactory",
-				"WikiPageFactory"
+				"WikiPageFactory",
+				"TitleFormatter"
 			]
 		}
 	},

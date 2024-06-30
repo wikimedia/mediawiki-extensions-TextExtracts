@@ -10,8 +10,9 @@ use MediaWiki\Config\ConfigFactory;
 use MediaWiki\Languages\LanguageConverterFactory;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Page\PageIdentity;
 use MediaWiki\Page\WikiPageFactory;
-use MediaWiki\Title\Title;
+use MediaWiki\Title\TitleFormatter;
 use ParserOptions;
 use WANObjectCache;
 use Wikimedia\ParamValidator\ParamValidator;
@@ -50,6 +51,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @var WikiPageFactory
 	 */
 	private $wikiPageFactory;
+	private TitleFormatter $titleFormatter;
 
 	// TODO: Allow extensions to hook into this to opt-in.
 	// This is partly for security reasons; see T107170.
@@ -65,6 +67,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @param WANObjectCache $cache
 	 * @param LanguageConverterFactory $langConvFactory
 	 * @param WikiPageFactory $wikiPageFactory
+	 * @param TitleFormatter $titleFormatter
 	 */
 	public function __construct(
 		$query,
@@ -72,13 +75,15 @@ class ApiQueryExtracts extends ApiQueryBase {
 		ConfigFactory $configFactory,
 		WANObjectCache $cache,
 		LanguageConverterFactory $langConvFactory,
-		WikiPageFactory $wikiPageFactory
+		WikiPageFactory $wikiPageFactory,
+		TitleFormatter $titleFormatter
 	) {
 		parent::__construct( $query, $moduleName, self::PREFIX );
 		$this->config = $configFactory->makeConfig( 'textextracts' );
 		$this->cache = $cache;
 		$this->langConvFactory = $langConvFactory;
 		$this->wikiPageFactory = $wikiPageFactory;
+		$this->titleFormatter = $titleFormatter;
 	}
 
 	/**
@@ -86,7 +91,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * and sets up the result
 	 */
 	public function execute() {
-		$titles = $this->getPageSet()->getGoodTitles();
+		$titles = $this->getPageSet()->getGoodPages();
 		if ( $titles === [] ) {
 			return;
 		}
@@ -108,14 +113,14 @@ class ApiQueryExtracts extends ApiQueryBase {
 		}
 		$count = 0;
 		$titleInFileNamespace = false;
-		/** @var Title $t */
+		/** @var PageIdentity $t */
 		foreach ( $titles as $id => $t ) {
 			if ( ++$count > $limit ) {
 				$this->setContinueEnumParameter( 'continue', $continue + $count - 1 );
 				break;
 			}
 
-			if ( $t->inNamespace( NS_FILE ) ) {
+			if ( $t->getNamespace() === NS_FILE ) {
 				$text = '';
 				$titleInFileNamespace = true;
 			} else {
@@ -157,21 +162,21 @@ class ApiQueryExtracts extends ApiQueryBase {
 
 	/**
 	 * Returns a processed, but not trimmed extract
-	 * @param Title $title
+	 * @param PageIdentity $title
 	 * @return string
 	 */
-	private function getExtract( Title $title ) {
-		$contentModel = $title->getContentModel();
+	private function getExtract( PageIdentity $title ) {
+		$page = $this->wikiPageFactory->newFromTitle( $title );
+
+		$contentModel = $page->getContentModel();
 		if ( !in_array( $contentModel, $this->supportedContentModels, true ) ) {
 			$this->addWarning( [
 				'apiwarn-textextracts-unsupportedmodel',
-				wfEscapeWikiText( $title->getPrefixedText() ),
+				wfEscapeWikiText( $this->titleFormatter->getPrefixedText( $title ) ),
 				$contentModel
 			] );
 			return '';
 		}
-
-		$page = $this->wikiPageFactory->newFromTitle( $title );
 
 		$introOnly = $this->params['intro'];
 		$text = $this->getFromCache( $page, $introOnly );

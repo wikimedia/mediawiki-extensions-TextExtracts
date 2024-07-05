@@ -3,7 +3,6 @@
 namespace TextExtracts;
 
 use ApiBase;
-use ApiMain;
 use ApiQueryBase;
 use ApiUsageException;
 use MediaWiki\Config\Config;
@@ -12,7 +11,6 @@ use MediaWiki\Languages\LanguageConverterFactory;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\WikiPageFactory;
-use MediaWiki\Request\FauxRequest;
 use MediaWiki\Title\Title;
 use ParserOptions;
 use WANObjectCache;
@@ -252,74 +250,31 @@ class ApiQueryExtracts extends ApiQueryBase {
 	/**
 	 * Returns page HTML
 	 * @param WikiPage $page
-	 * @return string|null
+	 * @return string
 	 * @throws ApiUsageException
 	 */
 	private function parse( WikiPage $page ) {
-		$apiException = null;
-		$parserOptions = ParserOptions::newFromAnon();
-
-		// first try finding full page in parser cache
-		if ( $page->shouldCheckParserCache( $parserOptions, 0 ) ) {
-			// TODO inject ParserCache
-			$pout = MediaWikiServices::getInstance()->getParserCache()->get( $page, $parserOptions );
-			if ( $pout ) {
-				$text = $pout->getText( [ 'unwrap' => true ] );
-				if ( $this->params['intro'] ) {
-					$text = $this->getFirstSection( $text, false );
-				}
-				return $text;
+		$parserOutputAccess = MediaWikiServices::getInstance()->getParserOutputAccess();
+		$status = $parserOutputAccess->getParserOutput(
+			$page->toPageRecord(),
+			ParserOptions::newFromAnon()
+		);
+		if ( $status->isOK() ) {
+			$pout = $status->getValue();
+			$text = $pout->getText( [ 'unwrap' => true ] );
+			if ( $this->params['intro'] ) {
+				$text = $this->getFirstSection( $text, false );
 			}
-		}
-		$request = [
-			'action' => 'parse',
-			'page' => $page->getTitle()->getPrefixedText(),
-			'prop' => 'text',
-			// Invokes special handling when using partial wikitext (T168743)
-			'sectionpreview' => 1,
-			'wrapoutputclass' => '',
-		];
-		if ( $this->params['intro'] ) {
-			$request['section'] = 0;
-		}
-		// in case of cache miss, render just the needed section
-		$api = new ApiMain( new FauxRequest( $request ) );
-		try {
-			$api->execute();
-			$data = $api->getResult()->getResultData( null, [
-				'BC' => [],
-				'Types' => [],
-			] );
-		} catch ( ApiUsageException $e ) {
-			$apiException = $e->__toString();
-			if ( $e->getStatusValue()->hasMessage( 'apierror-nosuchsection' ) ) {
-				// Looks like we tried to get the intro to a page without
-				// sections!  Lets just grab what we can get.
-				unset( $request['section'] );
-				$api = new ApiMain( new FauxRequest( $request ) );
-				$api->execute();
-				$data = $api->getResult()->getResultData( null, [
-					'BC' => [],
-					'Types' => [],
-				] );
-			} else {
-				// Some other unexpected error - lets just report it to the user
-				// on the off chance that is the right thing.
-				throw $e;
-			}
-		}
-		if ( !array_key_exists( 'parse', $data ) ) {
+			return $text;
+		} else {
 			LoggerFactory::getInstance( 'textextracts' )->warning(
-				'API Parse request failed while generating text extract', [
+				'Parse attempt failed while generating text extract', [
 					'title' => $page->getTitle()->getFullText(),
 					'url' => $this->getRequest()->getFullRequestURL(),
-					'exception' => $apiException,
-					'request' => $request
+					'reason' => $status->getWikiText( false, false, 'en' )
 				] );
-			return null;
+			$this->dieStatus( $status );
 		}
-
-		return $data['parse']['text']['*'];
 	}
 
 	/**

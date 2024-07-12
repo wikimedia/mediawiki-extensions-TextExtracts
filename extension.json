@@ -35,11 +35,15 @@
 		"TextExtracts\\": "includes/"
 	},
 	"Hooks": {
-		"ApiOpenSearchSuggest": "main"
+		"ApiOpenSearchSuggest": "main",
+		"SearchResultProvideDescription": "main"
 	},
 	"HookHandlers": {
 		"main": {
-			"class": "TextExtracts\\Hooks"
+			"class": "TextExtracts\\Hooks",
+			"services": [
+				"ConfigFactory"
+			]
 		}
 	},
 	"config": {
@@ -63,6 +67,9 @@
 			]
 		},
 		"ExtractsExtendOpenSearchXml": {
+			"value": false
+		},
+		"ExtractsExtendRestSearch": {
 			"value": false
 		}
 	},

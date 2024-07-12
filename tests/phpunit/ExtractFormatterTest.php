@@ -1,12 +1,12 @@
 <?php
 
-namespace TextExtracts\Test;
+namespace MediaWiki\Extension\TextExtracts\Test;
 
+use MediaWiki\Extension\TextExtracts\ExtractFormatter;
 use MediaWikiIntegrationTestCase;
-use TextExtracts\ExtractFormatter;
 
 /**
- * @covers \TextExtracts\ExtractFormatter
+ * @covers MediaWiki\Extension\TextExtracts\ExtractFormatter
  * @group TextExtracts
  *
  * @license GPL-2.0-or-later

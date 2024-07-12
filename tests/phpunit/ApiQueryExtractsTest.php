@@ -1,21 +1,21 @@
 <?php
 
-namespace TextExtracts\Test;
+namespace MediaWiki\Extension\TextExtracts\Test;
 
 use ILanguageConverter;
 use MediaWiki\Config\ConfigFactory;
 use MediaWiki\Config\HashConfig;
 use MediaWiki\Context\IContextSource;
+use MediaWiki\Extension\TextExtracts\ApiQueryExtracts;
 use MediaWiki\Languages\LanguageConverterFactory;
 use MediaWiki\Message\Message;
 use MediaWiki\Title\Title;
 use MediaWikiCoversValidator;
-use TextExtracts\ApiQueryExtracts;
 use Wikimedia\LightweightObjectStore\ExpirationAwareness;
 use Wikimedia\TestingAccessWrapper;
 
 /**
- * @covers \TextExtracts\ApiQueryExtracts
+ * @covers MediaWiki\Extension\TextExtracts\ApiQueryExtracts
  * @group TextExtracts
  *
  * @license GPL-2.0-or-later

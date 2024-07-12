@@ -15,7 +15,7 @@
 	},
 	"APIPropModules": {
 		"extracts": {
-			"class": "TextExtracts\\ApiQueryExtracts",
+			"class": "MediaWiki\\Extension\\TextExtracts\\ApiQueryExtracts",
 			"services": [
 				"ConfigFactory",
 				"MainWANObjectCache",
@@ -32,7 +32,7 @@
 		]
 	},
 	"AutoloadNamespaces": {
-		"TextExtracts\\": "includes/"
+		"MediaWiki\\Extension\\TextExtracts\\": "includes/"
 	},
 	"Hooks": {
 		"ApiOpenSearchSuggest": "main",
@@ -40,7 +40,7 @@
 	},
 	"HookHandlers": {
 		"main": {
-			"class": "TextExtracts\\Hooks",
+			"class": "MediaWiki\\Extension\\TextExtracts\\Hooks",
 			"services": [
 				"ConfigFactory"
 			]

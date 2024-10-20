@@ -2,9 +2,10 @@
 
 namespace MediaWiki\Extension\TextExtracts;
 
-use ApiBase;
-use ApiQueryBase;
-use ApiUsageException;
+use MediaWiki\Api\ApiBase;
+use MediaWiki\Api\ApiQuery;
+use MediaWiki\Api\ApiQueryBase;
+use MediaWiki\Api\ApiUsageException;
 use MediaWiki\Config\Config;
 use MediaWiki\Config\ConfigFactory;
 use MediaWiki\Languages\LanguageConverterFactory;
@@ -12,9 +13,9 @@ use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\PageIdentity;
 use MediaWiki\Page\WikiPageFactory;
+use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Title\TitleFormatter;
-use ParserOptions;
-use WANObjectCache;
+use Wikimedia\ObjectCache\WANObjectCache;
 use Wikimedia\ParamValidator\ParamValidator;
 use WikiPage;
 
@@ -61,7 +62,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 	private $supportedContentModels = [ 'wikitext' ];
 
 	/**
-	 * @param \ApiQuery $query API query module object
+	 * @param ApiQuery $query API query module object
 	 * @param string $moduleName Name of this query module
 	 * @param ConfigFactory $configFactory
 	 * @param WANObjectCache $cache

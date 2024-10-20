@@ -2,9 +2,9 @@
 
 namespace MediaWiki\Extension\TextExtracts;
 
-use ApiMain;
-use ApiResult;
 use Generator;
+use MediaWiki\Api\ApiMain;
+use MediaWiki\Api\ApiResult;
 use MediaWiki\Api\Hook\ApiOpenSearchSuggestHook;
 use MediaWiki\Config\Config;
 use MediaWiki\Config\ConfigFactory;

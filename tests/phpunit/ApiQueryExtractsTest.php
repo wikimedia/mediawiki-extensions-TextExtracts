@@ -2,16 +2,22 @@
 
 namespace MediaWiki\Extension\TextExtracts\Test;
 
-use ILanguageConverter;
+use MediaWiki\Api\ApiBase;
+use MediaWiki\Api\ApiMain;
+use MediaWiki\Api\ApiQuery;
 use MediaWiki\Config\ConfigFactory;
 use MediaWiki\Config\HashConfig;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Extension\TextExtracts\ApiQueryExtracts;
+use MediaWiki\Language\ILanguageConverter;
+use MediaWiki\Language\Language;
 use MediaWiki\Languages\LanguageConverterFactory;
 use MediaWiki\Message\Message;
 use MediaWiki\Title\Title;
 use MediaWikiCoversValidator;
 use Wikimedia\LightweightObjectStore\ExpirationAwareness;
+use Wikimedia\ObjectCache\HashBagOStuff;
+use Wikimedia\ObjectCache\WANObjectCache;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -33,7 +39,7 @@ class ApiQueryExtractsTest extends \MediaWikiIntegrationTestCase {
 			->with( 'textextracts' )
 			->willReturn( $config );
 
-		$cache = new \WANObjectCache( [ 'cache' => new \HashBagOStuff() ] );
+		$cache = new WANObjectCache( [ 'cache' => new HashBagOStuff() ] );
 
 		$context = $this->createMock( IContextSource::class );
 		$context->method( 'getConfig' )
@@ -45,12 +51,12 @@ class ApiQueryExtractsTest extends \MediaWikiIntegrationTestCase {
 				return $msg;
 			} );
 
-		$main = $this->createMock( \ApiMain::class );
+		$main = $this->createMock( ApiMain::class );
 		$main->expects( $this->once() )
 			->method( 'getContext' )
 			->willReturn( $context );
 
-		$query = $this->createMock( \ApiQuery::class );
+		$query = $this->createMock( ApiQuery::class );
 		$query->expects( $this->once() )
 			->method( 'getMain' )
 			->willReturn( $main );
@@ -76,7 +82,7 @@ class ApiQueryExtractsTest extends \MediaWikiIntegrationTestCase {
 	public function testMemCacheHelpers() {
 		$title = $this->createMock( Title::class );
 		$title->method( 'getPageLanguage' )
-			->willReturn( $this->createMock( \Language::class ) );
+			->willReturn( $this->createMock( Language::class ) );
 
 		$page = $this->createMock( \WikiPage::class );
 		$page->method( 'getTitle' )
@@ -111,14 +117,14 @@ class ApiQueryExtractsTest extends \MediaWikiIntegrationTestCase {
 		$params = $instance->getAllowedParams();
 		$this->assertIsArray( $params );
 
-		$this->assertSame( 1, $params['chars'][\ApiBase::PARAM_MIN] );
-		$this->assertSame( 1200, $params['chars'][\ApiBase::PARAM_MAX] );
+		$this->assertSame( 1, $params['chars'][ApiBase::PARAM_MIN] );
+		$this->assertSame( 1200, $params['chars'][ApiBase::PARAM_MAX] );
 
-		$this->assertSame( 20, $params['limit'][\ApiBase::PARAM_DFLT] );
-		$this->assertSame( 'limit', $params['limit'][\ApiBase::PARAM_TYPE] );
-		$this->assertSame( 1, $params['limit'][\ApiBase::PARAM_MIN] );
-		$this->assertSame( 20, $params['limit'][\ApiBase::PARAM_MAX] );
-		$this->assertSame( 20, $params['limit'][\ApiBase::PARAM_MAX2] );
+		$this->assertSame( 20, $params['limit'][ApiBase::PARAM_DFLT] );
+		$this->assertSame( 'limit', $params['limit'][ApiBase::PARAM_TYPE] );
+		$this->assertSame( 1, $params['limit'][ApiBase::PARAM_MIN] );
+		$this->assertSame( 20, $params['limit'][ApiBase::PARAM_MAX] );
+		$this->assertSame( 20, $params['limit'][ApiBase::PARAM_MAX2] );
 	}
 
 	/**

@@ -36,22 +36,10 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 */
 	private $params;
 
-	/**
-	 * @var Config
-	 */
-	private $config;
-	/**
-	 * @var WANObjectCache
-	 */
-	private $cache;
-	/**
-	 * @var LanguageConverterFactory
-	 */
-	private $langConvFactory;
-	/**
-	 * @var WikiPageFactory
-	 */
-	private $wikiPageFactory;
+	private Config $config;
+	private WANObjectCache $cache;
+	private LanguageConverterFactory $langConvFactory;
+	private WikiPageFactory $wikiPageFactory;
 	private TitleFormatter $titleFormatter;
 
 	// TODO: Allow extensions to hook into this to opt-in.
@@ -61,18 +49,9 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 */
 	private $supportedContentModels = [ 'wikitext' ];
 
-	/**
-	 * @param ApiQuery $query API query module object
-	 * @param string $moduleName Name of this query module
-	 * @param ConfigFactory $configFactory
-	 * @param WANObjectCache $cache
-	 * @param LanguageConverterFactory $langConvFactory
-	 * @param WikiPageFactory $wikiPageFactory
-	 * @param TitleFormatter $titleFormatter
-	 */
 	public function __construct(
-		$query,
-		$moduleName,
+		ApiQuery $query,
+		string $moduleName,
 		ConfigFactory $configFactory,
 		WANObjectCache $cache,
 		LanguageConverterFactory $langConvFactory,

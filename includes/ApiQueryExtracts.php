@@ -27,7 +27,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 	/**
 	 * Bump when memcache needs clearing
 	 */
-	private const CACHE_VERSION = 2;
+	private const CACHE_VERSION = 3;
 
 	private const PREFIX = 'ex';
 
@@ -221,10 +221,9 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 */
 	private function getFirstSection( $text, $plainText ) {
 		if ( $plainText ) {
-			$regexp = '/^.*?(?=' . ExtractFormatter::SECTION_MARKER_START .
-				'(?!.' . ExtractFormatter::SECTION_MARKER_END . '<h2 id="mw-toc-heading"))/s';
+			$regexp = '/^(.*?)(?=' . ExtractFormatter::SECTION_MARKER_START . ')/s';
 		} else {
-			$regexp = '/^.*?(?=<h[1-6]\b(?! id="mw-toc-heading"))/s';
+			$regexp = '/^(.*?)(?=<h[1-6]\b)/s';
 		}
 		if ( preg_match( $regexp, $text, $matches ) ) {
 			$text = $matches[0];
@@ -246,7 +245,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 		);
 		if ( $status->isOK() ) {
 			$pout = $status->getValue();
-			$text = $pout->getText( [ 'unwrap' => true ] );
+			$text = $pout->getRawText();
 			if ( $this->params['intro'] ) {
 				$text = $this->getFirstSection( $text, false );
 			}

@@ -20,6 +20,7 @@
 				"ConfigFactory",
 				"MainWANObjectCache",
 				"LanguageConverterFactory",
+				"ParserOutputAccess",
 				"WikiPageFactory",
 				"TitleFormatter"
 			]

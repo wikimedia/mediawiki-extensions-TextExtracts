@@ -10,8 +10,8 @@ use MediaWiki\Config\Config;
 use MediaWiki\Config\ConfigFactory;
 use MediaWiki\Languages\LanguageConverterFactory;
 use MediaWiki\Logger\LoggerFactory;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\PageIdentity;
+use MediaWiki\Page\ParserOutputAccess;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Title\TitleFormatter;
@@ -39,6 +39,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 	private Config $config;
 	private WANObjectCache $cache;
 	private LanguageConverterFactory $langConvFactory;
+	private ParserOutputAccess $parserOutputAccess;
 	private WikiPageFactory $wikiPageFactory;
 	private TitleFormatter $titleFormatter;
 
@@ -55,6 +56,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 		ConfigFactory $configFactory,
 		WANObjectCache $cache,
 		LanguageConverterFactory $langConvFactory,
+		ParserOutputAccess $parserOutputAccess,
 		WikiPageFactory $wikiPageFactory,
 		TitleFormatter $titleFormatter
 	) {
@@ -62,6 +64,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 		$this->config = $configFactory->makeConfig( 'textextracts' );
 		$this->cache = $cache;
 		$this->langConvFactory = $langConvFactory;
+		$this->parserOutputAccess = $parserOutputAccess;
 		$this->wikiPageFactory = $wikiPageFactory;
 		$this->titleFormatter = $titleFormatter;
 	}
@@ -238,8 +241,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 * @throws ApiUsageException
 	 */
 	private function parse( WikiPage $page ) {
-		$parserOutputAccess = MediaWikiServices::getInstance()->getParserOutputAccess();
-		$status = $parserOutputAccess->getParserOutput(
+		$status = $this->parserOutputAccess->getParserOutput(
 			$page->toPageRecord(),
 			ParserOptions::newFromAnon()
 		);

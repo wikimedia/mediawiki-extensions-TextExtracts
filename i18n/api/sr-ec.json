@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Kizule",
+			"Milicevic01",
 			"Prevodim",
 			"Zoranzoki21"
 		]
@@ -10,5 +11,6 @@
 	"apihelp-query+extracts-param-chars": "Колико слова треба вратити. Текст који се заправо враћа може бити мало дужи.",
 	"apihelp-query+extracts-param-sentences": "Колико реченица треба вратити.",
 	"apihelp-query+extracts-param-intro": "Врати само садржај пре прве секције.",
+	"apihelp-query+extracts-paramvalue-sectionformat-plain": "Без форматирања.",
 	"apiwarn-textextracts-unsupportedmodel": "$1 има модел садржаја $2, који није подржан; враћа се празан сажетак."
 }

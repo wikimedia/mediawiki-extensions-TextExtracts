@@ -3,7 +3,8 @@
 		"authors": [
 			"Kizule",
 			"Prevodim",
-			"Zoranzoki21"
+			"Zoranzoki21",
+			"Milicevic01"
 		]
 	},
 	"apihelp-query+extracts-description": "Враћа сажетке датих страница у облику чистог текста или ограниченог HTML-а.",

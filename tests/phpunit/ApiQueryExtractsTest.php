@@ -74,6 +74,7 @@ class ApiQueryExtractsTest extends \MediaWikiIntegrationTestCase {
 			$configFactory,
 			$cache,
 			$langConvFactory,
+			$this->getServiceContainer()->getParserOutputAccess(),
 			$this->getServiceContainer()->getWikiPageFactory(),
 			$this->getServiceContainer()->getTitleFormatter()
 		);

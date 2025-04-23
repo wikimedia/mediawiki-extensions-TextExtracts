@@ -13,6 +13,7 @@ use MediaWiki\Language\ILanguageConverter;
 use MediaWiki\Language\Language;
 use MediaWiki\Languages\LanguageConverterFactory;
 use MediaWiki\Message\Message;
+use MediaWiki\Page\WikiPage;
 use MediaWiki\Title\Title;
 use MediaWikiCoversValidator;
 use Wikimedia\LightweightObjectStore\ExpirationAwareness;
@@ -85,7 +86,7 @@ class ApiQueryExtractsTest extends \MediaWikiIntegrationTestCase {
 		$title->method( 'getPageLanguage' )
 			->willReturn( $this->createMock( Language::class ) );
 
-		$page = $this->createMock( \WikiPage::class );
+		$page = $this->createMock( WikiPage::class );
 		$page->method( 'getTitle' )
 			->willReturn( $title );
 		$page->method( 'getId' )

@@ -35,6 +35,13 @@ class ExtractFormatterTest extends MediaWikiIntegrationTestCase {
 
 		return [
 			[
+				'<b>Dutch</b> (<span><span> <i>Nederlands</i></span> </span>) ' .
+					'is a West Germanic language and the native language of most of the ' .
+					'population of the Netherlands',
+				$dutch,
+				false,
+			],
+			[
 				'Dutch ( Nederlands ) is a West Germanic language and the native language of ' .
 					'most of the population of the Netherlands',
 				$dutch,
@@ -42,13 +49,14 @@ class ExtractFormatterTest extends MediaWikiIntegrationTestCase {
 			],
 
 			'HTML cleanup in HTML mode' => [
-				"\u{00A0}A &amp; <b>B</b>",
-				"&#x0A;&nbsp;<a>A</a> &amp; <b>&#x42;</b>\r\n",
+				"<!--comment-->\n\u{00A0}A &amp; <b>B</b>",
+				"<!--comment-->&#x0A;&nbsp;<a>A</a> &amp; <b>&#x42;</b>\r\n",
 				false
 			],
 			'HTML cleanup in plain text mode' => [
-				'A & B',
-				"&#x0A;&nbsp;<a>A</a> &amp; <b>&#x42;</b>\r\n",
+				// TODO: Comments should be stripped in plaintext mode
+				"<!--comment-->\n A & B",
+				"<!--comment-->&#x0A;&nbsp;<a>A</a> &amp; <b>&#x42;</b>\r\n",
 				true
 			],
 

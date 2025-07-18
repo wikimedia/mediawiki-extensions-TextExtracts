@@ -265,14 +265,13 @@ class ApiQueryExtracts extends ApiQueryBase {
 
 	/**
 	 * Converts page HTML into an extract
-	 * @param string $text
+	 * @param string $html
 	 * @return string
 	 */
-	private function convertText( $text ) {
-		$fmt = new ExtractFormatter( $text, $this->params['plaintext'] );
+	private function convertText( $html ) {
+		$fmt = new ExtractFormatter( $html );
 		$fmt->remove( $this->config->get( 'ExtractsRemoveClasses' ) );
-		$text = $fmt->getText();
-		return $text;
+		return $this->params['plaintext'] ? $fmt->getText() : $fmt->getHtml();
 	}
 
 	/**

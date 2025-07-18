@@ -17,10 +17,10 @@ class ExtractFormatterTest extends MediaWikiIntegrationTestCase {
 	 * @dataProvider provideExtracts
 	 */
 	public function testExtracts( $expected, $text, $plainText ) {
-		$fmt = new ExtractFormatter( $text, $plainText );
+		$fmt = new ExtractFormatter( $text );
 		// .metadata class will be added via $wgExtractsRemoveClasses on WMF
 		$fmt->remove( [ 'div', 'figure', '.metadata' ] );
-		$text = $fmt->getText();
+		$text = $plainText ? $fmt->getText() : $fmt->getHtml();
 		$this->assertSame( $expected, $text );
 	}
 
@@ -54,8 +54,7 @@ class ExtractFormatterTest extends MediaWikiIntegrationTestCase {
 				false
 			],
 			'HTML cleanup in plain text mode' => [
-				// TODO: Comments should be stripped in plaintext mode
-				"<!--comment-->\n A & B",
+				"A & B",
 				"<!--comment-->&#x0A;&nbsp;<a>A</a> &amp; <b>&#x42;</b>\r\n",
 				true
 			],

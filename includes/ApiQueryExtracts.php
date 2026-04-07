@@ -280,13 +280,10 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 */
 	private function truncate( $text ) {
 		$useTidy = !$this->params['plaintext'];
-		$truncator = new TextTruncator( $useTidy );
+		$truncator = new TextTruncator( $useTidy, $this->msg( 'ellipsis' )->text() );
 
 		if ( $this->params['chars'] ) {
-			$truncatedText = $truncator->getFirstChars( $text, $this->params['chars'] );
-			if ( $truncatedText !== $text ) {
-				$text = $truncatedText . $this->msg( 'ellipsis' )->text();
-			}
+			$text = $truncator->getFirstChars( $text, $this->params['chars'] );
 		} elseif ( $this->params['sentences'] ) {
 			$text = $truncator->getFirstSentences( $text, $this->params['sentences'] );
 		}

@@ -8,7 +8,7 @@ use MediaWiki\Api\ApiQueryBase;
 use MediaWiki\Api\ApiUsageException;
 use MediaWiki\Config\Config;
 use MediaWiki\Config\ConfigFactory;
-use MediaWiki\Languages\LanguageConverterFactory;
+use MediaWiki\Language\LanguageConverterFactory;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\Page\PageIdentity;
 use MediaWiki\Page\ParserOutputAccess;

@@ -246,7 +246,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 		);
 		if ( $status->isOK() ) {
 			$pout = $status->getValue();
-			$text = $pout->getRawText();
+			$text = $pout->getContentHolderText();
 			if ( $this->params['intro'] ) {
 				$text = $this->getFirstSection( $text, false );
 			}

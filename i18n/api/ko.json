@@ -16,7 +16,7 @@
 	"apihelp-query+extracts-paramvalue-sectionformat-wiki": "위키텍스트 스타일 서식 (== 이런 식입니다 ==).",
 	"apihelp-query+extracts-paramvalue-sectionformat-raw": "이 모듈의 내부 표현 방식 (문단 제목 앞에 &lt;ASCII 1&gt;&lt;ASCII 2&gt;&lt;문단 레벨&gt;&lt;ASCII 2&gt;&lt;ASCII 1&gt; 접두사가 붙음).",
 	"apihelp-query+extracts-example-1": "175개 문자의 추출 결과를 가져오기",
-	"apiwarn-textextracts-limit": "전체 기사 추출 요청에 대한 <var>exlimit</var>가 너무 커서 $1 으(로) 낮췄습니다.",
+	"apiwarn-textextracts-limit": "전체 문서 추출 요청에 대한 <var>exlimit</var>가 너무 커서 $1 으(로) 낮췄습니다.",
 	"apiwarn-textextracts-unsupportedmodel": "$1 문서는 지원되지 않는 $2 콘텐츠 모델을 가지고 있습니다. 빈 추출 결과가 반환됩니다.",
 	"apiwarn-textextracts-title-in-file-namespace": "파일 이름공간에서 제목에 대한 추출 결과를 요청했지만, 반환된 내용이 없습니다.",
 	"apiwarn-textextracts-sentences-and-html": "<var>$1sentences</var> 매개변수는 HTML 모드에서 사용할 때 예측하지 못한 결과가 있을 수 있습니다.",

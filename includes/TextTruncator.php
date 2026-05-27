@@ -33,7 +33,7 @@ class TextTruncator {
 			return '';
 		}
 
-		// Based on code from OpenSearchXml by Brion Vibber
+		// Based on code from OpenSearchXml by Brooke Vibber
 		$endchars = [
 			// regular ASCII
 			'\P{Lu}\.(?=[ \n]|$)',

@@ -38,13 +38,6 @@ class ApiQueryExtracts extends ApiQueryBase {
 
 	private readonly Config $config;
 
-	// TODO: Allow extensions to hook into this to opt-in.
-	// This is partly for security reasons; see T107170.
-	/**
-	 * @var string[]
-	 */
-	private $supportedContentModels = [ 'wikitext' ];
-
 	public function __construct(
 		ApiQuery $query,
 		string $moduleName,
@@ -151,7 +144,11 @@ class ApiQueryExtracts extends ApiQueryBase {
 		$page = $this->wikiPageFactory->newFromTitle( $title );
 
 		$contentModel = $page->getContentModel();
-		if ( !in_array( $contentModel, $this->supportedContentModels, true ) ) {
+		/**
+		 * TODO: Allow extensions to hook into this to opt-in.
+		 * This is partly for security reasons; see T107170.
+		 */
+		if ( $contentModel !== CONTENT_MODEL_WIKITEXT ) {
 			$this->addWarning( [
 				'apiwarn-textextracts-unsupportedmodel',
 				wfEscapeWikiText( $this->titleFormatter->getPrefixedText( $title ) ),

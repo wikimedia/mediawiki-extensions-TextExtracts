@@ -7,7 +7,6 @@ use MediaWiki\Api\ApiMain;
 use MediaWiki\Api\ApiResult;
 use MediaWiki\Api\Hook\ApiOpenSearchSuggestHook;
 use MediaWiki\Config\Config;
-use MediaWiki\Config\ConfigFactory;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Rest\Hook\SearchResultProvideDescriptionHook;
 
@@ -19,12 +18,9 @@ class Hooks implements
 	SearchResultProvideDescriptionHook
 {
 
-	private readonly Config $config;
-
 	public function __construct(
-		ConfigFactory $configFactory
+		private readonly Config $config,
 	) {
-		$this->config = $configFactory->makeConfig( 'textextracts' );
 	}
 
 	/**

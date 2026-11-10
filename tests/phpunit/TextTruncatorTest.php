@@ -5,7 +5,7 @@ namespace MediaWiki\Extension\TextExtracts\Test;
 use MediaWiki\Extension\TextExtracts\TextTruncator;
 
 /**
- * @covers MediaWiki\Extension\TextExtracts\TextTruncator
+ * @covers \MediaWiki\Extension\TextExtracts\TextTruncator
  * @group TextExtracts
  *
  * @license GPL-2.0-or-later

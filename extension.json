@@ -10,14 +10,10 @@
 	"descriptionmsg": "textextracts-desc",
 	"license-name": "GPL-2.0-or-later",
 	"type": "other",
-	"ConfigRegistry": {
-		"textextracts": "MediaWiki\\Config\\GlobalVarConfig::newInstance"
-	},
 	"APIPropModules": {
 		"extracts": {
 			"class": "MediaWiki\\Extension\\TextExtracts\\ApiQueryExtracts",
 			"services": [
-				"ConfigFactory",
 				"MainWANObjectCache",
 				"LanguageConverterFactory",
 				"ParserOutputAccess",
@@ -43,7 +39,7 @@
 		"main": {
 			"class": "MediaWiki\\Extension\\TextExtracts\\Hooks",
 			"services": [
-				"ConfigFactory"
+				"MainConfig"
 			]
 		}
 	},

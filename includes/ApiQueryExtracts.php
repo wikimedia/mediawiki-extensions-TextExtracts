@@ -6,10 +6,9 @@ use MediaWiki\Api\ApiBase;
 use MediaWiki\Api\ApiQuery;
 use MediaWiki\Api\ApiQueryBase;
 use MediaWiki\Api\ApiUsageException;
-use MediaWiki\Config\Config;
-use MediaWiki\Config\ConfigFactory;
 use MediaWiki\Language\LanguageConverterFactory;
 use MediaWiki\Logger\LoggerFactory;
+use MediaWiki\MainConfigNames;
 use MediaWiki\Page\PageIdentity;
 use MediaWiki\Page\ParserOutputAccess;
 use MediaWiki\Page\WikiPage;
@@ -36,12 +35,9 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 */
 	private $params;
 
-	private readonly Config $config;
-
 	public function __construct(
 		ApiQuery $query,
 		string $moduleName,
-		ConfigFactory $configFactory,
 		private readonly WANObjectCache $cache,
 		private readonly LanguageConverterFactory $langConvFactory,
 		private readonly ParserOutputAccess $parserOutputAccess,
@@ -49,7 +45,6 @@ class ApiQueryExtracts extends ApiQueryBase {
 		private readonly TitleFormatter $titleFormatter,
 	) {
 		parent::__construct( $query, $moduleName, self::PREFIX );
-		$this->config = $configFactory->makeConfig( 'textextracts' );
 	}
 
 	/**
@@ -210,7 +205,7 @@ class ApiQueryExtracts extends ApiQueryBase {
 		$cache = $this->cache;
 		// @TODO: replace with getWithSetCallback()
 		$key = $this->cacheKey( $cache, $page, $this->params['intro'] );
-		$cache->set( $key, $text, $this->getConfig()->get( 'ParserCacheExpireTime' ) );
+		$cache->set( $key, $text, $this->getConfig()->get( MainConfigNames::ParserCacheExpireTime ) );
 	}
 
 	/**
@@ -266,7 +261,8 @@ class ApiQueryExtracts extends ApiQueryBase {
 	 */
 	private function convertText( $html ) {
 		$fmt = new ExtractFormatter( $html );
-		$fmt->remove( $this->config->get( 'ExtractsRemoveClasses' ) );
+		// Remove anything that matches class="noexcerpt" and many other
+		$fmt->remove( $this->getConfig()->get( 'ExtractsRemoveClasses' ) );
 		return $this->params['plaintext'] ? $fmt->getText() : $fmt->getHtml();
 	}
 

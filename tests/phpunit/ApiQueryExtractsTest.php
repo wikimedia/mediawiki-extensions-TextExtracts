@@ -5,13 +5,13 @@ namespace MediaWiki\Extension\TextExtracts\Test;
 use MediaWiki\Api\ApiBase;
 use MediaWiki\Api\ApiMain;
 use MediaWiki\Api\ApiQuery;
-use MediaWiki\Config\ConfigFactory;
 use MediaWiki\Config\HashConfig;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Extension\TextExtracts\ApiQueryExtracts;
 use MediaWiki\Language\ILanguageConverter;
 use MediaWiki\Language\Language;
 use MediaWiki\Language\LanguageConverterFactory;
+use MediaWiki\MainConfigNames;
 use MediaWiki\Message\Message;
 use MediaWiki\Page\WikiPage;
 use MediaWiki\Title\Title;
@@ -22,7 +22,7 @@ use Wikimedia\ObjectCache\WANObjectCache;
 use Wikimedia\TestingAccessWrapper;
 
 /**
- * @covers MediaWiki\Extension\TextExtracts\ApiQueryExtracts
+ * @covers \MediaWiki\Extension\TextExtracts\ApiQueryExtracts
  * @group TextExtracts
  *
  * @license GPL-2.0-or-later
@@ -32,13 +32,8 @@ class ApiQueryExtractsTest extends \MediaWikiIntegrationTestCase {
 
 	private function newInstance() {
 		$config = new HashConfig( [
-			'ParserCacheExpireTime' => ExpirationAwareness::TTL_INDEFINITE,
+			MainConfigNames::ParserCacheExpireTime => ExpirationAwareness::TTL_INDEFINITE,
 		] );
-
-		$configFactory = $this->createMock( ConfigFactory::class );
-		$configFactory->method( 'makeConfig' )
-			->with( 'textextracts' )
-			->willReturn( $config );
 
 		$cache = new WANObjectCache( [ 'cache' => new HashBagOStuff() ] );
 
@@ -72,7 +67,6 @@ class ApiQueryExtractsTest extends \MediaWikiIntegrationTestCase {
 		return new ApiQueryExtracts(
 			$query,
 			'',
-			$configFactory,
 			$cache,
 			$langConvFactory,
 			$this->getServiceContainer()->getParserOutputAccess(),

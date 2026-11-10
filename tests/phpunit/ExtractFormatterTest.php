@@ -6,7 +6,7 @@ use MediaWiki\Extension\TextExtracts\ExtractFormatter;
 use MediaWikiIntegrationTestCase;
 
 /**
- * @covers MediaWiki\Extension\TextExtracts\ExtractFormatter
+ * @covers \MediaWiki\Extension\TextExtracts\ExtractFormatter
  * @group TextExtracts
  *
  * @license GPL-2.0-or-later
